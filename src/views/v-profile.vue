@@ -9,12 +9,53 @@
         </div>
 
       </div>
+
       <div class="d-grid g-gap-1 h-max-content">
-        <v-profile-about/>
+        <div class="toggle_block d-flex g-gap-1 padding-03 bg-fff c-ccc">
+          <span v-bind:class="modalName === 'infoUserTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="setModalName('infoUserTab')">информация о пользователе</span>
+          <span v-bind:class="modalName === 'publicationVacancies' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="get_vacancies">опубликованные вакансии</span>
+          <span v-bind:class="modalName === 'servicesTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="setModalName('servicesTab')">услуги пользователя </span>
+        </div>
+<!--        PROFILE ABOUT TAB-->
+        <v-profile-about v-if="modalName === 'infoUserTab'"/>
+
+<!--        VACANCIES TAB-->
+        <div v-if="modalName === 'publicationVacancies'">
+          <div class="d-grid g-gap-1" v-if="vacancies.length">
+            <v-vacancies-list v-for="vacancy in vacancies"
+                              @more="(vacancy_id) => setModalName('vacancyModal', vacancy_id)"
+                              :key="vacancy.id"
+                              :vacancy="vacancy"
+                              class="bg-fff padding-1"/>
+            <h3 v-if="!vacancies.length" class="c-ccc t-center">ничего не найдено </h3>
+
+            <!--    PAGINATION-->
+            <div v-else class="d-flex j-content-flex-end">
+              <v-paginate
+                  class="paginate"
+                  :page-count="page_count"
+                  :click-handler="clickPage"
+                  :prev-text="'prev'"
+                  :next-text="'next'"
+                  :page="page"
+                  :container-class="'className'"
+                  :force-page="page">
+              </v-paginate>
+            </div>
+          </div>
+        </div>
+
+<!--        SERVICES TAB-->
+        <div v-if="modalName === 'servicesTab'">
+          <h3 v-if="!services.length" class="c-ccc t-center">ничего не найдено </h3>
+        </div>
+
       </div>
   </div>
 
-  <v-profile-edit-modal v-if="modalName === 'profileEditModal'" @close="setModalName(false)"/>
+<!--  MODALS-->
+  <v-profile-edit-modal v-if="modalName === 'profileEditModal'" @close="setModalName('infoUserTab')"/>
+  <v-vacancy-modal v-if="modalName === 'vacancyModal'" :vacancy_id="this.id" @close="setModalName('publicationVacancies')"/>
 </template>
 
 <script>
@@ -24,13 +65,42 @@ import VProfileAbout from "@/components/profile/v-profile-about";
 import VProfileEditModal from "@/components/profile/modals/v-profile-edit-modal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
+import VVacanciesList from "@/components/vacancy/v-vacancies-list";
+import VVacancyModal from "@/components/vacancy/v-vacancy-modal";
+import paginateMixin from "@/mixins/paginate-mixin";
 export default {
   name: "v-profile",
-  components: {VProfileEditModal, VProfileAbout, VProfileImg, VButtonNormal},
-  mixins: [toggleMixin],
+  components: {
+    VVacancyModal, VVacanciesList, VProfileEditModal, VProfileAbout, VProfileImg, VButtonNormal},
+  mixins: [toggleMixin, paginateMixin],
   computed: mapState({
     profile: state => state.auth.profile
   }),
+  data(){
+    return{
+      vacancies: [],
+      services: []
+    }
+  },
+  mounted() {
+    this.setModalName('infoUserTab')
+  },
+  methods: {
+    clickPage(selectedPage){
+      this.page = selectedPage
+      this.get_vacancies()
+    },
+    get_vacancies(){
+      if(this.modalName !== 'publicationVacancies'){
+        this.setModalName('publicationVacancies')
+        this.emitter.emit('load', true)
+        this.$store.dispatch("vacancy/GET", `?page=${this.page}&per_page=${this.per_page}&creator_id=${this.$route.query.id}`).then(data => {
+          this.vacancies = data.obj.items
+          this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
+        }).finally(() => this.emitter.emit('load', false))
+      }
+    }
+  }
 }
 </script>
 

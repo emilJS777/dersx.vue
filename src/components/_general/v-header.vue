@@ -1,7 +1,7 @@
 <template>
-  <div class="header d-grid g-gap-2 a-items-center">
+  <div class="header d-grid g-gap-_3 a-items-center">
     <div class="logo">
-      <h1>Skill<span>X</span></h1>
+      <h1>Skill<span class="c-content">X</span></h1>
       <i>freelance exchange</i>
     </div>
 
@@ -12,7 +12,7 @@
         </li>
 
         <li>
-          <router-link to="/">услуги</router-link>
+          <router-link to="/services">услуги</router-link>
         </li>
 
         <li>
@@ -21,6 +21,9 @@
 
         <li>
           <router-link to="/users">пользователи</router-link>
+        </li>
+        <li>
+          <router-link to="/forums">форумы</router-link>
         </li>
       </ul>
     </div>
@@ -120,7 +123,6 @@ export default {
   margin-bottom: 20px;
 }
 .logo span{
-  color: #ea7745;
   font-style: italic;
   font-size: 45px;
 }
@@ -139,5 +141,8 @@ img{
 .profile_image{
   width: 120%;
   height: auto;
+}
+.router-link-active{
+  color: #ea7745;
 }
 </style>

@@ -10,7 +10,7 @@
                    :success="message.success"/>
 
 <!--  LOADER-->
-  <div class="p-fixed top-0 left-0 w-max h-max d-flex a-items-center j-content-center bg-ccc-opacity" v-if="loader">
+  <div class="p-fixed top-0 left-0 w-max h-max d-flex a-items-center j-content-center bg-ccc-opacity z-index-max" v-if="loader">
     <span class="loader"></span>
   </div>
 
@@ -57,7 +57,6 @@ export default {
   methods: {
     get_profile(){
       this.$store.dispatch("auth/GET_PROFILE").then(data => {
-        console.log(data.obj)
         if(data.success)
           this.$store.commit("auth/SET_PROFILE", data.obj)
       })

@@ -6,7 +6,7 @@
     <div class="m-top-05 checkboxes d-grid">
       <div v-for="checkbox in checkboxes" :key="checkbox.id">
         <label class="container d-flex">{{checkbox.title}}
-          <input type="checkbox" :checked="selected_ids.find(id => checkbox.id === id)" @change="onChange(checkbox)">
+          <input type="checkbox" :checked="selected_item_ids_from_props !== null ? selected_item_ids_from_props.find(id => checkbox.id === id) : selected_ids.find(id => checkbox.id === id)" @change="onChange(checkbox)">
           <span class="checkmark outline-content"></span>
         </label>
       </div>
@@ -19,10 +19,11 @@
 <script>
 export default {
   name: "v-checkboxes-normal",
-  props: ['checkboxes', 'label', 'span', 'checked'],
+  props: ['checkboxes', 'label', 'span', 'checked', 'selected_item_ids'],
   data(){
     return{
-      selected_ids: []
+      selected_ids: [],
+      selected_item_ids_from_props: null
     }
   },
   mounted() {

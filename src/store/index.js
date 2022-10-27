@@ -1,5 +1,4 @@
 import Vuex from "vuex";
-
 import auth from "./modules/auth";
 import user from "./modules/user"
 import skill from "./modules/skill";
@@ -12,6 +11,12 @@ import user_contact from "./modules/user_contact";
 import user_image from "./modules/user_image";
 import vacancy from "./modules/vacancy";
 import payment_interval from "./modules/payment_interval";
+import vacancy_comment from "./modules/vacancy_comment";
+import vacancy_offer from "./modules/vacancy_offer"
+import forum from "./modules/forum";
+import forum_discussion from "./modules/forum_discussion";
+import service from "./modules/service";
+import service_image from "./modules/service_image"
 
 export default new Vuex.Store({
     namespaced: true,
@@ -28,5 +33,11 @@ export default new Vuex.Store({
         user_image,
         vacancy,
         payment_interval,
+        vacancy_comment,
+        vacancy_offer,
+        forum,
+        forum_discussion,
+        service,
+        service_image
     }
 })

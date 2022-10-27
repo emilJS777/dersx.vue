@@ -7,7 +7,7 @@
       <div v-for="radio in radios" :key="radio.id">
         <label class="container d-flex" @click="this.$emit('value', radio)">
           {{radio.title}}
-          <input type="radio" :checked="radio.id === active_id ? true : false" :name="name">
+          <input type="radio" :checked="radio.id === active_id" :name="name">
           <span class="checkmark outline-content"></span>
         </label>
       </div>

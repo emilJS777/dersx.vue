@@ -136,7 +136,7 @@
 
   <div class="bg-fff padding-1">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
-      о себя
+      о себе
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
            @click="setModalName('aboutMeEditModal')"  v-if="profile && profile.id === parseInt(this.$route.query.id)">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>

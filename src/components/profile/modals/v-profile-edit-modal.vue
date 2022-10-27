@@ -69,6 +69,7 @@ export default {
     }
   },
   mounted(){
+    this.form.gender_id = this.profile.gender_id
     this.$store.dispatch("gender/GET", '').then(data => {
       if(data.success)
         this.genders = data.obj

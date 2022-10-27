@@ -4,16 +4,10 @@
       <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
       <img :src="'data:image/'+user.image.filename+';charset=utf-8;base64, ' + user.image.b64" class="p-absolute absolute-center" alt="" v-else>
 
-
-      <!--      <p class="p-absolute t-center w-max bg-content f-size-small c-pointer d-none animation-from-hidden">-->
-<!--        <span>поменять фото</span>-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pen m-left-05" viewBox="0 0 16 16">-->
-<!--          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>-->
-<!--        </svg>-->
-<!--      </p>-->
       <v-input-file-normal sublabel="поменять фото"
                            class="bg-content p-absolute w-max t-center d-flex a-items-center j-content-center padding-02 bott-0 d-none animation-from-hidden"
-                           :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']" @file="file =>{new_image = file; setModalName('imageUploadAlertModal')}"
+                           :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
+                           @file="file =>{new_image = file; setModalName('imageUploadAlertModal')}"
                            v-if="profile && profile.id === parseInt(this.$route.query.id)"/>
 
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash p-absolute top-0 right-0 padding-03 d-none c-pointer c-content bg-fff animation-from-hidden" viewBox="0 0 16 16"
@@ -59,7 +53,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
       </svg>
-      <span>На сайте с 2000/20/09</span>
+      <span>На сайте с {{ user.creation_date }}</span>
     </p>
 
 <!--    ALERT MODALS-->

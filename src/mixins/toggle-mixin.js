@@ -7,8 +7,15 @@ const toggleMixin = {
     },
     methods:{
         setModalName(modal_name, id=null){
-            this.modalName = modal_name ? modal_name : !this.modalName
-            this.id = id ? id : null
+            this.modalName = false;
+            this.id = null;
+            setTimeout(() => {
+                this.modalName = modal_name
+                this.id = id
+            }, 20)
+        },
+        refreshModalName(){
+
         }
     }
 }

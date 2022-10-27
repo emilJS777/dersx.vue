@@ -9,10 +9,10 @@
 <script>
 export default {
   name: "v-textarea-normal",
-  props: ['label', 'span', 'placeholder'],
+  props: ['label', 'span', 'placeholder', 'default_value'],
   data(){
     return{
-      value: null
+      value: this.default_value || null
     }
   }
 }

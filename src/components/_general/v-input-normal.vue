@@ -12,7 +12,7 @@ export default {
   props: ['type', 'label', 'span', 'placeholder', 'default_value'],
   data(){
     return{
-      value: null
+      value: this.default_value || null
     }
   }
 }

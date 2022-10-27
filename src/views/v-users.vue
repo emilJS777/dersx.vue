@@ -28,7 +28,8 @@
         <v-user v-for="user in users" :key="user.id" :user="user"/>
       </div>
 
-      <h3 class="t-center c-555" v-if="!users.length">ничего не найдено</h3>
+      <h3 class="t-center c-ccc" v-if="!users.length">ничего не найдено</h3>
+
       <!--    PAGINATION-->
       <div v-else class="d-flex j-content-flex-end">
         <v-paginate
@@ -100,7 +101,7 @@ export default {
 
 <style scoped>
 .users{
-  grid-template-columns: 1.5fr 4fr;
+  grid-template-columns: 1fr 2fr;
 }
 .users_list{
   grid-template-columns: 1fr 1fr 1fr;

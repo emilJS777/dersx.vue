@@ -7,8 +7,8 @@ const vacancy = {
             const data = await request(context, "/vacancy", "POST", body)
             return data
         },
-        async UPDATE(context, vacancy_id, body){
-            const data = await request(context, "/vacancy?id="+vacancy_id, "PUT", body)
+        async UPDATE(context, form){
+            const data = await request(context, "/vacancy?id="+form.id, "PUT", form.form)
             return data
         },
         async DELETE(context, vacancy_id){
