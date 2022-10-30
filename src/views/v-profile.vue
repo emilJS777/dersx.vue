@@ -14,8 +14,11 @@
         <div class="toggle_block d-flex g-gap-1 padding-03 bg-fff c-ccc">
           <span v-bind:class="modalName === 'infoUserTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="setModalName('infoUserTab')">информация о пользователе</span>
           <span v-bind:class="modalName === 'publicationVacancies' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="get_vacancies">опубликованные вакансии</span>
-          <span v-bind:class="modalName === 'servicesTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="setModalName('servicesTab')">услуги пользователя </span>
+          <span v-bind:class="modalName === 'servicesTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="get_services">услуги пользователя </span>
         </div>
+<!--        PROFILE EDIT -->
+        <v-profile-edit-block v-if="modalName === 'profileEditModal'"
+                              @close="setModalName('infoUserTab')"/>
 <!--        PROFILE ABOUT TAB-->
         <v-profile-about v-if="modalName === 'infoUserTab'"/>
 
@@ -23,7 +26,7 @@
         <div v-if="modalName === 'publicationVacancies'">
           <div class="d-grid g-gap-1" v-if="vacancies.length">
             <v-vacancies-list v-for="vacancy in vacancies"
-                              @more="(vacancy_id) => setModalName('vacancyModal', vacancy_id)"
+                              @more="vacancy_id => this.$router.push({name: 'vacancy', query:{id: vacancy_id}})"
                               :key="vacancy.id"
                               :vacancy="vacancy"
                               class="bg-fff padding-1"/>
@@ -47,31 +50,57 @@
 
 <!--        SERVICES TAB-->
         <div v-if="modalName === 'servicesTab'">
+          <div class="services d-grid g-gap-1">
+            <v-service-list v-for="service in services"
+                            :key="service.id"
+                            :service="service"/>
+          </div>
           <h3 v-if="!services.length" class="c-ccc t-center">ничего не найдено </h3>
+          <!--    PAGINATION-->
+          <div v-else class="d-flex j-content-flex-end">
+            <v-paginate
+                class="paginate"
+                :page-count="page_count"
+                :click-handler="clickPage"
+                :prev-text="'prev'"
+                :next-text="'next'"
+                :page="page"
+                :container-class="'className'"
+                :force-page="page">
+            </v-paginate>
+          </div>
         </div>
 
       </div>
   </div>
 
 <!--  MODALS-->
-  <v-profile-edit-modal v-if="modalName === 'profileEditModal'" @close="setModalName('infoUserTab')"/>
-  <v-vacancy-modal v-if="modalName === 'vacancyModal'" :vacancy_id="this.id" @close="setModalName('publicationVacancies')"/>
+
+
+<!--  <v-vacancy-modal v-if="modalName === 'vacancyModal'"-->
+<!--                   :vacancy_id="this.id"-->
+<!--                   @close="setModalName('publicationVacancies')"/>-->
+
+<!--  <v-service-modal v-if="modalName === 'serviceModal'"-->
+<!--                   :service_id="this.id"-->
+<!--                   @close="setModalName('servicesTab')"/>-->
 </template>
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VProfileImg from "@/components/profile/v-profile-img";
 import VProfileAbout from "@/components/profile/v-profile-about";
-import VProfileEditModal from "@/components/profile/modals/v-profile-edit-modal";
+import VProfileEditBlock from "@/components/profile/modals/v-profile-edit-form";
 import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
 import VVacanciesList from "@/components/vacancy/v-vacancies-list";
-import VVacancyModal from "@/components/vacancy/v-vacancy-modal";
 import paginateMixin from "@/mixins/paginate-mixin";
+import VServiceList from "@/components/service/v-service-list";
 export default {
   name: "v-profile",
   components: {
-    VVacancyModal, VVacanciesList, VProfileEditModal, VProfileAbout, VProfileImg, VButtonNormal},
+    VServiceList,
+    VVacanciesList, VProfileEditBlock, VProfileAbout, VProfileImg, VButtonNormal},
   mixins: [toggleMixin, paginateMixin],
   computed: mapState({
     profile: state => state.auth.profile
@@ -99,6 +128,16 @@ export default {
           this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
         }).finally(() => this.emitter.emit('load', false))
       }
+    },
+    get_services(){
+      if(this.modalName !== 'servicesTab'){
+        this.setModalName('servicesTab')
+        this.emitter.emit('load', true)
+        this.$store.dispatch("service/GET", `?page=${this.page}&per_page=${this.per_page}&creator_id=${this.$route.query.id}`).then(data => {
+          this.services = data.obj.items
+          this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
+        }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }
@@ -108,5 +147,7 @@ export default {
 .profile{
   grid-template-columns: 1.5fr 4fr;
 }
-
+.services{
+  grid-template-columns: 1fr 1fr;
+}
 </style>

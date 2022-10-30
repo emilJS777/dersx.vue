@@ -7,7 +7,7 @@
       <v-input-file-normal sublabel="поменять фото"
                            class="bg-content p-absolute w-max t-center d-flex a-items-center j-content-center padding-02 bott-0 d-none animation-from-hidden"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
-                           @file="file =>{new_image = file; setModalName('imageUploadAlertModal')}"
+                           @file_form="file =>{new_image = file; setModalName('imageUploadAlertModal')}"
                            v-if="profile && profile.id === parseInt(this.$route.query.id)"/>
 
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash p-absolute top-0 right-0 padding-03 d-none c-pointer c-content bg-fff animation-from-hidden" viewBox="0 0 16 16"
@@ -91,9 +91,10 @@ export default {
   },
   mounted(){
     // USER GET
+    this.emitter.emit('load', true)
     this.$store.dispatch("user/GET", `?id=${this.$route.query.id}`).then(data => {
       this.user = data.obj
-    })
+    }).finally(() => this.emitter.emit('load', false))
   },
   methods: {
     async upload_image(){
@@ -112,9 +113,10 @@ export default {
       }
     },
     async delete_image(){
+      this.emitter.emit('load', true)
       this.$store.dispatch("user_image/DELETE", this.user.image.filename).then(data => {
         this.emitter.emit('message', data)
-      })
+      }).finally(() => this.emitter.emit('load', false))
     }
   },
 }

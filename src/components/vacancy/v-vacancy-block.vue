@@ -1,11 +1,15 @@
 <template>
-  <div class="modal d-flex j-content-center" v-if="vacancy">
-    <div class="modal-content animation-from-hidden">
-      <h2>{{vacancy.title}}</h2>
+  <div class="d-flex j-content-center" v-if="vacancy">
+    <div class="padding-1 w-max bg-fff animation-from-hidden">
+      <h2 class="m-top-0 d-flex j-content-space-between">
+        {{vacancy.title}}
+        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span>
+      </h2>
       <div class="d-grid g-gap-1 p-relative">
         <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
           <router-link :to="`/profile?id=${vacancy.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!vacancy.creator.image">
+<!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!vacancy.creator.image">-->
+            <span v-if="!vacancy.creator.image">{{vacancy.creator.first_name[0]}}</span>
             <img :src="'data:image/'+vacancy.creator.image.filename+';charset=utf-8;base64, ' + vacancy.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
           </router-link>
           <div class="d-grid info_block j-content-flex-end">
@@ -22,7 +26,7 @@
         </svg>
 
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square c-pointer animation-from-hidden" viewBox="0 0 16 16"
-             @click="setModalName('vacancyEditModal', vacancy.id)">
+             @click="this.$router.push({name: 'vacancyEdit', query:{id: vacancy.id}})">
           <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
           <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
         </svg>
@@ -31,6 +35,10 @@
       <div class="description">
         <p>{{vacancy.long_description}}</p>
       </div>
+
+      <ul class="w-max categories_block list-style-content d-grid g-gap-_3 padding-left-1">
+        <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 m-right-03">{{category.title}}</li>
+      </ul>
 
       <div class="tabs_btn d-flex g-gap-1">
         <span :class="modalName === 'vacancyOfferForm' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyOfferForm')">
@@ -69,10 +77,6 @@
                  @confirm="vacancyDelete"
                  @close="setModalName('vacancyOfferForm')"
                  v-if="modalName === 'vacancyDeleteAlert'"/>
-<!--  MODALS-->
-  <v-vacancy-edit-form v-if="modalName === 'vacancyEditModal'"
-                       @close="setModalName('vacancyOfferForm')"
-                       :vacancy_id="this.id"/>
 </template>
 
 <script>
@@ -83,10 +87,9 @@ import VVacancyComments from "@/components/vacancy/v-vacancy-comments";
 import VVacancyOffers from "@/components/vacancy/v-vacancy-offers";
 import {mapState} from "vuex";
 import VAlertModal from "@/components/_general/v-alert-modal";
-import VVacancyEditForm from "@/components/vacancy/forms/v-vacancy-edit-form";
 export default {
-  name: "v-vacancy-modal",
-  components: {VVacancyEditForm, VAlertModal, VVacancyOffers, VVacancyComments, VVacancyCommentForm, VVacancyOfferForm},
+  name: "v-vacancy-block",
+  components: {VAlertModal, VVacancyOffers, VVacancyComments, VVacancyCommentForm, VVacancyOfferForm},
   props: ['vacancy_id'],
   mixins: [toggleMixin],
   computed: mapState({
@@ -104,6 +107,9 @@ export default {
       this.$store.dispatch("vacancy/GET", `?id=${this.vacancy_id}`).then(data => {
         this.vacancy = data.obj
         this.setModalName('vacancyOfferForm')
+
+        //  EMIT SIMILAR SERVICES
+        this.$emit('similar', {rubric_id: data.obj.rubric.id, category_ids: Array.from(data.obj.categories, category => category.id)})
       }).finally(() => this.emitter.emit("load", false))
     }
   },
@@ -131,5 +137,8 @@ export default {
   .profile_image{
     width: 120%;
     height: auto;
+  }
+  .categories_block{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="modal d-flex j-content-center">
-    <div class="modal-content animation-from-hidden">
-      <h2>редактировать вакансию</h2>
+  <div class="d-flex j-content-center">
+    <div class="bg-fff w-max padding-1 animation-from-hidden">
+      <h2 class="m-top-0 d-flex j-content-space-between">редактировать вакансию <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span></h2>
       <v-input-normal label="название"
                       span="в данном поле нужно описать название вакансии, это может быть просто название специализации. от 5 до 50 символов"
                       :default_value="form.title"
@@ -56,7 +56,6 @@
 
       <div class="d-flex g-gap-1 m-top-2 j-content-flex-end">
         <v-button-normal label="подтвердить" class="bg-content" @click="vacancyEdit"/>
-        <v-button-normal label="отменить" @click="this.$emit('close')"/>
       </div>
     </div>
   </div>

@@ -53,7 +53,8 @@
         </div>
 
         <router-link :to="`/profile?id=${this.profile.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-          <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!profile.image">
+<!--          <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!profile.image">-->
+          <span v-if="!profile.image">{{profile.first_name[0]}}</span>
           <img :src="'data:image/'+profile.image.filename+';charset=utf-8;base64, ' + profile.image.b64" class="p-absolute absolute-center profile_image" v-else>
         </router-link>
       </div>

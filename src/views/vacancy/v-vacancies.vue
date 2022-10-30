@@ -1,12 +1,12 @@
 <template>
-  <div class="services d-grid g-gap-3">
-    <div class="filter d-grid g-gap-1 bg-fff padding-1">
+  <div class="vacancies d-grid g-gap-3">
+    <div class="filter_form d-grid g-gap-1 h-max-content bg-fff padding-1">
       <v-select-normal label="выберите рубрику"
                        span="ваша желаемая рубрика для поиска"
                        :items="rubrics"
                        :selected="rubrics[0]"
                        v-if="rubrics.length"
-                       @select="item => {selected_rubric_id = item.id;page=1;categoriesGet()}"/>
+                       @select="item => {selected_rubric_id = item.id;page=1;categoriesGet(item.id)}"/>
 
       <v-input-normal label="поиск"
                       span="поиск по названию или по описанию"
@@ -24,23 +24,28 @@
                            span="выберите желаемый интервал оплаты"
                            @select="selected_ids => {selected_payment_interval_ids = selected_ids}"
                            v-if="payment_intervals.length"/>
+
       <div class="d-flex g-gap-1">
         <v-button-normal label="поиск" class="bg-content" @click="clickPage(1)"/>
-        <v-button-normal label="создать услугу" @click="setModalName('serviceCreateModal')"/>
+        <v-button-normal label="создать вакансию" @click="this.$router.push({name: 'vacancyCreate'})"/>
       </div>
     </div>
 
-    <div>
-<!--      <div class="bg-fff padding-1 d-flex j-content-flex-end">-->
-<!--        <span class="f-size-small c-content c-pointer t-decoration-underline-hover" @click="setModalName('serviceCreateModal')">создать услугу</span>-->
+    <div class="vacancies_list d-grid g-gap-1 h-max-content">
+<!--      <div class="d-flex a-items-center j-content-flex-end bg-fff padding-1">-->
+<!--        <span class="c-pointer c-content t-decoration-underline f-size-small"-->
+<!--              @click="setModalName('vacancyEditModal')">создать вакансию</span>-->
 <!--      </div>-->
 
-      <div class="services-list d-grid g-gap-1" v-if="services.length">
-        <v-service-list v-for="service in services" :key="service.id" :service="service"/>
-      </div>
-      <h3 class="t-center c-ccc" v-if="!services.length">ничего не найдено</h3>
+      <v-vacacies-list @more="this.$router.push({name: 'vacancy', query:{id: vacancy.id}})"
+                       class="bg-fff padding-1"
+                       v-for="vacancy in vacancies"
+                       :key="vacancy.id"
+                       :vacancy="vacancy"/>
+
+      <h3 class="t-center c-ccc" v-if="!vacancies.length">ничего не найдено</h3>
       <!--    PAGINATION-->
-      <div v-else class="d-flex j-content-flex-end m-top-1">
+      <div v-else class="d-flex j-content-flex-end">
         <v-paginate
             class="paginate"
             :page-count="page_count"
@@ -54,31 +59,26 @@
       </div>
     </div>
   </div>
-
-<!--  MODALS-->
-  <v-service-create-form v-if="modalName === 'serviceCreateModal'" @close="setModalName(false)"/>
 </template>
 
 <script>
-import toggleMixin from "@/mixins/toggle-mixin";
-import VServiceCreateForm from "@/components/service/forms/v-service-create-form";
-import VServiceList from "@/components/service/v-service-list";
 import VSelectNormal from "@/components/_general/v-select-normal";
 import VInputNormal from "@/components/_general/v-input-normal";
 import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
+import toggleMixin from "@/mixins/toggle-mixin";
+import VVacaciesList from "@/components/vacancy/v-vacancies-list";
 import paginateMixin from "@/mixins/paginate-mixin";
-
 export default {
-  name: "v-services",
-  components: {VButtonNormal, VCheckboxesNormal, VInputNormal, VSelectNormal, VServiceList, VServiceCreateForm},
+  name: "v-vacancies",
+  components: {VVacaciesList, VButtonNormal, VCheckboxesNormal, VInputNormal, VSelectNormal},
   mixins: [toggleMixin, paginateMixin],
   data(){
     return{
       rubrics: [],
       categories: [],
+      vacancies: [],
       payment_intervals: [],
-      services: [],
 
       selected_rubric_id: null,
       selected_category_ids: [],
@@ -86,43 +86,40 @@ export default {
       search: ''
     }
   },
-  mounted(){
+  mounted() {
     // RUBRICS GET
     this.$store.dispatch("rubric/GET", '').then(data => {
       this.rubrics = data.obj
     })
-    //  PAYMENT INTERVALS GET
+  //  PAYMENT INTERVALS GET
     this.$store.dispatch("payment_interval/GET", '').then(data => {
       this.payment_intervals = data.obj
     })
   },
-  methods:{
+  methods: {
     clickPage(selectedPage){
       this.page = selectedPage
-      this.services_get()
+      this.vacanciesGet()
     },
-    services_get(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("service/GET", `?page=${this.page}&per_page=${this.per_page}&rubric_id=${this.selected_rubric_id}&category_ids=[${this.selected_category_ids}]&search=${this.search}`).then(data => {
-        this.services = data.obj.items
+    vacanciesGet(){
+      this.emitter.emit("load", true)
+      this.$store.dispatch("vacancy/GET", `?page=${this.page}&per_page=${this.per_page}&rubric_id=${this.selected_rubric_id}&category_ids=[${this.selected_category_ids}]&search=${this.search}&payment_interval_ids=[${this.selected_payment_interval_ids}]`).then(data => {
+        this.vacancies = data.obj.items
         this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
-      }).finally(() => this.emitter.emit('load', false))
+      }).finally(() => this.emitter.emit("load", false))
     },
-    categoriesGet(){
+    categoriesGet(rubric_id){
       this.categories = []
-      this.$store.dispatch("category/GET", `?rubric_id=${this.selected_rubric_id}`).then(data => {
+      this.$store.dispatch("category/GET", `?rubric_id=${rubric_id}`).then(data => {
         this.categories = data.obj
-      }).finally(() => this.services_get())
+      }).finally(() => this.vacanciesGet())
     }
   }
 }
 </script>
 
 <style scoped>
-.services{
+.vacancies{
   grid-template-columns: 1fr 2fr;
-}
-.services-list{
-  grid-template-columns: 1fr 1fr;
 }
 </style>

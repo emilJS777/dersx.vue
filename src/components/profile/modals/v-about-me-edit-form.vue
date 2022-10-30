@@ -1,6 +1,6 @@
 <template>
-  <div class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content h-max-content animation-from-hidden">
+  <div class="d-flex a-items-center j-content-center">
+    <div class="bg-fff padding-1 w-max h-max-content animation-from-hidden">
       <h3 class="m-top-0">о себя</h3>
 
       <v-textarea-normal label="несколько слов о себя"
@@ -19,7 +19,7 @@
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VTextareaNormal from "@/components/_general/v-textarea-normal";
 export default {
-  name: "v-about-me-edit-modal",
+  name: "v-about-me-edit-form",
   components: {VTextareaNormal, VButtonNormal},
   data(){
     return{

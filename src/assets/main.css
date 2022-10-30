@@ -51,6 +51,9 @@ a{
 .t-decoration-underline, .t-decoration-underline-hover:hover{
     text-decoration: underline;
 }
+.l-height-0{
+    line-height: 0;
+}
 .t-center{
     text-align: center;
 }

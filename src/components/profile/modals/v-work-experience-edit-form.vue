@@ -1,6 +1,6 @@
 <template>
-  <div class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content h-max-content animation-from-hidden d-grid g-gap-1">
+  <div class="d-flex a-items-center j-content-center">
+    <div class="bg-fff padding-1 h-max-content w-max animation-from-hidden d-grid g-gap-1">
       <h3 class="m-top-0">опыт работы</h3>
 
       <v-input-normal label="название"
@@ -42,7 +42,7 @@ import VInputNormal from "@/components/_general/v-input-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VDatePicker from "@/components/_general/v-date-picker";
 export default {
-  name: "v-work-experience-edit-modal",
+  name: "v-work-experience-edit-form",
   components: {VDatePicker, VButtonNormal, VInputNormal},
   data(){
     return{

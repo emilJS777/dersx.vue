@@ -1,6 +1,6 @@
 <template>
   <div v-bind:class="fileForm.msg ? 'd-block' : ''">
-    <label for="file" class="c-pointer d-grid a-items-center">
+    <label for="file-form" class="c-pointer d-grid a-items-center">
       <label for="" class="d-grid f-weight-bold">{{label}}</label>
       <span class="f-size-very-small">{{span}}</span>
 
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <input type="file" id="file" @change="changeFile" style="display: none" aria-label="Upload file">
+      <input type="file" id="file-form" @change="changeFile" style="display: none" aria-label="Upload file">
     </label>
   </div>
 </template>
@@ -44,16 +44,19 @@ export default {
       this.fileForm.msg = null
       this.fileForm.file = null
       let files = e.target.files || e.dataTransfer.files;
-      this.allowedTypes.forEach(typeName => {
-        if(files[0].type === typeName){
-          let form_data = new FormData()
-          form_data.append('image', files[0])
-          this.$emit("file", form_data)
-          this.fileForm.file = files[0]
-        }
-      })
-      if(!this.fileForm.file){
-        this.fileForm.msg = "не верный формат файла"
+      if(files[0].size <= 1000000){
+          if (this.allowedTypes.find(typeName =>files[0].type === typeName)) {
+            let form_data = new FormData()
+            form_data.append('image', files[0])
+            this.$emit("file_form", form_data)
+            this.fileForm.file = files[0]
+          }
+          else{
+            this.fileForm.msg = "не верный формат файла"
+          }
+      }
+      else{
+        this.fileForm.msg = 'размер файла не должно превышать 1мб'
       }
     }
   }

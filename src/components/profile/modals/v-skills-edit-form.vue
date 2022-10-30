@@ -1,6 +1,6 @@
 <template>
-  <div class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content h-max-content animation-from-hidden">
+  <div class="d-flex a-items-center j-content-center">
+    <div class="bg-fff padding-1 w-max h-max-content animation-from-hidden">
       <h3 class="m-top-0">навыки и умения</h3>
 
       <v-input-normal label="добавьте свои скилы"
@@ -34,7 +34,7 @@ import VInputNormal from "@/components/_general/v-input-normal";
 import VSelectNormal from "@/components/_general/v-select-normal";
 import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
 export default {
-  name: "v-skills-edit-modal",
+  name: "v-skills-edit-form",
   components: {VCheckboxesNormal, VSelectNormal, VInputNormal, VButtonNormal},
   data(){
     return{

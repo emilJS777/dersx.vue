@@ -25,8 +25,6 @@
     <v-button-normal label="предложить" class="bg-content"
                      @click="setModalName('vacancyOfferCreateAlert')"
                      v-if="profile && profile.id !== vacancy.creator_id"/>
-
-    <v-button-normal label="закрыть" @click="this.$emit('close')"/>
   </div>
 
 <!--  ALERTS-->

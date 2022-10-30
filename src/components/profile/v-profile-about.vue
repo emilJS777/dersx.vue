@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-fff padding-1">
+  <div class="bg-fff padding-1" v-if="!modalName">
     <h3 class="f-weight-bold m-top-0 m-bottom-0 d-flex j-content-space-between a-items-center">
       навыки и умения
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="bg-fff padding-1">
+  <div class="bg-fff padding-1" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
       опыт работы
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
@@ -107,7 +107,7 @@
 <!--    <i class="m-top-0">данный раздел пуст </i>-->
 <!--  </div>-->
 
-  <div class="bg-fff padding-1">
+  <div class="bg-fff padding-1" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
       контакты
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
@@ -134,7 +134,7 @@
     </div>
   </div>
 
-  <div class="bg-fff padding-1">
+  <div class="bg-fff padding-1" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
       о себе
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
@@ -158,10 +158,10 @@
     </div>
   </div>
 
-  <v-skills-edit-modal v-if="modalName === 'skillsEditModal'" @close="setModalName(false)"/>
-  <v-about-me-edit-modal v-if="modalName === 'aboutMeEditModal'" @close="setModalName(false)"/>
-  <v-work-experience-edit-modal v-if="modalName === 'workExperienceEditModal'" @close="setModalName(false)"/>
-  <v-contact-edit-modal v-if="modalName === 'contactEditModal'" @close="setModalName(false)"/>
+  <v-skills-edit-form v-if="modalName === 'skillsEditModal'" @close="setModalName(false)"/>
+  <v-about-me-edit-form v-if="modalName === 'aboutMeEditModal'" @close="setModalName(false)"/>
+  <v-work-experience-edit-form v-if="modalName === 'workExperienceEditModal'" @close="setModalName(false)"/>
+  <v-contact-edit-form v-if="modalName === 'contactEditModal'" @close="setModalName(false)"/>
 
   <v-alert-modal label="вы дествительно хотите удалить ваш скилл ?"
                  v-if="modalName === 'skillDeleteAlertModal'"
@@ -185,17 +185,17 @@
 </template>
 
 <script>
-import VSkillsEditModal from "@/components/profile/modals/v-skills-edit-modal";
+import VSkillsEditForm from "@/components/profile/modals/v-skills-edit-form";
 import toggleMixin from "@/mixins/toggle-mixin";
-import VAboutMeEditModal from "@/components/profile/modals/v-about-me-edit-modal";
+import VAboutMeEditForm from "@/components/profile/modals/v-about-me-edit-form";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import {mapState} from "vuex";
-import VWorkExperienceEditModal from "@/components/profile/modals/v-work-experience-edit-modal";
-import VContactEditModal from "@/components/profile/modals/v-contact-edit-modal";
+import VWorkExperienceEditForm from "@/components/profile/modals/v-work-experience-edit-form";
+import VContactEditForm from "@/components/profile/modals/v-contact-edit-form";
 export default {
   name: "v-profile-about",
   mixins: [toggleMixin],
-  components: {VContactEditModal, VWorkExperienceEditModal, VAlertModal, VAboutMeEditModal, VSkillsEditModal},
+  components: {VContactEditForm, VWorkExperienceEditForm, VAlertModal, VAboutMeEditForm, VSkillsEditForm},
   computed: mapState({
     profile: state => state.auth.profile
   }),

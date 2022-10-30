@@ -9,7 +9,6 @@
 
     <div class="btn_block d-flex j-content-flex-end g-gap-1 m-top-1">
       <v-button-normal class="bg-content" label="отправить" @click="onVacancyComment" v-if="profile"/>
-      <v-button-normal label="закрыть" @click="this.$emit('close')"/>
     </div>
 
   </div>

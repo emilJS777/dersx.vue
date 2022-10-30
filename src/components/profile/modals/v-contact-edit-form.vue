@@ -1,6 +1,6 @@
 <template>
-  <div class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content h-max-content animation-from-hidden">
+  <div class="d-flex a-items-center j-content-center">
+    <div class="bg-fff padding-1 w-max h-max-content animation-from-hidden">
       <h3 class="m-top-0">контакт</h3>
 
       <v-input-normal label="тип"
@@ -26,7 +26,7 @@
 import VInputNormal from "@/components/_general/v-input-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 export default {
-  name: "v-contact-edit-modal",
+  name: "v-contact-edit-form",
   components: {VButtonNormal, VInputNormal},
   data(){
     return{

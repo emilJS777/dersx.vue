@@ -1,13 +1,13 @@
 <template>
-  <div class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content w-max-content padding-1">
-      <h3 class="m-top-0">создать услугу</h3>
+  <div class="d-flex a-items-center j-content-center">
+    <div class="bg-fff padding-1 w-max padding-1">
+      <h3 class="m-top-0 d-flex j-content-space-between">создать услугу <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span></h3>
 
       <v-input-file-form label="изображение"
                          class="d-flex m-top-1 h-max-content"
                          span="загрузите изображение вашей услуги"
                          :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
-                         @file="file => form.image = file"
+                         @file_form="file => form.image = file"
                          sublabel="не загружено"/>
 
       <v-input-normal label="название услуги"
@@ -40,9 +40,18 @@
                            @select="selected_ids => form.category_ids = selected_ids"
                            span="к каким категориям относится ваша услуга"/>
 
+      <div class="d-flex g-gap-3 a-items-flex-end ">
+        <v-input-normal type="number" class="m-top-2" label="цена" span="цена которое вы готовы заплатить исполнителю от 500 до 500000"
+                        @value="value => form.price = parseInt(value)"/>
+        <v-radios-normal name="paidInterval"
+                         span="за какой промежуток времени вы готовы платить"
+                         label="оплата за"
+                         @value="item => form.payment_interval_id = item.id"
+                         :radios="payment_intervals"/>
+      </div>
+
       <div class="btn_block d-flex g-gap-_5 j-content-flex-end m-top-2">
         <v-button-normal label="создать" class="bg-content" @click="onService"/>
-        <v-button-normal label="отменить" @click="this.$emit('close')"/>
       </div>
     </div>
   </div>
@@ -55,19 +64,25 @@ import VSelectNormal from "@/components/_general/v-select-normal";
 import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VInputFileForm from "@/components/_general/v-input-file-form";
+import VRadiosNormal from "@/components/_general/v-radios-normal";
 export default {
   name: "v-service-create-form",
-  components: {VInputFileForm, VButtonNormal, VCheckboxesNormal, VSelectNormal, VTextareaNormal, VInputNormal},
+  components: {
+    VRadiosNormal,
+    VInputFileForm, VButtonNormal, VCheckboxesNormal, VSelectNormal, VTextareaNormal, VInputNormal},
   data(){
     return{
       rubrics: [],
       categories: [],
+      payment_intervals: [],
       form:{
         title: '',
         short_description: '',
         long_description: '',
         rubric_id: null,
         category_ids: [],
+        price: null,
+        payment_interval_id: null,
         image: null
       }
     }
@@ -77,6 +92,11 @@ export default {
     this.emitter.emit('load', true)
     this.$store.dispatch("rubric/GET", '').then(data => {
       this.rubrics = data.obj
+    }).finally(() => this.emitter.emit("load", false))
+    //  PAYMENT INTERVALS GET
+    this.emitter.emit('load', true)
+    this.$store.dispatch("payment_interval/GET", '').then(data => {
+      this.payment_intervals = data.obj
     }).finally(() => this.emitter.emit("load", false))
   },
   methods:{

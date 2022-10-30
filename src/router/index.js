@@ -15,7 +15,22 @@ const routes = [
     {
         path: "/vacancies",
         name: "vacancies",
-        component: () => import("@/views/v-vacancies.vue")
+        component: () => import("@/views/vacancy/v-vacancies.vue")
+    },
+    {
+        path: "/vacancy",
+        name: "vacancy",
+        component: () => import("@/views/vacancy/v-vacancy.vue")
+    },
+    {
+        path: "/vacancyEdit",
+        name: "vacancyEdit",
+        component: () => import("@/views/vacancy/v-vacancy-edit.vue")
+    },
+    {
+        path: "/vacancyCreate",
+        name: "vacancyCreate",
+        component: () => import("@/views/vacancy/v-vacancy-create.vue")
     },
     {
         path: "/profile",
@@ -35,7 +50,22 @@ const routes = [
     {
         path: "/services",
         name: "services",
-        component: () => import("@/views/v-services.vue")
+        component: () => import("@/views/service/v-services.vue")
+    },
+    {
+        path: "/service",
+        name: "service",
+        component: () => import("@/views/service/v-service.vue")
+    },
+    {
+        path: "/serviceEdit",
+        name: "serviceEdit",
+        component: () => import("@/views/service/v-service-edit.vue")
+    },
+    {
+        path: "/serviceCreate",
+        name: "serviceCreate",
+        component: () => import("@/views/service/v-service-create.vue")
     }
 ];
 
