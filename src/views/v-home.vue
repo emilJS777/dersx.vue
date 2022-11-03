@@ -73,14 +73,14 @@ export default {
   },
   methods:{
     publicationGet(){
-      console.log(this.$route.query)
       this.emitter.emit('load', true)
       this.$store.dispatch("publication/GET", `?limit=${this.limit}&offset=${this.offset}&creator_id=${this.$route.query.publicator_id ? this.$route.query.publicator_id  : ''}`).then(data => {
         data.obj.forEach(publication => this.publications.push(publication))
       }).finally(() => this.emitter.emit('load', false))
     },
     handleScroll() {
-      if ((!this.EndOfDataBase) && ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 1) && (!this.loading)) {
+      console.log()
+      if (((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 1) && (this.publications.length) && (this.$route.name === 'home')) {
         this.limit = 2
         this.offset += 3
         this.publicationGet()
