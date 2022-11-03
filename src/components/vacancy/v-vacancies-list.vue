@@ -1,7 +1,7 @@
 <template>
   <div class="vacancy">
-    <h3 class="c-content-hover c-pointer m-bottom-0 d-flex j-content-space-between a-items-center g-gap-_3" @click="this.$emit('more', this.vacancy.id)">
-      {{ vacancy.title }}
+    <h3 class="m-bottom-0 d-flex j-content-space-between a-items-center g-gap-_3">
+      <a :href="`vacancy?id=${vacancy.id}`" class="c-content-hover">{{ vacancy.title }}</a>
       <span class="c-content f-size-small">желаемая цена {{ vacancy.price }}$ за <b>{{vacancy.payment_interval.title}}</b></span>
     </h3>
     <p>{{vacancy.short_description}}</p>
@@ -25,7 +25,7 @@
       </div>
       <span>опубликовано {{vacancy.creation_date}}</span>
       <span>предложений {{ vacancy.vacancy_offers_count }}</span>
-      <span class="c-pointer c-content-hover" @click="this.$emit('more', this.vacancy.id)">подробнее</span>
+      <span class="c-pointer c-content-hover"><a :href="`vacancy?id=${vacancy.id}`">подробнее</a></span>
     </div>
   </div>
 </template>

@@ -1,7 +1,5 @@
 <template>
   <div class="padding-1 bg-fff d-grid g-gap-1 h-max-content">
-    <h3 class="m-bottom-0 t-center m-top-0">форумы</h3>
-
     <v-select-normal label="рубрика форумов"
                      span="ваша желаемая рубрика для поиска"
                      :items="rubrics"
@@ -23,7 +21,8 @@
       <div class="p-relative m-top-05 d-flex a-items-center j-content-space-between">
         <div class="d-flex a-items-center g-gap-_5 p-relative w-max-content" >
           <router-link :to="`/profile?id=${forum.creator_id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">
+<!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">-->
+            <span v-if="!forum.creator.image">{{forum.creator.first_name[0]}}</span>
             <img :src="'data:image/'+forum.creator.image.filename+';charset=utf-8;base64, ' + forum.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
           </router-link>
           <div class="d-grid info_block j-content-flex-end f-size-small">
@@ -81,6 +80,7 @@ export default {
     forumsGet(){
       this.emitter.emit('load', true)
       this.$store.dispatch("forum/GET", `?page=${this.page}&per_page=${this.per_page}&rubric_id=${this.selected_rubric_id}&search=${this.search}`).then(data => {
+        console.log(data.obj)
         this.forums = data.obj.items
         this.page = data.obj.page
         this.per_page = data.obj.per_page

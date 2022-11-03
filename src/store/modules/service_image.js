@@ -1,6 +1,6 @@
 import request from "@/store/request";
 
-const service = {
+const service_image = {
     namespaced: true,
     actions: {
         async CREATE(context, form){
@@ -14,4 +14,4 @@ const service = {
     }
 }
 
-export default service
+export default service_image

@@ -29,11 +29,11 @@ export default {
   },
   methods: {
     login(){
-      console.log(this.form)
+      this.emitter.emit('load', true)
       this.$store.dispatch("auth/LOGIN", this.form).then(data => {
         if(!data.success)
           this.emitter.emit("message", data);
-      })
+      }).finally(() => this.emitter.emit('load', false))
     }
   }
 }

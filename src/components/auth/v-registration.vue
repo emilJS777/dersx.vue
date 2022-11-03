@@ -86,13 +86,14 @@ export default {
   methods: {
     registration(e){
       e.preventDefault()
+      this.emitter.emit('load', true)
       this.$store.dispatch("user/CREATE", this.form).then(data => {
         if(!data.success)
           this.emitter.emit("message", data);
         else{
           this.$store.dispatch("auth/LOGIN", this.form)
         }
-      })
+      }).finally(() => this.emitter.emit('load', false))
     }
   }
 }

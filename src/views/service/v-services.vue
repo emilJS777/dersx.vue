@@ -26,7 +26,7 @@
                            v-if="payment_intervals.length"/>
       <div class="d-flex g-gap-1">
         <v-button-normal label="поиск" class="bg-content" @click="clickPage(1)"/>
-        <v-button-normal label="создать услугу" @click="this.$router.push({name: 'serviceCreate'})"/>
+        <v-button-normal label="создать услугу" @click="this.$router.push({name: 'serviceCreate'})" v-if="profile"/>
       </div>
     </div>
 
@@ -66,6 +66,7 @@ import VInputNormal from "@/components/_general/v-input-normal";
 import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import paginateMixin from "@/mixins/paginate-mixin";
+import {mapState} from "vuex";
 
 export default {
   name: "v-services",
@@ -85,6 +86,9 @@ export default {
       search: ''
     }
   },
+  computed: mapState({
+    profile: state => state.auth.profile
+  }),
   mounted(){
     // RUBRICS GET
     this.$store.dispatch("rubric/GET", '').then(data => {

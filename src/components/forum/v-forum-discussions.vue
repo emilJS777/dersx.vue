@@ -80,6 +80,7 @@
 
 
     <v-forum-discussion-create-form @refresh_modal="this.$emit('refresh_modal')"
+                                    v-if="profile"
                                     :forum_id="this.forum_id"/>
   </div>
 

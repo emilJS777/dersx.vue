@@ -27,7 +27,7 @@
 
       <div class="d-flex g-gap-1">
         <v-button-normal label="поиск" class="bg-content" @click="clickPage(1)"/>
-        <v-button-normal label="создать вакансию" @click="this.$router.push({name: 'vacancyCreate'})"/>
+        <v-button-normal label="создать вакансию" @click="this.$router.push({name: 'vacancyCreate'})" v-if="profile"/>
       </div>
     </div>
 
@@ -69,6 +69,7 @@ import VButtonNormal from "@/components/_general/v-button-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VVacaciesList from "@/components/vacancy/v-vacancies-list";
 import paginateMixin from "@/mixins/paginate-mixin";
+import {mapState} from "vuex";
 export default {
   name: "v-vacancies",
   components: {VVacaciesList, VButtonNormal, VCheckboxesNormal, VInputNormal, VSelectNormal},
@@ -86,6 +87,9 @@ export default {
       search: ''
     }
   },
+  computed: mapState({
+    profile: state => state.auth.profile
+  }),
   mounted() {
     // RUBRICS GET
     this.$store.dispatch("rubric/GET", '').then(data => {
