@@ -16,6 +16,7 @@
       </div>
 
 
+
       <div class="menu_block d-flex j-content-flex-end a-items-flex-start ">
         <ul class="d-flex g-gap-1 m-0-auto">
           <li class="d-flex g-gap-_5 c-content-hover c-pointer a-items-center">
@@ -39,26 +40,47 @@
       </div>
     </div>
 
+<!--    PUBLICATION DESCRIPTION-->
     <p>{{ publication.description }}</p>
 
+<!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">
       <img :src="'data:image/'+publication.image.filename+';charset=utf-8;base64, ' + publication.image.b64" class="publication_image">
     </div>
 
+<!--    PUBLICATION CREATION DATE-->
     <div class="d-grid g-gap-_5">
       <span class="f-size-small m-top-0">
         <b>опубликовано:</b> {{publication.creation_date}}
       </span>
     </div>
 
-    <div class="d-flex g-gap-2 a-items-flex-end m-top-2" v-if="profile">
-      <v-input-normal label="комментировать" span="прокомментируйте данную публикацию "/>
-      <v-button-normal label="опубликовать " class=""/>
+<!--    PUBLICATION FOOTER-->
+    <div class="m-top-1">
+      <span class="c-pointer c-content f-size-small"
+            v-if="modalName !== 'publicationComments'"
+            @click="()=>{setModalName('publicationComments');publicationCommentGet()}">комментарий: {{ publication.comment_count }}</span>
+
+      <span class="c-ccc f-size-small" v-else>комментарий: {{ publication.comment_count }}</span>
     </div>
 
-    <div class="m-top-1">
-      <span class="c-pointer c-content f-size-small">комментарий: 10</span>
+<!--    PUBLICATION COMMENT-->
+    <div v-if="modalName === 'publicationComments'">
+      <v-publication-comment-create-form v-if="profile"
+                                         :publication_id="publication.id"
+                                         @refresh_modal="()=>{this.setModalName('publicationComments');
+                                           publication_comment.publication_comments = [];
+                                           publicationCommentGet()}"/>
+
+      <v-publication-comment v-for="publication_comment in publication_comment.publication_comments"
+                             :key="publication_comment.id"
+                             :publication_comment="publication_comment"/>
+
+      <p class="c-pointer t-decoration-underline-hover c-content f-size-small m-top-2"
+            v-if="publication_comment.see_more"
+            @click="publicationCommentGet(6, 6)">посмотреть еще</p>
     </div>
+
   </div>
 
 
@@ -70,20 +92,29 @@
 </template>
 
 <script>
-import VInputNormal from "@/components/_general/v-input-normal";
-import VButtonNormal from "@/components/_general/v-button-normal";
 import {mapState} from "vuex";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
+import VPublicationCommentCreateForm from "@/components/publication/forms/v-publication-comment-create-form";
+import VPublicationComment from "@/components/publication/v-publication-comment";
 export default {
   name: "v-publication-list",
-  components: {VAlertModal, VButtonNormal, VInputNormal},
+  components: {VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
   props: ["publication"],
   mixins: [toggleMixin],
   computed: mapState({
     profile: state => state.auth.profile
   }),
-
+  data(){
+    return{
+      publication_comment: {
+        publication_comments: [],
+        limit: 6,
+        offset: 0,
+        see_more: true
+      }
+    }
+  },
   methods:{
     publicationDelete(){
       this.setModalName(false)
@@ -92,6 +123,17 @@ export default {
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))
     },
+    publicationCommentGet(limit=0, offset=0){
+      limit ? this.publication_comment.limit += limit : this.publication_comment.limit = 6
+      offset ? this.publication_comment.offset += offset : this.publication_comment.offset = 0
+
+      this.emitter.emit('load', true)
+      this.$store.dispatch("publication_comment/GET", `?limit=${this.publication_comment.limit}&offset=${this.publication_comment.offset}&publication_id=${this.publication.id}`).then(data => {
+        data.obj.forEach(comment => this.publication_comment.publication_comments.push(comment))
+        if(!data.obj.length)
+          this.publication_comment.see_more = false
+      }).finally(() => this.emitter.emit('load', false))
+    }
   }
 }
 </script>

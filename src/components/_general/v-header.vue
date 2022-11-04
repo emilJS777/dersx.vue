@@ -6,24 +6,39 @@
     </div>
 
     <div class="nav d-flex">
-      <ul class="d-flex j-content-space-between g-gap-2">
+      <ul class="d-flex j-content-space-between g-gap-2 a-items-center">
         <li>
-          <router-link to="/">главная</router-link>
+          <router-link to="/" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <b>главная</b>
+          </router-link>
         </li>
 
         <li>
-          <router-link to="/services">услуги</router-link>
+          <router-link to="/services" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
+            <b>услуги</b>
+          </router-link>
         </li>
 
         <li>
-          <router-link to="/vacancies">вакансии</router-link>
+          <router-link to="/vacancies" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-globe" aria-hidden="true"></i>
+            <b>вакансии</b>
+          </router-link>
         </li>
 
         <li>
-          <router-link to="/users">пользователи</router-link>
+          <router-link to="/users" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <b>пользователи</b>
+          </router-link>
         </li>
         <li>
-          <router-link to="/forums">форумы</router-link>
+          <router-link to="/forums" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-comment" aria-hidden="true"></i>
+            <b>форумы</b>
+          </router-link>
         </li>
       </ul>
     </div>
