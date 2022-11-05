@@ -20,6 +20,7 @@ import service_image from "./modules/service_image"
 import publication from "./modules/publication";
 import publication_image from "./modules/publication_image"
 import publication_comment from "./modules/publication_comment";
+import publication_like from "./modules/publication_like";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -44,6 +45,7 @@ export default new Vuex.Store({
         service_image,
         publication,
         publication_image,
-        publication_comment
+        publication_comment,
+        publication_like
     }
 })

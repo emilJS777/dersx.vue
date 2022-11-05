@@ -42,9 +42,11 @@
 
       <div class="tabs_btn d-flex g-gap-1">
         <span :class="modalName === 'vacancyOfferForm' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyOfferForm')">
+          <i class="fa fa-file" aria-hidden="true"></i>
           предложение <b class="f-size-small" v-if="vacancy.vacancy_offers_count"> {{vacancy.vacancy_offers_count}} </b> <b class="f-size-small" v-else>0</b>
         </span>
         <span :class="modalName === 'vacancyComments' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyComments')">
+          <i class="fa fa-comments" aria-hidden="true"></i>
           комментарии <b class="f-size-small" v-if="vacancy.vacancy_comments_count"> {{vacancy.vacancy_comments_count}} </b> <b class="f-size-small" v-else>0</b>
         </span>
       </div>

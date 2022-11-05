@@ -56,12 +56,32 @@
     </div>
 
 <!--    PUBLICATION FOOTER-->
-    <div class="m-top-1">
-      <span class="c-pointer c-content f-size-small"
+    <div class="m-top-1 d-flex g-gap-1 j-content-space-between">
+      <span class="c-pointer c-content f-size-small d-flex g-gap-_5 a-items-center f-weight-bold"
             v-if="modalName !== 'publicationComments'"
-            @click="()=>{setModalName('publicationComments');publicationCommentGet()}">комментарий: {{ publication.comment_count }}</span>
+            @click="()=>{setModalName('publicationComments');publicationCommentGet()}">
+        <i class="fa fa-comments" aria-hidden="true"></i>
+        комментарий: {{ publication.comment_count }}
+      </span>
 
-      <span class="c-ccc f-size-small" v-else>комментарий: {{ publication.comment_count }}</span>
+      <span class="c-ccc f-size-small d-flex g-gap-_5 a-items-center f-weight-bold" v-else>
+        <i class="fa fa-comments" aria-hidden="true"></i>
+        комментарий: {{ publication.comment_count }}
+      </span>
+
+      <span class="c-pointer c-content f-size-small d-flex g-gap-_5 a-items-center f-weight-bold"
+            @click="publicationLikeCreate"
+            v-if="!publication_like.self_like && profile">
+        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        нравится: {{ publication_like.like_count }}
+      </span>
+
+      <span class="c-pointer f-size-small d-flex g-gap-_5 a-items-center f-weight-bold"
+            v-if="publication_like.self_like && profile"
+            @click="publicationLikeDelete">
+        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+        нравится: {{ publication_like.like_count }} (вам понравился)
+      </span>
     </div>
 
 <!--    PUBLICATION COMMENT-->
@@ -107,6 +127,10 @@ export default {
   }),
   data(){
     return{
+      publication_like:{
+        self_like: null,
+        like_count: 0
+      },
       publication_comment: {
         publication_comments: [],
         limit: 6,
@@ -114,6 +138,14 @@ export default {
         see_more: true
       }
     }
+  },
+  mounted() {
+    this.publication_like.like_count = this.publication.like_count
+  //  SELF LIKE GET
+    this.emitter.emit('load', true)
+    this.$store.dispatch("publication_like/GET", `?publication_id=${this.publication.id}`).then(data => {
+        this.publication_like.self_like = data.success
+    }).finally(() => this.emitter.emit('load', false))
   },
   methods:{
     publicationDelete(){
@@ -132,6 +164,20 @@ export default {
         data.obj.forEach(comment => this.publication_comment.publication_comments.push(comment))
         if(!data.obj.length)
           this.publication_comment.see_more = false
+      }).finally(() => this.emitter.emit('load', false))
+    },
+    publicationLikeCreate(){
+      this.emitter.emit('load', true)
+      this.$store.dispatch("publication_like/CREATE", {publication_id: this.publication.id}).then(data => {
+        this.publication_like.self_like = data.success;
+        this.publication_like.like_count++
+      }).finally(() => this.emitter.emit('load', false))
+    },
+    publicationLikeDelete(){
+      this.emitter.emit('load', true)
+      this.$store.dispatch("publication_like/DELETE", this.publication.id).then(data => {
+        this.publication_like.self_like = !data.success
+        this.publication_like.like_count--
       }).finally(() => this.emitter.emit('load', false))
     }
   }

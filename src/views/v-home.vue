@@ -22,15 +22,22 @@
       <v-publication-create-form class="bg-fff padding-1" v-if="profile"/>
 
       <div class="m-top-1 d-flex g-gap-_5">
-        <a href="/"  :class="`padding-05 bg-fff b-radius-8 c-pointer ${!this.$route.query.publicator_id ? 'c-ccc' : ''}`">все</a>
+        <a href="/"  :class="`padding-05 bg-fff b-radius-8 c-pointer ${!Object.keys(this.$route.query).length ? 'c-ccc' : ''}`">все</a>
 
         <a :href="`?publicator_id=${profile.id}`"
            :class="`padding-05 bg-fff b-radius-8 c-pointer ${this.$route.query.publicator_id === profile.id.toString() ? 'c-ccc' : ''}`"
            v-if="profile">мои публикации </a>
+
+        <a :href="`?liked_id=${profile.id}`"
+           v-if="profile"
+           :class="`padding-05 bg-fff b-radius-8 c-pointer ${this.$route.query.liked_id === profile.id.toString() ? 'c-ccc' : ''}`">
+          понравившийся</a>
       </div>
 
+      <h3 class="c-ccc t-center" v-if="!publications.length">ничего не найдено </h3>
       <v-publication-list v-for="publication in publications"
                           :key="publication.id"
+                          v-else
                           :publication="publication"/>
     </div>
   </div>
@@ -74,12 +81,11 @@ export default {
   methods:{
     publicationGet(){
       this.emitter.emit('load', true)
-      this.$store.dispatch("publication/GET", `?limit=${this.limit}&offset=${this.offset}&creator_id=${this.$route.query.publicator_id ? this.$route.query.publicator_id  : ''}`).then(data => {
-        data.obj.forEach(publication => this.publications.push(publication))
+      this.$store.dispatch("publication/GET", `?limit=${this.limit}&offset=${this.offset}&creator_id=${this.$route.query.publicator_id ? this.$route.query.publicator_id  : ''}&liked_id=${this.$route.query.liked_id ? this.$route.query.liked_id : ''}`).then(data => {
+          data.obj.forEach(publication => this.publications.push(publication))
       }).finally(() => this.emitter.emit('load', false))
     },
     handleScroll() {
-      console.log()
       if (((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 1) && (this.publications.length) && (this.$route.name === 'home')) {
         this.limit = 2
         this.offset += 3
