@@ -20,7 +20,7 @@
 
       <div class="p-relative m-top-05 d-flex a-items-center j-content-space-between">
         <div class="d-flex a-items-center g-gap-_5 p-relative w-max-content" >
-          <router-link :to="`/profile?id=${forum.creator_id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
+          <router-link :to="`/profile?id=${forum.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
 <!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">-->
             <span v-if="!forum.creator.image">{{forum.creator.first_name[0]}}</span>
             <img :src="'data:image/'+forum.creator.image.filename+';charset=utf-8;base64, ' + forum.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>

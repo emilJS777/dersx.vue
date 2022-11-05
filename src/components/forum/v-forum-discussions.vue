@@ -13,7 +13,9 @@
           <div class="d-grid g-gap-1 p-relative m-top-05">
             <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
               <router-link :to="`/profile?id=${forum.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-                <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">
+<!--                <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">-->
+                <span v-if="!forum.creator.image">{{forum.creator.first_name[0]}}</span>
+
                 <img :src="'data:image/'+forum.creator.image.filename+';charset=utf-8;base64, ' + forum.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
               </router-link>
               <div class="d-grid info_block j-content-flex-end f-size-small">
@@ -49,7 +51,7 @@
             <div class="d-flex a-items-center g-gap-_5 p-relative w-max">
               <router-link :to="`/profile?id=${forum_discussion.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
 <!--                <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum_discussion.creator.image">-->
-                <span v-if="!publication_comment.creator.image">{{forum_discussion.creator.first_name[0]}}</span>
+                <span v-if="!forum_discussion.creator.image">{{forum_discussion.creator.first_name[0]}}</span>
                 <img :src="'data:image/'+forum_discussion.creator.image.filename+';charset=utf-8;base64, ' + forum_discussion.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
               </router-link>
               <div class="d-grid info_block j-content-flex-end">

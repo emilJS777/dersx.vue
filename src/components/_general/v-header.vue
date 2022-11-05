@@ -127,7 +127,7 @@ export default {
 .header{
   background-color: #fff;
   padding: 20px 15%;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1.5fr;
 }
 .header h1{
   font-size: 38px;
