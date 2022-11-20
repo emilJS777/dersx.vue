@@ -163,13 +163,14 @@ export default {
     },
     serviceImageUpload(){
       this.emitter.emit('load', true)
-      this.$store.dispatch("service_image/CREATE", {query: `?service_id=${this.service_id}`, form: this.new_image}).then(data => {
+      this.$store.dispatch("image/CREATE", {query: `?service_id=${this.service_id}`, form: this.new_image}).then(data => {
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))
     },
     serviceImageDelete(){
       this.emitter.emit('load', true)
-      this.$store.dispatch("service_image/DELETE", `?service_id=${this.service_id}`).then(data => {
+      console.log(this.image.filename)
+      this.$store.dispatch("image/DELETE", this.image.filename).then(data => {
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))
     },

@@ -24,7 +24,7 @@
 
 <!--        VACANCIES TAB-->
         <div v-if="modalName === 'publicationVacancies'">
-          <div class="d-grid g-gap-1" v-if="vacancies.length">
+          <div class="d-grid g-gap-1">
             <v-vacancies-list v-for="vacancy in vacancies"
                               @more="vacancy_id => this.$router.push({name: 'vacancy', query:{id: vacancy_id}})"
                               :key="vacancy.id"

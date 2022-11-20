@@ -84,6 +84,9 @@ a{
 .m-bottom-0{
     margin-bottom: 0;
 }
+.m-left-minus-1{
+    margin-left: -1em;
+}
 .m-left-05{
     margin-left: .5em;
 }
@@ -209,6 +212,7 @@ a{
     border-radius: 50%;
 }
 
+
 .w-max{
     width: 100%;
 }
@@ -265,6 +269,10 @@ a{
 .c-6d{
     color: #6d6d6d;
 }
+.c-red, .c-red-hover:hover{
+    color: #a43506;
+}
+
 .b-content, .b-content-hover:hover{
     border: 1px solid #ea7745;
 }
@@ -305,6 +313,13 @@ a{
 .outline-content:focus{
     outline: 0;
     border: 1px solid #ea7745;
+}
+.cut-text {
+    overflow:hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 250px;
 }
 
 .form-standard{

@@ -1,5 +1,6 @@
 <template>
   <button class="form-standard outline-content d-flex a-items-center j-content-center g-gap-1">
+    <i v-if="icon" :class="icon"></i>
     {{svg}}
     {{label}}
   </button>
@@ -8,7 +9,7 @@
 <script>
 export default {
   name: "v-button-normal",
-  props: ['label', 'svg']
+  props: ['label', 'svg', 'icon']
 }
 </script>
 

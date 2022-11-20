@@ -1,19 +1,7 @@
 <template>
   <div class="publication padding-2 bg-fff m-top-1">
     <div class="head d-flex j-content-space-between a-items-flex-start">
-      <div class="d-grid g-gap-1 p-relative">
-        <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
-          <router-link :to="`/profile?id=${publication.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-            <!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!vacancy.creator.image">-->
-            <span v-if="!publication.creator.image">{{publication.creator.first_name[0]}}</span>
-            <img :src="'data:image/'+publication.creator.image.filename+';charset=utf-8;base64, ' + publication.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-          </router-link>
-          <div class="d-grid info_block j-content-flex-end">
-            <i>{{ publication.creator.first_name }} {{ publication.creator.last_name }}</i>
-            <span class="f-size-small">{{publication.creator.name}}</span>
-          </div>
-        </div>
-      </div>
+      <v-user-mini-block :user="publication.creator"/>
 
 
 
@@ -45,7 +33,7 @@
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">
-      <img :src="'data:image/'+publication.image.filename+';charset=utf-8;base64, ' + publication.image.b64" class="publication_image">
+      <img :src="`http://127.0.0.1:5000/image?filename=${publication.image.filename}`" class="publication_image">
     </div>
 
 <!--    PUBLICATION CREATION DATE-->
@@ -92,9 +80,12 @@
                                            publication_comment.publication_comments = [];
                                            publicationCommentGet()}"/>
 
-      <v-publication-comment v-for="publication_comment in publication_comment.publication_comments"
-                             :key="publication_comment.id"
-                             :publication_comment="publication_comment"/>
+      <v-publication-comment v-for="comment_publication in publication_comment.publication_comments"
+                             :key="comment_publication.id"
+                             @refresh_modal="()=>{this.setModalName('publicationComments');
+                                           publication_comment.publication_comments = [];
+                                           publicationCommentGet()}"
+                             :publication_comment="comment_publication"/>
 
       <p class="c-pointer t-decoration-underline-hover c-content f-size-small m-top-2"
             v-if="publication_comment.see_more"
@@ -117,9 +108,10 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VPublicationCommentCreateForm from "@/components/publication/forms/v-publication-comment-create-form";
 import VPublicationComment from "@/components/publication/v-publication-comment";
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 export default {
   name: "v-publication-list",
-  components: {VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
+  components: {VUserMiniBlock, VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
   props: ["publication"],
   mixins: [toggleMixin],
   computed: mapState({

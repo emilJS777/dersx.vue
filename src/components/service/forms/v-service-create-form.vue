@@ -111,7 +111,7 @@ export default {
     },
     osServiceImage(service_id){
       this.emitter.emit('load', true)
-      this.$store.dispatch("service_image/CREATE", {query: `?service_id=${service_id}`, form: this.form.image}).then(data => {
+      this.$store.dispatch("image/CREATE", {query: `?service_id=${service_id}`, form: this.form.image}).then(data => {
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))
     },

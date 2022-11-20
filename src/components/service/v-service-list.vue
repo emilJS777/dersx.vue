@@ -1,7 +1,7 @@
 <template>
   <div class="service bg-fff padding-1 h-max-content">
       <div class="service_img_block p-relative o-hidden" v-if="service.image">
-        <img :src="'data:image/'+service.image.filename+';charset=utf-8;base64, ' + service.image.b64" class="p-absolute absolute-center" alt="">
+        <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>
 
       <h4 class="m-top-05 c-content-hover c-pointer"><a :href="`/service?id=${service.id}`">{{service.title}}</a></h4>

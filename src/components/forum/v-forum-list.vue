@@ -19,17 +19,7 @@
       <span class="f-size-small m-top-05">опубликовано: {{forum.creation_date}}</span>
 
       <div class="p-relative m-top-05 d-flex a-items-center j-content-space-between">
-        <div class="d-flex a-items-center g-gap-_5 p-relative w-max-content" >
-          <router-link :to="`/profile?id=${forum.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-<!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">-->
-            <span v-if="!forum.creator.image">{{forum.creator.first_name[0]}}</span>
-            <img :src="'data:image/'+forum.creator.image.filename+';charset=utf-8;base64, ' + forum.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-          </router-link>
-          <div class="d-grid info_block j-content-flex-end f-size-small">
-            <i>{{ forum.creator.first_name }} {{ forum.creator.last_name }}</i>
-            <span class="f-size-very-small">{{forum.creator.name}}</span>
-          </div>
-        </div>
+        <v-user-mini-block :user="forum.creator"/>
 
         <span class="f-size-small">ответов: {{forum.forum_discussion_count}}</span>
       </div>
@@ -57,9 +47,10 @@ import VInputNormal from "@/components/_general/v-input-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import paginateMixin from "@/mixins/paginate-mixin";
 import VSelectNormal from "@/components/_general/v-select-normal";
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 export default {
   name: "v-forum-list",
-  components: {VSelectNormal, VButtonNormal, VInputNormal},
+  components: {VUserMiniBlock, VSelectNormal, VButtonNormal, VInputNormal},
   mixins: [paginateMixin],
   data(){
     return{
@@ -98,13 +89,5 @@ export default {
 </script>
 
 <style scoped>
-.img_block{
-  border: 1px solid #ccc;
-  height: 30px;
-  width: 30px;
-}
-.profile_image{
-  width: 120%;
-  height: auto;
-}
+
 </style>

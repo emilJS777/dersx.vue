@@ -6,17 +6,7 @@
         <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span>
       </h2>
       <div class="d-grid g-gap-1 p-relative">
-        <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
-          <router-link :to="`/profile?id=${vacancy.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-<!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!vacancy.creator.image">-->
-            <span v-if="!vacancy.creator.image">{{vacancy.creator.first_name[0]}}</span>
-            <img :src="'data:image/'+vacancy.creator.image.filename+';charset=utf-8;base64, ' + vacancy.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-          </router-link>
-          <div class="d-grid info_block j-content-flex-end">
-            <i>{{ vacancy.creator.first_name }} {{ vacancy.creator.last_name }}</i>
-            <span class="f-size-small">{{vacancy.creator.name}}</span>
-          </div>
-        </div>
+        <v-user-mini-block :user="vacancy.creator"/>
       </div>
       <div class="edit d-flex g-gap-1 j-content-flex-end" v-if="profile && vacancy.creator_id === profile.id">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash err-msg c-pointer animation-from-hidden" viewBox="0 0 16 16"
@@ -89,9 +79,10 @@ import VVacancyComments from "@/components/vacancy/v-vacancy-comments";
 import VVacancyOffers from "@/components/vacancy/v-vacancy-offers";
 import {mapState} from "vuex";
 import VAlertModal from "@/components/_general/v-alert-modal";
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 export default {
   name: "v-vacancy-block",
-  components: {VAlertModal, VVacancyOffers, VVacancyComments, VVacancyCommentForm, VVacancyOfferForm},
+  components: {VUserMiniBlock, VAlertModal, VVacancyOffers, VVacancyComments, VVacancyCommentForm, VVacancyOfferForm},
   props: ['vacancy_id'],
   mixins: [toggleMixin],
   computed: mapState({
@@ -128,18 +119,6 @@ export default {
 </script>
 
 <style scoped>
-  .modal-content{
-    width: 50% !important;
-  }
-  .img_block{
-    border: 1px solid #ccc;
-    height: 40px;
-    width: 40px;
-  }
-  .profile_image{
-    width: 120%;
-    height: auto;
-  }
   .categories_block{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }

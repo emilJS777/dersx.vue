@@ -11,18 +11,7 @@
 
         <div class="d-flex j-content-space-between a-items-center forum">
           <div class="d-grid g-gap-1 p-relative m-top-05">
-            <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
-              <router-link :to="`/profile?id=${forum.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-<!--                <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">-->
-                <span v-if="!forum.creator.image">{{forum.creator.first_name[0]}}</span>
-
-                <img :src="'data:image/'+forum.creator.image.filename+';charset=utf-8;base64, ' + forum.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-              </router-link>
-              <div class="d-grid info_block j-content-flex-end f-size-small">
-                <i>{{ forum.creator.first_name }} {{ forum.creator.last_name }}</i>
-                <span class="f-size-very-small">{{forum.creator.name}}</span>
-              </div>
-            </div>
+            <v-user-mini-block :user="forum.creator"/>
           </div>
 
           <span class="f-size-small">опубликовано: {{forum.creation_date}}</span>
@@ -48,17 +37,7 @@
       <div class="m-top-05 padding-1 d-grid g-gap-_3 forum_discussion bg-ccc-opacity" v-for="forum_discussion in forum_discussions" :key="forum_discussion.id">
         <div class="d-flex j-content-space-between a-items-center">
           <div class="d-grid g-gap-_3 p-relative">
-            <div class="d-flex a-items-center g-gap-_5 p-relative w-max">
-              <router-link :to="`/profile?id=${forum_discussion.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-<!--                <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum_discussion.creator.image">-->
-                <span v-if="!forum_discussion.creator.image">{{forum_discussion.creator.first_name[0]}}</span>
-                <img :src="'data:image/'+forum_discussion.creator.image.filename+';charset=utf-8;base64, ' + forum_discussion.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-              </router-link>
-              <div class="d-grid info_block j-content-flex-end">
-                <i>{{ forum_discussion.creator.first_name }} {{ forum_discussion.creator.last_name }}</i>
-                <span class="f-size-small">{{forum_discussion.creator.name}}</span>
-              </div>
-            </div>
+            <v-user-mini-block :user="forum_discussion.creator"/>
             <span class="f-size-small m-top-05">опубликовано: {{forum_discussion.creation_date}}</span>
           </div>
 
@@ -119,9 +98,10 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VForumEditForm from "@/components/forum/forms/v-forum-edit-form";
 import VForumDiscussionEditForm from "@/components/forum/forms/v-forum-discussion-edit-form";
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 export default {
   name: "v-forum-discussions",
-  components: {VForumDiscussionEditForm, VForumEditForm, VAlertModal, VForumDiscussionCreateForm},
+  components: {VUserMiniBlock, VForumDiscussionEditForm, VForumEditForm, VAlertModal, VForumDiscussionCreateForm},
   props: ['forum_id'],
   mixins: [toggleMixin],
   computed: mapState({
@@ -181,15 +161,7 @@ export default {
 </script>
 
 <style scoped>
-.img_block{
-  border: 1px solid #ccc;
-  height: 30px;
-  width: 30px;
-}
-.profile_image{
-  width: 120%;
-  height: auto;
-}
+
 .forum_discussion:hover .edit{
   display: flex;
 }

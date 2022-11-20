@@ -21,6 +21,9 @@ import publication from "./modules/publication";
 import publication_image from "./modules/publication_image"
 import publication_comment from "./modules/publication_comment";
 import publication_like from "./modules/publication_like";
+import image from "./modules/image";
+import message from "./modules/messager/message";
+import room from "./modules/messager/room";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -46,6 +49,9 @@ export default new Vuex.Store({
         publication,
         publication_image,
         publication_comment,
-        publication_like
+        publication_like,
+        image,
+        message,
+        room
     }
 })

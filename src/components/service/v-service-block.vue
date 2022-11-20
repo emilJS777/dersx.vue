@@ -2,7 +2,7 @@
   <div class="service">
     <div class="bg-fff padding-1 w-max" v-if="service">
       <div class="service_img_block p-relative o-hidden" v-if="service.image" @click="this.$emit('more')">
-        <img :src="'data:image/'+service.image.filename+';charset=utf-8;base64, ' + service.image.b64" class="p-absolute absolute-center" alt="">
+        <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>
       <div class="d-flex m-top-05">
         <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span>
@@ -27,17 +27,7 @@
 
       <div class="d-flex j-content-space-between">
         <div class="d-grid g-gap-1 p-relative">
-          <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
-            <router-link :to="`/profile?id=${service.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-<!--              <img src="@/assets/images/user-unknown-1.png" alt="" >-->
-              <span v-if="!service.creator.image">{{service.creator.first_name[0]}}</span>
-              <img :src="'data:image/'+service.creator.image.filename+';charset=utf-8;base64, ' + service.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-            </router-link>
-            <div class="d-grid info_block j-content-flex-end">
-              <i>{{ service.creator.first_name }} {{ service.creator.last_name }}</i>
-              <span class="f-size-small">{{service.creator.name}}</span>
-            </div>
-          </div>
+          <v-user-mini-block :user="service.creator"/>
         </div>
         <span class="f-size-small f-weight-bold">{{service.rubric.title}}</span>
       </div>
@@ -73,9 +63,10 @@
 import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
 import VAlertModal from "@/components/_general/v-alert-modal";
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 export default {
   name: "v-service-block",
-  components: {VAlertModal},
+  components: {VUserMiniBlock, VAlertModal},
   props: ['service_id'],
   mixins: [toggleMixin],
   computed: mapState({
@@ -119,14 +110,5 @@ export default {
   max-width: 120%;
   min-height: 80px;
   max-height: 300px;
-}
-.img_block{
-  border: 1px solid #ccc;
-  height: 40px;
-  width: 40px;
-}
-.profile_image{
-  width: 120%;
-  height: auto;
 }
 </style>

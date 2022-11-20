@@ -10,19 +10,7 @@
       <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 m-right-03">{{category.title}}</li>
     </ul>
     <div class="footer d-flex a-items-center j-content-space-between f-size-small m-top-05" v-if="this.footer !== false">
-      <div class="d-grid g-gap-1 p-relative">
-        <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
-          <router-link :to="`/profile?id=${vacancy.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-<!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!vacancy.creator.image">-->
-            <span v-if="!vacancy.creator.image">{{vacancy.creator.first_name[0]}}</span>
-            <img :src="'data:image/'+vacancy.creator.image.filename+';charset=utf-8;base64, ' + vacancy.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-          </router-link>
-          <div class="d-grid info_block j-content-flex-end">
-            <i>{{ vacancy.creator.first_name }} {{ vacancy.creator.last_name }}</i>
-            <span class="f-size-small">{{vacancy.creator.name}}</span>
-          </div>
-        </div>
-      </div>
+      <v-user-mini-block :user="vacancy.creator"/>
       <span>опубликовано {{vacancy.creation_date}}</span>
       <span>предложений {{ vacancy.vacancy_offers_count }}</span>
       <span class="c-pointer c-content-hover"><a :href="`vacancy?id=${vacancy.id}`">подробнее</a></span>
@@ -31,8 +19,10 @@
 </template>
 
 <script>
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 export default {
   name: "v-vacancies-list",
+  components: {VUserMiniBlock},
   props: ['vacancy', 'categories', 'footer'],
 }
 </script>
@@ -43,14 +33,5 @@ h3{
 }
 .categories_block{
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-.img_block{
-  border: 1px solid #ccc;
-  height: 40px;
-  width: 40px;
-}
-.profile_image{
-  width: 120%;
-  height: auto;
 }
 </style>

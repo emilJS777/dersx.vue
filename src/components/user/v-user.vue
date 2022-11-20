@@ -3,7 +3,7 @@
     <div class="img_parent" @click="this.$router.push(`/profile?id=${user.id}`)">
       <div class="w-max p-relative o-hidden img_div w-max h-max d-block-hover c-pointer">
         <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
-        <img :src="'data:image/'+user.image.filename+';charset=utf-8;base64, ' + user.image.b64" class="p-absolute absolute-center" alt="" v-else>
+        <img :src="`http://127.0.0.1:5000/image?filename=${this.user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
       </div>
     </div>
 

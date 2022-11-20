@@ -1,16 +1,7 @@
 <template>
   <div class="vacancy_offer d-grid m-top-2 padding-05" v-for="vacancy_offer in vacancy_offers" :key="vacancy_offer.id">
     <div class="d-grid g-gap-1 p-relative">
-      <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
-        <router-link :to="`/profile?id=${vacancy_offer.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-          <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!vacancy_offer.creator.image">
-          <img :src="'data:image/'+vacancy_offer.creator.image.filename+';charset=utf-8;base64, ' + vacancy_offer.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-        </router-link>
-        <div class="d-grid info_block j-content-flex-end">
-          <i>{{ vacancy_offer.creator.first_name }} {{ vacancy_offer.creator.last_name }}</i>
-          <span class="f-size-small">{{vacancy_offer.creator.name}}</span>
-        </div>
-      </div>
+      <v-user-mini-block :user="vacancy_offer.creator"/>
     </div>
 
     <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0">{{vacancy_offer.description}}</p>
@@ -68,10 +59,11 @@ import paginateMixin from "@/mixins/paginate-mixin";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VVacancyOfferEditForm from "@/components/vacancy/forms/v-vacancy-offer-edit-form";
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 
 export default {
   name: "v-vacancy-offers",
-  components: {VVacancyOfferEditForm, VAlertModal},
+  components: {VUserMiniBlock, VVacancyOfferEditForm, VAlertModal},
   mixins: [paginateMixin, toggleMixin],
   props: ['vacancy_id'],
   computed: mapState({
@@ -112,15 +104,6 @@ export default {
 <style scoped>
 .vacancy_offer{
   background-color: rgba(210, 210, 210, 0.1);
-}
-.img_block{
-  border: 1px solid #ccc;
-  height: 40px;
-  width: 40px;
-}
-.profile_image{
-  width: 120%;
-  height: auto;
 }
 .edit{
   height: 20px;

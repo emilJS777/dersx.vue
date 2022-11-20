@@ -9,7 +9,7 @@
 <script>
 export default {
   name: "v-input-normal",
-  props: ['type', 'label', 'span', 'placeholder', 'default_value'],
+  props: ['type', 'label', 'span', 'placeholder', 'default_value', 'input_class'],
   data(){
     return{
       value: this.default_value || null

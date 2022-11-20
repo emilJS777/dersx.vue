@@ -1,39 +1,69 @@
 <template>
   <div class="publication_comment m-top-2 d-grid bg-ccc-opacity padding-05">
     <div class="d-grid g-gap-1 p-relative">
-      <div class="d-flex a-items-center g-gap-_5 p-relative w-max" >
-        <router-link :to="`/profile?id=${publication_comment.creator.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-          <!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!vacancy.creator.image">-->
-          <span v-if="!publication_comment.creator.image">{{publication_comment.creator.first_name[0]}}</span>
-          <img :src="'data:image/'+publication_comment.creator.image.filename+';charset=utf-8;base64, ' + publication_comment.creator.image.b64" class="p-absolute absolute-center profile_image" v-else>
-        </router-link>
-        <div class="d-grid info_block j-content-flex-end">
-          <i>{{ publication_comment.creator.first_name }} {{ publication_comment.creator.last_name }}</i>
-          <span class="f-size-small">{{publication_comment.creator.name}}</span>
-        </div>
-      </div>
+      <v-user-mini-block :user="publication_comment.creator"/>
     </div>
     <span class="f-size-small m-top-1">{{publication_comment.text}}</span>
 
-    <p class="m-bottom-0 f-size-small"><b>опубликовано</b> {{publication_comment.creation_date}}</p>
+    <div class="d-flex j-content-space-between a-items-center">
+      <p class="m-bottom-0 f-size-small"><b>опубликовано</b> {{publication_comment.creation_date}}</p>
+
+      <div class="edit d-flex g-gap-_5 d-none animation-from-hidden" v-if="profile && profile.id === publication_comment.creator.id">
+        <div @click="setModalName('publicationCommentEditBlock')">
+          <i class="fa fa-edit c-content-hover c-pointer" aria-hidden="true"></i>
+        </div>
+
+        <div @click="this.setModalName('publicationCommentDeleteAlert')">
+          <i class="fa fa-trash c-pointer c-content-hover err-msg" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+
+    <v-publication-comment-edit-form v-if="modalName === 'publicationCommentEditBlock' && this.publication_comment"
+                                     @refresh="this.$emit('refresh_modal')"
+                                     :publication_comment="publication_comment"
+                                     @close="setModalName(false)"/>
   </div>
+
+<!--  ALERTS-->
+  <v-alert-modal label="вы дествительно хотите удалить комментарий ?"
+                 @close="setModalName(false)"
+                 @confirm="onDeletePublicationComment"
+                 v-if="this.modalName === 'publicationCommentDeleteAlert'"/>
 </template>
 
 <script>
+import VUserMiniBlock from "@/components/_general/v-user-mini-block";
+import {mapState} from "vuex";
+import toggleMixin from "@/mixins/toggle-mixin";
+import VAlertModal from "@/components/_general/v-alert-modal";
+import VPublicationCommentEditForm from "@/components/publication/forms/v-publication-comment-edit-form";
 export default {
   name: "v-publication-comment",
-  props: ['publication_comment']
+  components: {VPublicationCommentEditForm, VAlertModal, VUserMiniBlock},
+  mixins: [toggleMixin],
+  props: ['publication_comment'],
+  computed: mapState({
+    profile: state => state.auth.profile
+  }),
+  methods:{
+    onDeletePublicationComment(){
+      this.emitter.emit('load', true)
+      this.$store.dispatch("publication_comment/DELETE", this.publication_comment.id).then(data => {
+        if(data.success) {
+          this.setModalName(false)
+          this.$emit('refresh_modal')
+        }
+        else
+          this.emitter.emit('message', data)
+      }).finally(() => this.emitter.emit('load', false))
+    }
+  }
 }
 </script>
 
 <style scoped>
-.img_block{
-  border: 1px solid #ccc;
-  height: 40px;
-  width: 40px;
-}
-.profile_image{
-  width: 120%;
-  height: auto;
+.publication_comment:hover .edit{
+  display: flex;
 }
 </style>
