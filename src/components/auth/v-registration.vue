@@ -1,7 +1,10 @@
 <template>
   <div class="modal d-flex a-items-center j-content-center">
     <div class="modal-content h-max-content animation-from-hidden">
-      <h3 class="m-top-0 m-bottom-1 t-center">регистрация</h3>
+      <h3 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 j-content-center a-items-center">
+        <v-logo/>
+        регистрация
+      </h3>
 
       <form action="">
         <v-input-normal label="имя пользователя"
@@ -42,6 +45,12 @@
 
         <v-input-normal label="повторите пароль" class="m-top-1" type="password" span=""/>
 
+        <div class="d-flex g-gap-1 m-top-1 social-icon-size">
+          <i class="fab fa-github c-pointer"/>
+          <i class="fab fa-linkedin c-pointer"/>
+          <i class="fab fa-google c-pointer"/>
+        </div>
+
         <div class="btn_block d-flex g-gap-1 m-top-1 j-content-flex-end">
           <v-button-normal label="войти" class="bg-content" @click="registration"/>
           <v-button-normal label="закрыт" @click="this.$emit('close')"/>
@@ -58,11 +67,12 @@ import VButtonNormal from "@/components/_general/v-button-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VDatePicker from "@/components/_general/v-date-picker";
 import VRadiosNormal from "@/components/_general/v-radios-normal";
+import VLogo from "@/components/_general/v-logo";
 
 export default {
   name: "v-registration",
   mixins: [toggleMixin],
-  components: {VRadiosNormal, VDatePicker, VButtonNormal, VInputNormal},
+  components: {VLogo, VRadiosNormal, VDatePicker, VButtonNormal, VInputNormal},
   data() {
     return {
       genders: [],

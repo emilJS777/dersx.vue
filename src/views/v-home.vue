@@ -1,44 +1,47 @@
 <template>
   <div class="home d-grid g-gap-3">
 <!--    VACANCIES-->
-    <div class="bg-fff h-max-content">
-      <h4 class="m-top-0 m-bottom-0 bg-ccc-opacity padding-05 d-flex j-content-space-between a-items-center">
+    <div class="h-max-content">
+      <h4 class="m-top-0 m-bottom-0 padding-05 d-flex j-content-space-between a-items-center">
         <span class="c-content">новые вакансии</span>
         <router-link to="/vacancies" class="f-size-small">смотреть все</router-link>
       </h4>
-      <div class="g-gap-1 d-grid">
-        <v-vacancies-list v-for="vacancy in vacancies"
-                          :key="vacancy.id"
-                          :footer="false"
-                          :categories="false"
-                          :vacancy="vacancy" class="padding-1"/>
-        <div class="d-flex j-content-flex-end">
+      <div class="d-grid">
+          <v-vacancies-list v-for="vacancy in vacancies"
+                            :key="vacancy.id"
+                            :footer="false"
+                            :categories="false"
+                            :vacancy="vacancy"
+                            class="padding-1 bg-fff m-top-1"/>
+          <div class="d-flex j-content-flex-end">
         </div>
       </div>
     </div>
 
 <!--    PUBLICATIONS-->
     <div>
-      <v-publication-create-form class="bg-fff padding-1" v-if="profile"/>
+      <div class="box-shadow-slim" v-if="profile">
+        <v-publication-create-form class="bg-fff padding-1"/>
+      </div>
 
-      <div class="m-top-1 d-flex g-gap-_5">
-        <a href="/"  :class="`padding-05 bg-fff b-radius-8 c-pointer ${!Object.keys(this.$route.query).length ? 'c-ccc' : ''}`">все</a>
+      <div class="m-top-1 d-flex g-gap-_5 box-shadow-slim padding-1 bg-fff">
+        <a href="/"  :class="`padding-05 bg-fff b-radius-8 c-pointer b-solid-ccc ${!Object.keys(this.$route.query).length ? 'c-ccc' : ''}`">все</a>
 
         <a :href="`?publicator_id=${profile.id}`"
-           :class="`padding-05 bg-fff b-radius-8 c-pointer ${this.$route.query.publicator_id === profile.id.toString() ? 'c-ccc' : ''}`"
+           :class="`padding-05 bg-fff b-radius-8 c-pointer b-solid-ccc ${this.$route.query.publicator_id === profile.id.toString() ? 'c-ccc' : ''}`"
            v-if="profile">мои публикации </a>
 
         <a :href="`?liked_id=${profile.id}`"
            v-if="profile"
-           :class="`padding-05 bg-fff b-radius-8 c-pointer ${this.$route.query.liked_id === profile.id.toString() ? 'c-ccc' : ''}`">
+           :class="`padding-05 bg-fff b-radius-8 c-pointer b-solid-ccc ${this.$route.query.liked_id === profile.id.toString() ? 'c-ccc' : ''}`">
           понравившийся</a>
       </div>
 
       <h3 class="c-ccc t-center" v-if="!publications.length">ничего не найдено </h3>
       <v-publication-list v-for="publication in publications"
                           :key="publication.id"
-                          v-else
-                          :publication="publication"/>
+                          :publication="publication"
+                          v-else/>
     </div>
   </div>
 </template>

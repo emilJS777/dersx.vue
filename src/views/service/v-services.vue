@@ -1,6 +1,6 @@
 <template>
   <div class="services d-grid g-gap-3">
-    <div class="filter d-grid g-gap-1 bg-fff padding-1 h-max-content">
+    <div class="filter d-grid g-gap-1 bg-fff padding-1 h-max-content box-shadow-slim">
       <v-select-normal label="выберите рубрику"
                        span="ваша желаемая рубрика для поиска"
                        :items="rubrics"

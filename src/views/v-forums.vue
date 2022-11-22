@@ -1,7 +1,7 @@
 <template>
   <div class="forums d-grid g-gap-3">
 <!--    FORUMS SIDEBAR-->
-    <v-forum-list @open="forum_id =>setModalName('forumDiscussion', forum_id)"/>
+    <v-forum-list @open="forum_id =>setModalName('forumDiscussion', forum_id)" class="box-shadow-slim"/>
 
 <!--    FORUM CREATE BUTTON-->
     <div class="h-max-content padding-1 d-flex j-content-center" v-if="!modalName">

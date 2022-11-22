@@ -1,8 +1,8 @@
 <template>
   <div class="vacancy d-grid g-gap-3">
-    <div class="vacancies_list d-grid g-gap-1 bg-fff h-max-content">
-      <h4 class="m-top-0 m-bottom-0 padding-05 bg-ccc-opacity c-content">похожие вакансии </h4>
-      <v-vacancies-list  class="padding-1 bg-fff"
+    <div class="vacancies_list d-grid g-gap-1 h-max-content">
+      <h4 class="m-top-0 m-bottom-0 padding-05 c-content">похожие вакансии </h4>
+      <v-vacancies-list  class="padding-1 bg-fff box-shadow-slim"
                          v-for="vacancy in similarVacancies"
                         :key="vacancy.id"
                         :vacancy="vacancy"

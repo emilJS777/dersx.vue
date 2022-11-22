@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex j-content-center">
+  <div class="d-flex j-content-center box-shadow-slim">
     <div class="bg-fff w-max padding-1 animation-from-hidden">
       <h2 class="m-top-0 d-flex j-content-space-between">новая вакансия <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span></h2>
       <v-input-normal label="название"

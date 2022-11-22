@@ -63,6 +63,9 @@ a{
 .f-right{
     float: right;
 }
+.margin-1{
+    margin: 1em;
+}
 .m-0-auto{
     margin: 0 auto;
 }
@@ -140,6 +143,9 @@ a{
 }
 .f-size-small{
     font-size: 13px;
+}
+.social-icon-size{
+    font-size: 23px;
 }
 .f-weight-bold{
     font-weight: bold;
@@ -435,3 +441,9 @@ a{
     cursor: initial;
 }
 
+/*BOX SHADOW*/
+.box-shadow-slim{
+    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
+}

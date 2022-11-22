@@ -2,10 +2,10 @@
   <div class="messager d-grid g-gap-3">
 
 <!--    LEFT BLOCK-->
-    <div class="bg-fff h-max-content padding-1">
+    <div class="bg-fff h-max-content padding-1 box-shadow-slim">
       <div class="d-flex g-gap-_3 a-items-flex-end">
-        <v-input-normal placeholder="поиск..." span="найти по имени пользователя "/>
-        <v-button-normal icon="fa fa-search c-555" class=""/>
+        <v-input-normal placeholder="поиск..." span="найти по имени пользователя " @value="value => this.search = value"/>
+        <v-button-normal icon="fa fa-search c-555" class="" @click="getRooms"/>
       </div>
 
 <!--        CONTACTS-->
@@ -24,19 +24,13 @@
     </div>
 
 <!--    RIGHT BLOCK-->
-    <div class="bg-fff padding-1">
+    <div class="bg-fff padding-1 h-max-content">
       <v-messager-table :room="active_room" v-if="this.modalName === 'messagerTableBlock'" @refreshModal="this.setModalName('messagerTableBlock')"/>
 
             <!--      FRIENDS-->
-            <div class="w-max" v-else>
-              <h4 class="m-bottom-0 c-555 m-left-05 m-top-0">мои друзья</h4>
-              <p class="c-ccc f-size-small m-top-0 m-left-05">раздел пуст </p>
-
-              <div class="bg-ccc-opacity-hover w-max padding-05 c-pointer">
-                <v-user-mini-block :user="profile" class="" />
-              </div>
-
-              <span class=" c-pointer c-content f-size-small bg-content-hover padding-left-1 padding-right-1 b-radius-8">показать еще</span>
+            <div class="w-max d-flex g-gap-1 j-content-center a-items-center c-content-hover" v-else>
+              <router-link to="/users" class="t-decoration-underline">найдите себе контакты </router-link>
+              <i class="fas fa-search fa-2x"></i>
             </div>
     </div>
   </div>
@@ -55,6 +49,7 @@ export default {
   mixins: [toggleMixin],
   data(){
     return{
+      search: '',
       rooms: [],
       active_room: null
     }
@@ -68,7 +63,7 @@ export default {
   methods: {
     getRooms(){
       this.emitter.emit('load', true)
-      this.$store.dispatch("room/GET", `?limit=${8}&offset=${0}`).then(data => {
+      this.$store.dispatch("room/GET", `?limit=${8}&offset=${0}&search=${this.search}`).then(data => {
         this.rooms = data.obj
       }).finally(() => {
         this.emitter.emit('load', false)

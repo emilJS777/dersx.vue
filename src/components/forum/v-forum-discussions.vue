@@ -1,7 +1,7 @@
 <template>
-  <div v-if="this.forum.title" class="h-max-content">
+  <div v-if="this.forum.title" class="h-max-content box-shadow-slim">
     <div class="bg-fff">
-      <div class=" padding-1 d-grid">
+      <div class=" padding-1 d-grid ">
         <h4 class="m-top-0 m-bottom-0 c-content d-flex a-items-center j-content-space-between">
           {{ this.forum.title }}
           <span class="c-ccc c-content-hover c-pointer" @click="this.$emit('close')">закрыт ✖</span>
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="m-top-05 padding-1 d-grid g-gap-_3 forum_discussion bg-ccc-opacity" v-for="forum_discussion in forum_discussions" :key="forum_discussion.id">
+      <div class="m-top-05 padding-1 d-grid g-gap-_3 forum_discussion margin-1" v-for="forum_discussion in forum_discussions" :key="forum_discussion.id">
         <div class="d-flex j-content-space-between a-items-center">
           <div class="d-grid g-gap-_3 p-relative">
             <v-user-mini-block :user="forum_discussion.creator"/>
@@ -55,17 +55,13 @@
             </svg>
           </div>
         </div>
-
         <span class="">{{ forum_discussion.description }}</span>
-
-
       </div>
+      <v-forum-discussion-create-form @refresh_modal="this.$emit('refresh_modal')"
+                                      class="shad"
+                                      v-if="profile"
+                                      :forum_id="this.forum_id"/>
     </div>
-
-
-    <v-forum-discussion-create-form @refresh_modal="this.$emit('refresh_modal')"
-                                    v-if="profile"
-                                    :forum_id="this.forum_id"/>
   </div>
 
 <!--  MODALS-->

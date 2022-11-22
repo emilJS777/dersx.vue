@@ -1,9 +1,12 @@
 <template>
-  <div class="d-flex j-content-center" v-if="vacancy">
+  <div class="d-flex j-content-center box-shadow-slim" v-if="vacancy">
     <div class="padding-1 w-max bg-fff animation-from-hidden">
       <h2 class="m-top-0 d-flex j-content-space-between">
         {{vacancy.title}}
-        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span>
+        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          назад
+        </span>
       </h2>
       <div class="d-grid g-gap-1 p-relative">
         <v-user-mini-block :user="vacancy.creator"/>

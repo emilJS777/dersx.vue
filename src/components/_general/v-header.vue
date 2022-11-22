@@ -1,7 +1,7 @@
 <template>
   <div class="header d-grid g-gap-_3 a-items-center">
     <div class="logo">
-      <h1>Skill<span class="c-content">X</span></h1>
+      <v-logo/>
       <i>freelance exchange</i>
     </div>
 
@@ -103,10 +103,11 @@ import VRegistration from "@/components/auth/v-registration";
 import {mapState} from "vuex"
 import imageGetMixin from "@/mixins/image-get-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
+import VLogo from "@/components/_general/v-logo";
 export default {
   name: "v-header",
   mixins: [toggleMixin, imageGetMixin],
-  components: {VAlertModal, VRegistration, VLoginModal, VButtonNormal},
+  components: {VLogo, VAlertModal, VRegistration, VLoginModal, VButtonNormal},
   computed: mapState({
     profile: state => state.auth.profile
   }),
@@ -131,19 +132,13 @@ export default {
   padding: 20px 15%;
   grid-template-columns: 1fr 2fr 1fr 1.5fr;
 }
-.header h1{
-  font-size: 38px;
-  margin: 0;
-}
+
 .logo{
   line-height: .9;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.logo span{
-  font-style: italic;
-  font-size: 45px;
-}
+
 .img_block{
   border: 1px solid #ccc;
   height: 40px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="service bg-fff padding-1 h-max-content">
+  <div class="service bg-fff padding-1 h-max-content box-shadow-slim">
       <div class="service_img_block p-relative o-hidden" v-if="service.image">
         <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>

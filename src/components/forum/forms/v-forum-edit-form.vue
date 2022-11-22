@@ -1,7 +1,7 @@
 <template>
   <div class="modal d-flex j-content-center a-items-center" v-if="form.rubric">
     <div class="modal-content animation-from-hidden h-max-content">
-      <h2 class="m-top-0">новый форум</h2>
+      <h2 class="m-top-0">редактировать форум</h2>
 
       <v-input-normal label="название"
                       span="минимум 6 и максимум 80 символов"

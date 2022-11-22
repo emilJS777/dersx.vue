@@ -4,8 +4,11 @@
       <div class="service_img_block p-relative o-hidden" v-if="service.image" @click="this.$emit('more')">
         <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>
-      <div class="d-flex m-top-05">
-        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span>
+      <div class="d-flex m-top-05 j-content-flex-end">
+        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          назад
+        </span>
       </div>
       <h4 class="m-top-05 d-flex j-content-space-between">
         {{ service.title }}
@@ -22,7 +25,6 @@
             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
           </svg>
         </div>
-
       </h4>
 
       <div class="d-flex j-content-space-between">

@@ -1,6 +1,6 @@
 <template>
   <div class="users d-grid g-gap-3">
-    <div class="filter_form d-grid g-gap-1 h-max-content bg-fff padding-1">
+    <div class="filter_form d-grid g-gap-1 h-max-content bg-fff padding-1 box-shadow-slim">
       <v-select-normal label="выберите рубрику"
                        span="рубрика пользователя"
                        :items="rubrics"
@@ -25,7 +25,7 @@
 
     <div>
       <div class="users_list d-grid g-gap-3 m-top-2 h-max-content">
-        <v-user v-for="user in users" :key="user.id" :user="user"/>
+        <v-user v-for="user in users" :key="user.id" :user="user" class="box-shadow-slim"/>
       </div>
 
       <h3 class="t-center c-ccc" v-if="!users.length">ничего не найдено</h3>

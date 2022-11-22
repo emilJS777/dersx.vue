@@ -1,5 +1,5 @@
 <template>
-  <div class="publication padding-2 bg-fff m-top-1">
+  <div class="publication padding-2 bg-fff m-top-1 box-shadow-slim">
     <div class="head d-flex j-content-space-between a-items-flex-start">
       <v-user-mini-block :user="publication.creator"/>
 
