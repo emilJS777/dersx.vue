@@ -11,7 +11,7 @@
       </div>
 
       <div class="d-grid g-gap-1 h-max-content">
-        <div class="toggle_block d-flex g-gap-1 padding-03 bg-fff c-ccc">
+        <div class="toggle_block d-flex g-gap-1 padding-03 bg-fff c-ccc box-shadow-slim">
           <span v-bind:class="modalName === 'infoUserTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="setModalName('infoUserTab')">информация о пользователе</span>
           <span v-bind:class="modalName === 'publicationVacancies' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="get_vacancies">опубликованные вакансии</span>
           <span v-bind:class="modalName === 'servicesTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="get_services">услуги пользователя </span>

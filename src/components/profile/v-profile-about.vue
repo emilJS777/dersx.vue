@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-fff padding-1" v-if="!modalName">
+  <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-top-0 m-bottom-0 d-flex j-content-space-between a-items-center">
       навыки и умения
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  <div class="bg-fff padding-1" v-if="!modalName">
+  <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
       опыт работы
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
@@ -107,7 +107,7 @@
 <!--    <i class="m-top-0">данный раздел пуст </i>-->
 <!--  </div>-->
 
-  <div class="bg-fff padding-1" v-if="!modalName">
+  <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
       контакты
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
@@ -134,7 +134,7 @@
     </div>
   </div>
 
-  <div class="bg-fff padding-1" v-if="!modalName">
+  <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
       о себе
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"

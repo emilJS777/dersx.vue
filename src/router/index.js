@@ -67,11 +67,6 @@ const routes = [
         name: "serviceCreate",
         component: () => import("@/views/service/v-service-create.vue")
     },
-    {
-        path: "/messager",
-        name: "messager",
-        component: () => import("@/views/v-messager.vue")
-    }
 ];
 
 

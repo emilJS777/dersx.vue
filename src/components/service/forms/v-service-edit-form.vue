@@ -1,7 +1,12 @@
 <template>
-  <div class="d-flex a-items-center j-content-center">
+  <div class="d-flex a-items-center j-content-center box-shadow-slim">
     <div class="bg-fff padding-1 w-max padding-1">
-      <h3 class="m-top-0 d-flex j-content-space-between">обновить услугу <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span></h3>
+      <h3 class="m-top-0 d-flex j-content-space-between">обновить услугу
+        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          назад
+        </span>
+      </h3>
 
       <div class="d-flex j-content-space-between a-items-flex-end">
         <v-input-file-form label="изображение"

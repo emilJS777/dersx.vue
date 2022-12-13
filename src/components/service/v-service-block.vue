@@ -1,29 +1,37 @@
 <template>
   <div class="service">
-    <div class="bg-fff padding-1 w-max" v-if="service">
-      <div class="service_img_block p-relative o-hidden" v-if="service.image" @click="this.$emit('more')">
-        <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
-      </div>
-      <div class="d-flex m-top-05 j-content-flex-end">
+    <div class="bg-fff padding-1 w-max box-shadow-slim" v-if="service">
+      <div class="d-flex j-content-space-between a-items-center">
         <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
           <i class="fa fa-arrow-left" aria-hidden="true"></i>
           назад
         </span>
-      </div>
-      <h4 class="m-top-05 d-flex j-content-space-between">
-        {{ service.title }}
-        <div class="edit d-flex g-gap-1 j-content-flex-end" v-if="profile && service.creator.id === profile.id">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash err-msg c-pointer animation-from-hidden" viewBox="0 0 16 16"
-               @click="setModalName('serviceDeleteAlert', service.id)">
-            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-          </svg>
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square c-pointer animation-from-hidden" viewBox="0 0 16 16"
-               @click="this.$router.push({name: 'serviceEdit', query:{id: service.id}})">
-            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-          </svg>
+        <div class="edit d-flex g-gap-1 j-content-flex-end d-block-hover p-relative f-weight-bold" v-if="profile && service.creator.id === profile.id">
+          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+
+          <ul class="m-0-auto d-none animation-from-hidden p-absolute padding-05 bg-fff box-shadow-slim z-index-max">
+            <li @click="this.$router.push({name: 'serviceEdit', query:{id: service.id}})" class="padding-03 c-pointer c-content-hover f-size-small d-flex g-gap-_5 a-items-center">
+              <i class="far fa-edit"></i>
+              редактировать
+            </li>
+
+            <li @click="setModalName('serviceDeleteAlert', service.id)" class="padding-03 c-pointer c-content-hover f-size-small err-msg d-flex g-gap-_5 a-items-center">
+              <i class="fas fa-trash-alt"></i>
+              удалить
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service_img_block p-relative o-hidden m-top-05" v-if="service.image" @click="this.$emit('more')">
+        <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
+      </div>
+
+      <h4 class="m-top-05 d-flex j-content-space-between a-items-center m-top-1">
+        <div class="d-grid">
+          {{ service.title }}
+          <span class="f-size-small f-weight-bold">{{service.rubric.title}}</span>
         </div>
       </h4>
 
@@ -31,7 +39,7 @@
         <div class="d-grid g-gap-1 p-relative">
           <v-user-mini-block :user="service.creator"/>
         </div>
-        <span class="f-size-small f-weight-bold">{{service.rubric.title}}</span>
+
       </div>
 
       <p class="m-bottom-0">{{service.long_description}}</p>
@@ -105,7 +113,7 @@ export default {
 }
 .service_img_block{
   width: 100%;
-  height: 260px;
+  height: 280px;
 }
 .service_img_block > img{
   min-width: 100%;

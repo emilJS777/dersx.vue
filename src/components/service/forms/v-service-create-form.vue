@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex a-items-center j-content-center">
+  <div class="d-flex a-items-center j-content-center box-shadow-slim">
     <div class="bg-fff padding-1 w-max padding-1">
       <h3 class="m-top-0 d-flex j-content-space-between">создать услугу <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span></h3>
 

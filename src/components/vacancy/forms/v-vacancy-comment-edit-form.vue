@@ -1,6 +1,6 @@
 <template>
-  <div  class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content w-max-content h-max-content">
+  <div  class="padding-1">
+    <div class="h-max-content">
       <v-textarea-normal @value="value => form.text = value"
                          :default_value="form.text"
                          v-if="typeof form.text === 'string'"
@@ -64,7 +64,5 @@ export default {
 </script>
 
 <style scoped>
-.modal-content{
-  min-width: 500px;
-}
+
 </style>

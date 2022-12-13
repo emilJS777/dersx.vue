@@ -66,6 +66,9 @@ a{
 .margin-1{
     margin: 1em;
 }
+.margin-05{
+    margin: .5em;
+}
 .m-0-auto{
     margin: 0 auto;
 }
@@ -104,6 +107,12 @@ a{
 }
 .m-right-1{
     margin-right: 1em;
+}
+.m-bottom-1{
+    margin-bottom: 1em;
+}
+.m-bottom-2{
+    margin-bottom: 1em;
 }
 .padding-0{
     padding: 0;
@@ -231,7 +240,12 @@ a{
 .h-max-content{
     height: max-content;
 }
-
+.bg-initial{
+    background-color: initial !important;
+}
+.bg-red{
+    background-color: #a43030;
+}
 .bg-content, .bg-content-hover:hover{
     background-color: #ea7745;
     color: #fff;
@@ -358,12 +372,26 @@ a{
     animation-name: animation-from-hidden;
     animation-duration: .5s;
 }
+.animation-from-hidden-infinite{
+    animation: animation-from-hidden-infinite 1s infinite;
+}
 @keyframes animation-from-hidden {
     0%{
         opacity: 0;
     }
     100%{
         opacity: 1;
+    }
+}
+@keyframes animation-from-hidden-infinite {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+    150%{
+        opacity: .5;
     }
 }
 
@@ -443,7 +471,7 @@ a{
 
 /*BOX SHADOW*/
 .box-shadow-slim{
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
-    -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.08);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.12);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.12);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.12);
 }

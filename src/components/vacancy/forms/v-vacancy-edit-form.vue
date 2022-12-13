@@ -1,7 +1,12 @@
 <template>
   <div class="d-flex j-content-center box-shadow-slim">
     <div class="bg-fff w-max padding-1 animation-from-hidden">
-      <h2 class="m-top-0 d-flex j-content-space-between">редактировать вакансию <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span></h2>
+      <h2 class="m-top-0 d-flex j-content-space-between">редактировать вакансию
+        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          назад
+        </span>
+      </h2>
       <v-input-normal label="название"
                       span="в данном поле нужно описать название вакансии, это может быть просто название специализации. от 5 до 50 символов"
                       :default_value="form.title"

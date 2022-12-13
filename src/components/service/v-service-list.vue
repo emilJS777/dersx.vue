@@ -31,7 +31,7 @@ export default {
 <style scoped>
 .service_img_block{
   width: 100%;
-  height: 120px;
+  height: 150px;
 }
 .service_img_block > img{
   min-width: 100%;

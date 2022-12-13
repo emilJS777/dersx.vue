@@ -24,6 +24,11 @@
         </svg>
       </div>
     </div>
+
+    <v-vacancy-offer-edit-form :vacancy_offer_id="this.id"
+                               @close="setModalName(false)"
+                               @vacancy_offer_edit_success="()=>{setModalName(false);this.$emit('refresh_modal')}"
+                               v-if="modalName === 'vacancyOfferEditModal'"/>
   </div>
 
   <h3 class="c-ccc" v-if="!vacancy_offers.length">предложения не найдены</h3>
@@ -47,10 +52,7 @@
                  @close="setModalName(false)"/>
 
 <!--  MODALS-->
-  <v-vacancy-offer-edit-form :vacancy_offer_id="this.id"
-                             @close="setModalName(false)"
-                             @vacancy_offer_edit_success="()=>{setModalName(false);this.$emit('refresh_modal')}"
-                             v-if="modalName === 'vacancyOfferEditModal'"/>
+
 </template>
 
 <script>

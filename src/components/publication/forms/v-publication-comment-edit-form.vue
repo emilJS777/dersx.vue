@@ -7,6 +7,7 @@
 
     <div class="d-flex g-gap-_5">
       <v-button-normal label="обновить"
+                       class="bg-content"
                        @click="setModalName('publicationCommentUpdateAlert')"/>
       <v-button-normal label="отменить" @click="this.$emit('close')"/>
     </div>

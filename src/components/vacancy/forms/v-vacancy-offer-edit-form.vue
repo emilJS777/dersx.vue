@@ -1,6 +1,6 @@
 <template>
-  <div  class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content w-max w-max-content h-max-content d-grid g-gap-2">
+  <div  class=" a-items-center j-content-center">
+    <div class="padding-1 h-max-content d-grid g-gap-2">
 
       <div class="d-flex g-gap-3 a-items-flex-end j-content-space-between">
         <v-input-normal label="укажите желаемую цену за услугу "

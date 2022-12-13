@@ -1,6 +1,6 @@
 <template>
   <div class="service d-grid g-gap-3">
-    <div class="d-grid g-gap-1 h-max-content bg-fff">
+    <div class="d-grid g-gap-1 h-max-content">
       <h4 class="m-top-0 m-bottom-0 bg-ccc-opacity c-content padding-05">похожие услуги </h4>
       <v-service-list v-for="service in similarServices"
                       :key="service.id"

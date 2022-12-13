@@ -21,6 +21,11 @@
         </svg>
       </div>
     </div>
+
+    <v-vacancy-comment-edit-form :vacancy_comment_id="this.id"
+                                 v-if="modalName === 'vacancyCommentEditModal' && this.id === vacancy_comment.id"
+                                 @success_edit="()=>{setModalName(false);this.$emit('refreshModal')}"
+                                 @close="setModalName(false)"/>
   </div>
 
   <h3 class="c-ccc" v-if="!vacancy_comments.length">комментарии не найдены</h3>
@@ -38,10 +43,7 @@
   </div>
 
   <!--  MODALS-->
-  <v-vacancy-comment-edit-form :vacancy_comment_id="this.id"
-                               v-if="modalName === 'vacancyCommentEditModal'"
-                               @success_edit="()=>{setModalName(false);this.$emit('refreshModal')}"
-                               @close="setModalName(false)"/>
+
 
   <!--  ALERTS-->
   <v-alert-modal v-if="modalName === 'vacancyCommentDeleteAlert'"

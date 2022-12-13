@@ -14,18 +14,25 @@
     <span class="loader"></span>
   </div>
 
+  <v-messager v-if="profile"/>
 </template>
 
 <script>
 
 import VHeader from "@/components/_general/v-header";
 import VMessageModal from "@/components/_general/v-message-modal";
+import {mapState} from "vuex";
+import VMessager from "@/components/messager/v-messager";
 export default {
   name: 'App',
   components: {
+    VMessager,
     VMessageModal,
     VHeader,
   },
+  computed: mapState({
+    profile: state => state.auth.profile
+  }),
   data(){
     return{
       message: {
@@ -36,23 +43,36 @@ export default {
     }
   },
   mounted(){
+
     // MESSAGE MODAL
     this.emitter.on("message", (data) => {
       if(data){
-        this.message.value = data.obj.msg
-        this.message.success = data.success
+        this.message.value = data.obj ? data.obj.msg : null
+        this.message.success = data.success ? data.success : null
+        this.message.data = data
       }
       else{
         this.message.value = null
         this.message.success = null
       }
     });
+
     // PAGE LOADER
     this.emitter.on('load', bool => {
       this.loader = bool
     })
 
     this.get_profile()
+  },
+  created() {
+    // WEBSOCKET EMIT
+
+    //
+    // v-messager.vue
+    //
+    this.sockets.subscribe('message_read', (data) => {
+      this.emitter.emit('message_read', data)
+    })
   },
   methods: {
     get_profile(){

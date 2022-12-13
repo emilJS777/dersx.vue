@@ -4,6 +4,7 @@ import router from "@/router";
 import store from "@/store";
 import mitt from "mitt";
 import Paginate from "vuejs-paginate-next";
+import WSocket from "./plugins/web_socket"
 //vue-app/src/main.js
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -21,6 +22,7 @@ dom.watch();
 
 const app = createApp(App)
 app.config.globalProperties.emitter = mitt();
+app.use(WSocket)
 app.use(router)
 app.use(store)
 app.use(FontAwesomeIcon)

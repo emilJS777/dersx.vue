@@ -2,7 +2,7 @@
   <div class="home d-grid g-gap-3">
 <!--    VACANCIES-->
     <div class="h-max-content">
-      <h4 class="m-top-0 m-bottom-0 padding-05 d-flex j-content-space-between a-items-center">
+      <h4 class="m-top-0 m-bottom-0 padding-05 bg-ccc-opacity d-flex j-content-space-between a-items-center">
         <span class="c-content">новые вакансии</span>
         <router-link to="/vacancies" class="f-size-small">смотреть все</router-link>
       </h4>
@@ -52,20 +52,18 @@ import VPublicationCreateForm from "@/components/publication/forms/v-publication
 import VPublicationList from "@/components/publication/v-publication-list";
 import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
+import offsetMixin from "@/mixins/offset-mixin";
 export default {
   name: "v-home",
   components: {VPublicationList, VPublicationCreateForm, VVacanciesList},
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, offsetMixin],
   computed: mapState({
     profile: state => state.auth.profile
   }),
   data(){
     return{
       vacancies: [],
-      publications: [],
-
-      limit: 3,
-      offset: 0
+      publications: []
     }
   },
   created() {
@@ -73,6 +71,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll);
   },
   mounted() {
+    this.setLimit(3)
     this.emitter.emit('load', true)
     this.$store.dispatch("vacancy/GET", `?page=1&per_page=5`).then(data => {
       this.vacancies = data.obj.items
@@ -91,8 +90,7 @@ export default {
     },
     handleScroll() {
       if (((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 1) && (this.publications.length) && (this.$route.name === 'home')) {
-        this.limit = 2
-        this.offset += 3
+        this.setOffset()
         this.publicationGet()
       }
     },

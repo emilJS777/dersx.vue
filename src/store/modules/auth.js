@@ -27,6 +27,10 @@ const auth = {
     },
     state: {
         profile: null
+    },
+
+    getters: {
+        GET_PROFILE: (state) => state.profile
     }
 }
 
