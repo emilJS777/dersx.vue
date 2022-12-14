@@ -3,8 +3,8 @@ import request from "@/store/request";
 const room = {
     namespaced: true,
     actions: {
-        async DELETE(context, forum_discussion_id){
-            const data = await request(context, "/room?id="+forum_discussion_id, "DELETE")
+        async DELETE(context, query){
+            const data = await request(context, "/room"+query, "DELETE")
             return data
         },
         async GET(context, query){

@@ -17,6 +17,10 @@
       </svg>
     </div>
   </div>
+
+  <!--  USER MENU-->
+  <v-user-menu-block v-if="profile && user.id !== profile.id" :user="user"/>
+
   <div class="info d-grid" v-if="user">
     <h4 class="t-center">персональные данные</h4>
     <i class="t-center">{{user.name}}</i>
@@ -76,9 +80,10 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import imageGetMixin from "@/mixins/image-get-mixin";
 import {mapState} from "vuex";
+import VUserMenuBlock from "@/components/_general/v-user-menu-block";
 export default {
   name: "v-profile-img",
-  components: {VAlertModal, VInputFileNormal},
+  components: {VUserMenuBlock, VAlertModal, VInputFileNormal},
   mixins: [toggleMixin, imageGetMixin],
   computed: mapState({
     profile: state => state.auth.profile

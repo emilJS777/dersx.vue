@@ -43,11 +43,20 @@ export default {
     this.sockets.subscribe('message', (data) => {
       this.set_not_read_messages_list([data])
     });
+
+    this.emitter.on('openMessage', user => {
+      this.$store.dispatch("room/GET", `?user_id=${user.id}`).then(data => {
+        if(data.success)
+          this.setModalName('messagerBlock', data.obj.id, user)
+        else
+          this.emitter.emit('message', data)
+      })
+    })
   },
   methods:{
     set_not_read_messages_list(messages){
       this.$store.commit("message/SET_NOT_READ", messages)
-    }
+    },
   }
 }
 </script>

@@ -14,24 +14,38 @@
         </i>
 
         <div class="menu_block d-flex g-gap-_5 j-content-flex-end a-items-flex-start">
-          <span class="c-ccc c-content-hover f-size-small" title="скрыть">
+          <span class="c-ccc c-content-hover f-size-small" title="скрыть" @click="setModalName('roomHiddenAlert', room.id, room.user)">
             <i class="fa fa-eye-slash" aria-hidden="true"></i>
           </span>
-          <span class="c-ccc c-content-hover f-size-small" title="удалить">
+          <span class="c-ccc c-content-hover f-size-small" title="удалить" @click="setModalName('roomDeleteAlert', room.id, room.user)">
             <i class="fa fa-trash" aria-hidden="true"></i>
           </span>
         </div>
       </div>
     </div>
   </div>
+
+<!--  ALERT-->
+  <v-alert-modal :label="`вы хотите скрыть пользователя ${this.obj.first_name} ${this.obj.last_name} ?`"
+                 @close="setModalName(false)"
+                 @confirm="hiddenRoom"
+                 v-if="modalName === 'roomHiddenAlert'"/>
+
+  <v-alert-modal :label="`вы хотите удалить все сообщения с  ${this.obj.first_name} ${this.obj.last_name} ?`"
+                 @close="setModalName(false)"
+                 @confirm="deleteRoom"
+                 v-if="modalName === 'roomDeleteAlert'"/>
 </template>
 
 <script>
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import {mapState} from "vuex";
+import VAlertModal from "@/components/_general/v-alert-modal";
+import toggleMixin from "@/mixins/toggle-mixin";
 export default {
   name: "v-rooms-block",
-  components: {VUserMiniBlock},
+  components: {VAlertModal, VUserMiniBlock},
+  mixins: [toggleMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     new_messages: state => state.message.NOT_READ_LIST
@@ -53,6 +67,15 @@ export default {
       this.$store.dispatch("room/GET", `?limit=5&offset=0&search=`).then(data => {
         this.rooms = data.obj
       })
+    },
+    deleteRoom(){
+      this.emitter.emit('loader', true)
+      this.$store.dispatch("room/DELETE", `?user_id=${this.obj.id}`).then(data => {
+        this.emitter.emit('message', data)
+      }).finally(() => this.emitter.emit('load', false))
+    },
+    hiddenRoom(){
+
     }
   }
 }
