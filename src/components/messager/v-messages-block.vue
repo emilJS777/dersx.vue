@@ -7,6 +7,20 @@
       <h5 class="m-top-0 m-bottom-0 padding-03 d-grid">
         {{partner.first_name}} {{partner.last_name}}
       </h5>
+
+<!--      SETTING MENU-->
+      <div class="c-pointer p-relative">
+        <div @click="setModalName(modalName === 'inputText' ? 'messageSettings' : 'inputText')">
+          <i class="fa fa-cog" aria-hidden="true"></i>
+        </div>
+
+        <ul class="p-absolute right-0 bg-fff padding-05 box-shadow-slim w-max-content" v-if="modalName === 'messageSettings'">
+          <li class="d-flex g-gap-1 a-items-center c-red bg-ccc-opacity-hover" @click="setModalName('messagesDeleteAlert', this.room_id, this.partner)">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            <span>удалить сообщения</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="m-top-3" id="messages_block">
@@ -16,9 +30,16 @@
 
     <div class="padding-1 d-flex g-gap-_3">
       <v-input-normal placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>
-      <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="onMessage"/>
+      <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="onMessage" v-if="modalName === 'inputText'"/>
     </div>
   </div>
+
+
+<!--  ALERT-->
+  <v-alert-modal v-if="modalName === 'messagesDeleteAlert'"
+                 @close="setModalName('inputText')"
+                 @confirm="deleteRoom"
+                 :label="`вы хотите удалить все сообщения с ${this.obj.first_name} ${this.obj.last_name} ?`"/>
 </template>
 
 <script>
@@ -27,9 +48,10 @@ import VInputNormal from "@/components/_general/v-input-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VMessageBlock from "@/components/messager/v-message-block";
 import offsetMixin from "@/mixins/offset-mixin";
+import VAlertModal from "@/components/_general/v-alert-modal";
 export default {
   name: "v-messages-block",
-  components: {VMessageBlock, VInputNormal, VButtonNormal},
+  components: {VAlertModal, VMessageBlock, VInputNormal, VButtonNormal},
   props: ['user', 'partner', 'room_id'],
   mixins: [toggleMixin, offsetMixin],
   data(){
@@ -64,6 +86,12 @@ export default {
         this.setModalName('inputText')
         this.onBottomScroll()
       })
+    },
+    deleteRoom(){
+      this.emitter.emit('loader', true)
+      this.$store.dispatch("room/DELETE", `?user_id=${this.obj.id}`).then(data => {
+        this.emitter.emit('message', data)
+      }).finally(() => this.emitter.emit('load', false))
     },
     getMessages(on_bottom){
       this.$store.dispatch("message/GET", `?limit=${this.limit}&offset=${this.offset}&room_id=${this.room_id}`).then(data => {
