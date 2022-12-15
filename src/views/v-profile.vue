@@ -12,9 +12,10 @@
 
       <div class="d-grid g-gap-1 h-max-content">
         <div class="toggle_block d-flex g-gap-1 padding-03 bg-fff c-ccc box-shadow-slim">
-          <span v-bind:class="modalName === 'infoUserTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="setModalName('infoUserTab')">информация о пользователе</span>
-          <span v-bind:class="modalName === 'publicationVacancies' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="get_vacancies">опубликованные вакансии</span>
-          <span v-bind:class="modalName === 'servicesTab' ? ' f-size-small padding-03' : 'c-pointer c-content f-size-small padding-03'" @click="get_services">услуги пользователя </span>
+          <span v-bind:class="modalName === 'infoUserTab' ? 'padding-03' : 'c-pointer c-content padding-03'" @click="setModalName('infoUserTab')">информация</span>
+          <span v-bind:class="modalName === 'friendsTab' ? 'padding-03' : 'c-pointer c-content padding-03'" @click="get_friends">друзья</span>
+          <span v-bind:class="modalName === 'publicationVacancies' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_vacancies">вакансии</span>
+          <span v-bind:class="modalName === 'servicesTab' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_services">услуги </span>
         </div>
 <!--        PROFILE EDIT -->
         <v-profile-edit-block v-if="modalName === 'profileEditModal'"
@@ -71,6 +72,28 @@
           </div>
         </div>
 
+        <div v-if="modalName === 'friendsTab'">
+            <div class="friends_list d-grid g-gap-3 m-top-2 h-max-content">
+              <v-user v-for="user in friends" :key="user.id" :user="user" class="box-shadow-slim"/>
+            </div>
+
+          <h3 v-if="!friends.length" class="c-ccc t-center">ничего не найдено </h3>
+
+          <!--    PAGINATION-->
+          <div v-else class="d-flex j-content-flex-end">
+            <v-paginate
+                class="paginate"
+                :page-count="page_count"
+                :click-handler="clickPage"
+                :prev-text="'prev'"
+                :next-text="'next'"
+                :page="page"
+                :container-class="'className'"
+                :force-page="page">
+            </v-paginate>
+          </div>
+        </div>
+
       </div>
   </div>
 
@@ -96,9 +119,11 @@ import {mapState} from "vuex";
 import VVacanciesList from "@/components/vacancy/v-vacancies-list";
 import paginateMixin from "@/mixins/paginate-mixin";
 import VServiceList from "@/components/service/v-service-list";
+import VUser from "@/components/user/v-user";
 export default {
   name: "v-profile",
   components: {
+    VUser,
     VServiceList,
     VVacanciesList, VProfileEditBlock, VProfileAbout, VProfileImg, VButtonNormal},
   mixins: [toggleMixin, paginateMixin],
@@ -108,7 +133,8 @@ export default {
   data(){
     return{
       vacancies: [],
-      services: []
+      services: [],
+      friends: [],
     }
   },
   mounted() {
@@ -138,6 +164,16 @@ export default {
           this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
         }).finally(() => this.emitter.emit('load', false))
       }
+    },
+    get_friends(){
+      if(this.modalName !== 'friendsTab'){
+        this.setModalName('friendsTab')
+        this.emitter.emit('load', true)
+        this.$store.dispatch("friend/GET", `?page=${this.page}&per_page=${this.per_page}&user_id=${this.$route.query.id}`).then(data => {
+          this.friends = data.obj.items
+          this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
+        }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }
@@ -149,5 +185,8 @@ export default {
 }
 .services{
   grid-template-columns: 1fr 1fr;
+}
+.friends_list{
+  grid-template-columns: 1fr 1fr 1fr;
 }
 </style>

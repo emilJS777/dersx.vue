@@ -80,7 +80,7 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import imageGetMixin from "@/mixins/image-get-mixin";
 import {mapState} from "vuex";
-import VUserMenuBlock from "@/components/_general/v-user-menu-block";
+import VUserMenuBlock from "@/components/profile/v-user-menu-block";
 export default {
   name: "v-profile-img",
   components: {VUserMenuBlock, VAlertModal, VInputFileNormal},
@@ -99,7 +99,6 @@ export default {
     this.emitter.emit('load', true)
     this.$store.dispatch("user/GET", `?id=${this.$route.query.id}`).then(data => {
       this.user = data.obj
-      console.log(data.obj)
     }).finally(() => this.emitter.emit('load', false))
   },
   methods: {
@@ -132,6 +131,7 @@ export default {
 .img_parent{
   height: 200px;
   width: 200px;
+  margin: -40px 15px auto;
 }
 .img_div p{
   bottom: -6px;

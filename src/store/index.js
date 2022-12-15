@@ -24,6 +24,7 @@ import publication_like from "./modules/publication_like";
 import image from "./modules/image";
 import message from "./modules/messager/message";
 import room from "./modules/messager/room";
+import friend from "./modules/friend"
 
 export default new Vuex.Store({
     namespaced: true,
@@ -52,6 +53,7 @@ export default new Vuex.Store({
         publication_like,
         image,
         message,
-        room
+        room,
+        friend
     }
 })
