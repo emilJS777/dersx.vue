@@ -25,7 +25,7 @@
       </div>
 
       <div class="service_img_block p-relative o-hidden m-top-05" v-if="service.image" @click="this.$emit('more')">
-        <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
+        <img :src="`http://0.0.0.0:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>
 
       <h4 class="m-top-05 d-flex j-content-space-between a-items-center m-top-1">
@@ -113,12 +113,12 @@ export default {
 }
 .service_img_block{
   width: 100%;
-  height: 280px;
+  height: 320px;
 }
 .service_img_block > img{
   min-width: 100%;
   max-width: 120%;
   min-height: 80px;
-  max-height: 300px;
+  max-height: 150%;
 }
 </style>

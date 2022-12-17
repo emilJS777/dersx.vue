@@ -1,5 +1,5 @@
 import Axios from "axios";
-const api_url = "http://127.0.0.1:5000"
+const api_url = "http://0.0.0.0:5000"
 // const api_url = "http://37.252.64.153:5050"
 
 const request = (context, path, method, body, access=true) => {

@@ -1,7 +1,7 @@
 <template>
   <div class="service bg-fff padding-1 h-max-content box-shadow-slim">
       <div class="service_img_block p-relative o-hidden" v-if="service.image">
-        <img :src="`http://127.0.0.1:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
+        <img :src="`http://0.0.0.0:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>
 
       <h4 class="m-top-05 c-content-hover c-pointer"><a :href="`/service?id=${service.id}`">{{service.title}}</a></h4>
@@ -31,12 +31,12 @@ export default {
 <style scoped>
 .service_img_block{
   width: 100%;
-  height: 150px;
+  height: 180px;
 }
 .service_img_block > img{
   min-width: 100%;
   max-width: 120%;
   min-height: 80px;
-  max-height: 180px;
+  max-height: 120%;
 }
 </style>

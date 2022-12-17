@@ -80,6 +80,7 @@ export default {
   methods:{
     onMessage(){
       this.$store.dispatch("message/CREATE", this.form).then(data=>{
+        this.form.text = ''
         if(data.success)
           this.messages.push(data.obj)
       }).finally(() => {

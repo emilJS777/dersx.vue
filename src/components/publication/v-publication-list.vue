@@ -28,7 +28,7 @@
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">
-      <img :src="`http://127.0.0.1:5000/image?filename=${publication.image.filename}`" class="publication_image">
+      <img :src="`http://0.0.0.0:5000/image?filename=${publication.image.filename}`" class="publication_image">
     </div>
 
 <!--    PUBLICATION CREATION DATE-->

@@ -3,7 +3,7 @@ import SocketIO from 'socket.io-client'
 
 const WSocket = new VueSocketIO({
     debug: false,
-    connection: SocketIO('ws://127.0.0.1:5000', {
+    connection: SocketIO('ws://0.0.0.0:5000', {
         extraHeaders: {
             Authorization: "bearer " + localStorage.getItem("access_token")
         }

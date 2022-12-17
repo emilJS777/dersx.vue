@@ -96,13 +96,13 @@ export default {
     },
     onDeleteFriend(){
       this.emitter.emit('load', true)
-      this.$store.dispatch("friend/DELETE", this.friend.id).then(data => {
+      this.$store.dispatch("friend/DELETE", `?id=${this.friend.id}`).then(data => {
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))
     },
     onUpdateFriend(){
       this.emitter.emit('load', true)
-      this.$store.dispatch("friend/UPDATE", this.friend.id).then(data => {
+      this.$store.dispatch("friend/UPDATE", `?id=${this.friend.id}`).then(data => {
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))
     },

@@ -3,7 +3,6 @@
   <div class="page m-top-2">
     <router-view></router-view>
   </div>
-
 <!--  MESSAGE MODAL-->
   <v-message-modal v-if="message.value"
                    :message="message.value"
@@ -15,6 +14,8 @@
   </div>
 
   <v-messager v-if="profile"/>
+
+
 </template>
 
 <script>
@@ -66,10 +67,6 @@ export default {
   },
   created() {
     // WEBSOCKET EMIT
-
-    //
-    // v-messager.vue
-    //
     this.sockets.subscribe('message_read', (data) => {
       this.emitter.emit('message_read', data)
     })

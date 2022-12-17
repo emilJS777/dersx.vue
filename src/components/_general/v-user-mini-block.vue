@@ -1,11 +1,11 @@
 <template>
   <div class="d-flex a-items-center g-gap-_5 p-relative w-max-content" v-if="user">
-    <router-link :to="`/profile?id=${user.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
+    <a :href="`/profile?id=${user.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
       <!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">-->
       <span v-if="!this.user.image">{{user.first_name[0]}}</span>
-      <img :src="`http://127.0.0.1:5000/image?filename=${this.user.image.filename}`" v-else/>
+      <img :src="`http://0.0.0.0:5000/image?filename=${this.user.image.filename}`" v-else/>
 
-    </router-link>
+    </a>
     <div class="d-grid info_block j-content-flex-end f-size-small">
       <i>{{ user.first_name }} {{ user.last_name }}</i>
       <span class="f-size-very-small">{{user.name}}</span>

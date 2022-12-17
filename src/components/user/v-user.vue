@@ -1,10 +1,11 @@
 <template>
   <div class="user bg-fff padding-1 m-0-auto" v-if="user">
-    <div class="img_parent" @click="this.$router.push(`/profile?id=${user.id}`)">
+    <div class="img_parent p-relative">
       <div class="w-max p-relative o-hidden img_div w-max h-max d-block-hover c-pointer">
         <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
         <img :src="`http://127.0.0.1:5000/image?filename=${this.user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
       </div>
+      <a class="route p-absolute left-0 top-0 w-max h-max" :href="`/profile?id=${user.id}`"></a>
     </div>
 
     <div>

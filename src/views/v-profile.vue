@@ -72,6 +72,7 @@
           </div>
         </div>
 
+<!--        FRIENDS TAB-->
         <div v-if="modalName === 'friendsTab'">
             <div class="friends_list d-grid g-gap-3 m-top-2 h-max-content">
               <v-user v-for="user in friends" :key="user.id" :user="user" class="box-shadow-slim"/>
@@ -96,17 +97,6 @@
 
       </div>
   </div>
-
-<!--  MODALS-->
-
-
-<!--  <v-vacancy-modal v-if="modalName === 'vacancyModal'"-->
-<!--                   :vacancy_id="this.id"-->
-<!--                   @close="setModalName('publicationVacancies')"/>-->
-
-<!--  <v-service-modal v-if="modalName === 'serviceModal'"-->
-<!--                   :service_id="this.id"-->
-<!--                   @close="setModalName('servicesTab')"/>-->
 </template>
 
 <script>
@@ -169,7 +159,7 @@ export default {
       if(this.modalName !== 'friendsTab'){
         this.setModalName('friendsTab')
         this.emitter.emit('load', true)
-        this.$store.dispatch("friend/GET", `?page=${this.page}&per_page=${this.per_page}&user_id=${this.$route.query.id}`).then(data => {
+        this.$store.dispatch("friend/GET", `?page=${this.page}&per_page=${this.per_page}&confirmed=1&user_id=${this.$route.query.id}`).then(data => {
           this.friends = data.obj.items
           this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
         }).finally(() => this.emitter.emit('load', false))

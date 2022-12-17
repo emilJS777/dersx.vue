@@ -10,7 +10,9 @@
            @click="setModalName('roomBlock')" v-if="!modalName">
 
         <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-        <span class="p-absolute top-0 right-0 bg-999 padding-03" v-if="new_messages.length">{{this.new_messages.length}}</span>
+        <span class="p-absolute f-size-small padding-03 right-0 top-0 d-flex j-content-center a-items-center b-radius-50 bg-red message_indicator" v-if="new_messages.length">
+          {{this.new_messages.length}}
+        </span>
       </div>
 
       <div class="c-content-hover b-radius-50 c-pointer box-shadow-slim animation-from-hidden w-max-content d-flex j-content-flex-end"
@@ -19,6 +21,7 @@
       </div>
     </div>
   </div>
+  <audio v-if="sound"  autoplay><source src="@/assets/song/bolb.aac" type="audio/aac" /></audio>
 </template>
 
 <script>
@@ -34,14 +37,25 @@ export default {
     profile: state => state.auth.profile,
     new_messages: state => state.message.NOT_READ_LIST
   }),
+  data(){
+    return{
+      sound: false
+    }
+  },
   mounted() {
     this.$store.dispatch("message/GET", ``).then(data => {
       this.set_not_read_messages_list(data.obj)
     })
+
   },
   created() {
     this.sockets.subscribe('message', (data) => {
       this.set_not_read_messages_list([data])
+      this.sound = true
+
+      setTimeout(() => {
+        this.sound = false
+      }, 300)
     });
 
     this.emitter.on('openMessage', user => {
@@ -62,6 +76,10 @@ export default {
 </script>
 
 <style scoped>
+.message_indicator{
+  height: 15px;
+  width: 15px;
+}
 .messager_block{
   width: 300px;
   border-radius: 8px;

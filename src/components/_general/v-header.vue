@@ -41,29 +41,24 @@
             <b>пользователи</b>
           </router-link>
         </li>
-
-<!--        <li>-->
-<!--          <router-link to="/forums" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-comment" aria-hidden="true"></i>-->
-<!--            <b>форумы</b>-->
-<!--          </router-link>-->
-<!--        </li>-->
       </ul>
     </div>
 
     <div v-if="profile" class="d-grid g-gap-1 p-relative">
       <div class="auth d-flex j-content-flex-end a-items-center g-gap-1 p-relative" >
+<!--        NOTIFICATION BLOCK-->
+        <v-notification/>
+
         <div class="d-grid info_block j-content-flex-end">
           <b>{{ profile.first_name }} {{ profile.last_name }}</b>
           <i>{{profile.email_address}}</i>
           <span class="c-content f-size-very-small w-max-content c-pointer" @click="setModalName('logoutAlertModal')">выйти из аккаунта</span>
         </div>
 
-        <router-link :to="`/profile?id=${this.profile.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
-<!--          <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!profile.image">-->
+        <a :href="`/profile?id=${this.profile.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
           <span v-if="!profile.image">{{profile.first_name[0]}}</span>
           <img :src="'data:image/'+profile.image.filename+';charset=utf-8;base64, ' + profile.image.b64" class="p-absolute absolute-center profile_image" v-else>
-        </router-link>
+        </a>
       </div>
     </div>
 
@@ -93,13 +88,13 @@ import {mapState} from "vuex"
 import imageGetMixin from "@/mixins/image-get-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VLogo from "@/components/_general/v-logo";
+import VNotification from "@/components/notification/v-notification";
 export default {
   name: "v-header",
   mixins: [toggleMixin, imageGetMixin],
-  components: {VLogo, VAlertModal, VRegistration, VLoginModal, VButtonNormal},
+  components: {VNotification, VLogo, VAlertModal, VRegistration, VLoginModal, VButtonNormal},
   computed: mapState({
     profile: state => state.auth.profile,
-    not_read_messages: state => state.message.NOT_READ_MESSAGES
   }),
   methods:{
     logout(){
