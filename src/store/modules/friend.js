@@ -21,21 +21,21 @@ const friend = {
         }
     },
 
-    mutations: {
-        SET_REQUESTS(state, obj){
-            obj.items.map(item => state.USERS.push(item))
-            state.TOTAL_REQUEST += obj.total
-        },
-        DELETE_REQUESTS(state, user){
-            state.USERS.map((item, index) => item.id === user.id ? state.USERS.splice(index, 1) : null)
-            state.TOTAL_REQUEST -= 1
-        }
-    },
+    // mutations: {
+    //     SET_REQUESTS(state, obj){
+    //         obj.items.map(item => state.USERS.push(item))
+    //         state.TOTAL_REQUEST += obj.total
+    //     },
+    //     DELETE_REQUESTS(state, user){
+    //         state.USERS.map((item, index) => item.id === user.id ? state.USERS.splice(index, 1) : null)
+    //         state.TOTAL_REQUEST -= 1
+    //     }
+    // },
 
-    state: {
-        TOTAL_REQUEST: 0,
-        USERS: []
-    }
+    // state: {
+    //     TOTAL_REQUEST: 0,
+    //     USERS: []
+    // }
 }
 
 export default friend

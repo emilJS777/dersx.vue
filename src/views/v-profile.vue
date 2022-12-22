@@ -74,7 +74,7 @@
 
 <!--        FRIENDS TAB-->
         <div v-if="modalName === 'friendsTab'">
-            <div class="friends_list d-grid g-gap-3 m-top-2 h-max-content">
+            <div class="friends_list d-grid g-gap-3 m-top-2 h-max-content" v-if="friends.length">
               <v-user v-for="user in friends" :key="user.id" :user="user" class="box-shadow-slim"/>
             </div>
 

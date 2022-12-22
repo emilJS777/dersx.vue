@@ -25,6 +25,7 @@ import image from "./modules/image";
 import message from "./modules/messager/message";
 import room from "./modules/messager/room";
 import friend from "./modules/friend"
+import notification from "./modules/notification"
 
 export default new Vuex.Store({
     namespaced: true,
@@ -54,6 +55,7 @@ export default new Vuex.Store({
         image,
         message,
         room,
-        friend
+        friend,
+        notification
     }
 })

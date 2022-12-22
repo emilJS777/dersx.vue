@@ -23,8 +23,20 @@ h2{
 label{
     font-size: 18px;
 }
-.page{
+.page, .header{
     padding: 20px 15%;
+}
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    height: 1.2em;
+    white-space: nowrap;
+}
+@media only screen and (max-width: 1550px) {
+    .page, .header{
+        padding: 20px 8%;
+    }
 }
 .pagination{
     background-color: #fff;

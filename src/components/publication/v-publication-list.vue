@@ -5,14 +5,14 @@
 
 
 
-      <div class="menu_block d-flex j-content-flex-end a-items-flex-start d-block-hover p-relative padding-03">
+      <div class="menu_block d-flex j-content-flex-end a-items-flex-start d-block-hover p-relative padding-03" v-if="profile && profile.id === publication.creator.id">
         <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
 
         <ul class="m-0-auto d-none animation-from-hidden p-absolute padding-05 bg-fff box-shadow-slim">
-          <li class="d-flex g-gap-_5 c-content-hover c-pointer a-items-center padding-03">
-            <i class="fas fa-eye-slash"></i>
-            скрыть
-          </li>
+<!--          <li class="d-flex g-gap-_5 c-content-hover c-pointer a-items-center padding-03">-->
+<!--            <i class="fas fa-eye-slash"></i>-->
+<!--            скрыть-->
+<!--          </li>-->
 
           <li class="d-flex g-gap-_5 c-content-hover c-pointer err-msg a-items-center padding-03"
               v-if="profile && publication.creator.id === profile.id" @click="setModalName('publicationDeleteAlert')">
@@ -24,7 +24,7 @@
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
-    <p>{{ publication.description }}</p>
+    <p class="margin-1"><b>{{ publication.description }}</b></p>
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">

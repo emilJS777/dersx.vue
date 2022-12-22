@@ -6,7 +6,7 @@
     </div>
 
     <div class="nav d-flex">
-      <ul class="d-flex j-content-space-between g-gap-2 a-items-center">
+      <ul class="d-flex j-content-space-between g-gap-3 a-items-center">
         <li>
           <router-link to="/" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
             <i class="fa fa-home" aria-hidden="true"></i>
@@ -28,12 +28,12 @@
           </router-link>
         </li>
 
-        <li>
-          <router-link to="/companies" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-building" aria-hidden="true"></i>
-            <b>компании</b>
-          </router-link>
-        </li>
+<!--        <li>-->
+<!--          <router-link to="/companies" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">-->
+<!--            <i class="fa fa-building" aria-hidden="true"></i>-->
+<!--            <b>компании</b>-->
+<!--          </router-link>-->
+<!--        </li>-->
 
         <li>
           <router-link to="/users" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
@@ -114,10 +114,8 @@ export default {
 <style scoped>
 .header{
   background-color: #fff;
-  padding: 20px 15%;
   grid-template-columns: 1fr 2fr 1.5fr;
 }
-
 .logo{
   line-height: .9;
   margin-top: 20px;
