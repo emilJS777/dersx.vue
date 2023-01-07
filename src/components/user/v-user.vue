@@ -51,7 +51,4 @@ export default {
   min-height: 100%;
   max-height: 100%;
 }
-.btn_block svg{
-
-}
 </style>

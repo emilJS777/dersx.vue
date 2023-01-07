@@ -1,25 +1,16 @@
 <template>
   <div class="d-flex j-content-center box-shadow-slim" v-if="vacancy">
     <div class="padding-1 w-max bg-fff animation-from-hidden">
-      <div class="d-flex j-content-space-between a-items-center">
+      <div class="d-flex j-content-space-between a-items-center p-relative">
         <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover a-items-center" @click="$router.go(-1)">
           <i class="fa fa-arrow-left" aria-hidden="true"></i>
           назад
         </span>
-
-        <div class="edit d-flex g-gap-1 j-content-flex-end d-block-hover f-weight-bold" v-if="profile && vacancy.creator_id === profile.id">
-          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-          <ul class="m-0-auto d-none animation-from-hidden p-absolute padding-05 bg-fff box-shadow-slim z-index-max">
-            <li @click="this.$router.push({name: 'vacancyEdit', query:{id: vacancy.id}})" class="padding-03 c-pointer c-content-hover f-size-small d-flex g-gap-_5 a-items-center">
-              <i class="far fa-edit"></i>
-              редактировать
-            </li>
-            <li @click="setModalName('vacancyDeleteAlert', vacancy.id)" class="padding-03 c-pointer c-content-hover f-size-small err-msg d-flex g-gap-_5 a-items-center">
-              <i class="fas fa-trash-alt"></i>
-              удалить
-            </li>
-          </ul>
-        </div>
+        <v-menu-normal v-if="profile && profile.id === vacancy.creator.id"
+                       @edit="this.$router.push({name: 'vacancyEdit', query:{id: vacancy.id}})"
+                       @delete="setModalName('vacancyDeleteAlert', vacancy.id)"
+                       :menu_list="[{title: 'редактировать', icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
+                                    {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
       </div>
       <div class="m-top-1">
         <h2 class="m-top-0 d-flex j-content-space-between">
@@ -89,9 +80,12 @@ import VVacancyOffers from "@/components/vacancy/v-vacancy-offers";
 import {mapState} from "vuex";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
+import VMenuNormal from "@/components/_general/v-menu-normal.vue";
 export default {
   name: "v-vacancy-block",
-  components: {VUserMiniBlock, VAlertModal, VVacancyOffers, VVacancyComments, VVacancyCommentForm, VVacancyOfferForm},
+  components: {
+    VMenuNormal,
+    VUserMiniBlock, VAlertModal, VVacancyOffers, VVacancyComments, VVacancyCommentForm, VVacancyOfferForm},
   props: ['vacancy_id'],
   mixins: [toggleMixin],
   computed: mapState({

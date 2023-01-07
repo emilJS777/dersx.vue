@@ -16,6 +16,7 @@
           <span v-bind:class="modalName === 'friendsTab' ? 'padding-03' : 'c-pointer c-content padding-03'" @click="get_friends">друзья</span>
           <span v-bind:class="modalName === 'publicationVacancies' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_vacancies">вакансии</span>
           <span v-bind:class="modalName === 'servicesTab' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_services">услуги </span>
+<!--          <span v-bind:class="modalName === 'teamsTab' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_teams">команды </span>-->
         </div>
 <!--        PROFILE EDIT -->
         <v-profile-edit-block v-if="modalName === 'profileEditModal'"
@@ -95,6 +96,29 @@
           </div>
         </div>
 
+<!--&lt;!&ndash;        TEAMS TAB&ndash;&gt;-->
+<!--        <div v-if="modalName === 'teamsTab'">-->
+<!--          <div class="teams_list d-grid g-gap-2 h-max-content" v-if="teams.length">-->
+<!--            <v-team-info-block v-for="team in teams" :key="team.id" :team="team"/>-->
+<!--          </div>-->
+
+<!--          <h3 v-if="!teams.length" class="c-ccc t-center">ничего не найдено </h3>-->
+
+<!--          &lt;!&ndash;    PAGINATION&ndash;&gt;-->
+<!--          <div v-else class="d-flex j-content-flex-end">-->
+<!--            <v-paginate-->
+<!--                class="paginate"-->
+<!--                :page-count="page_count"-->
+<!--                :click-handler="clickPage"-->
+<!--                :prev-text="'prev'"-->
+<!--                :next-text="'next'"-->
+<!--                :page="page"-->
+<!--                :container-class="'className'"-->
+<!--                :force-page="page">-->
+<!--            </v-paginate>-->
+<!--          </div>-->
+<!--        </div>-->
+
       </div>
   </div>
 </template>
@@ -125,6 +149,7 @@ export default {
       vacancies: [],
       services: [],
       friends: [],
+      teams: [],
     }
   },
   mounted() {
@@ -161,6 +186,16 @@ export default {
         this.emitter.emit('load', true)
         this.$store.dispatch("friend/GET", `?page=${this.page}&per_page=${this.per_page}&confirmed=1&user_id=${this.$route.query.id}`).then(data => {
           this.friends = data.obj.items
+          this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
+        }).finally(() => this.emitter.emit('load', false))
+      }
+    },
+    get_teams(){
+      if(this.modalName !== 'teamsTab'){
+        this.setModalName('teamsTab')
+        this.emitter.emit('load', true)
+        this.$store.dispatch("team/GET", `?page=${this.page}&per_page=${this.per_page}&user_id=${this.$route.query.id}`).then(data => {
+          this.teams = data.obj.items
           this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
         }).finally(() => this.emitter.emit('load', false))
       }

@@ -1,24 +1,14 @@
 <template>
-  <div class="publication_comment m-top-2 d-grid bg-ccc-opacity padding-05">
-    <div class="d-flex j-content-space-between a-items-center">
+  <div class="publication_comment m-top-2 d-grid bg-ccc-opacity padding-1">
+    <div class="d-flex j-content-space-between a-items-center p-relative">
       <div class="d-grid g-gap-1 p-relative">
         <v-user-mini-block :user="publication_comment.creator"/>
       </div>
-      <div class="edit d-flex g-gap-_5 animation-from-hidden d-none d-block-hover p-relative f-weight-bold" v-if="profile && profile.id === publication_comment.creator.id">
-        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-
-        <ul class="m-0-auto d-none animation-from-hidden p-absolute top-0 right-0 padding-05 bg-fff box-shadow-slim">
-          <li class="f-size-small d-flex g-gap-_5 a-items-center c-pointer c-content-hover" @click="setModalName('publicationCommentEditBlock')">
-            <i class="fa fa-pencil-square" aria-hidden="true"></i>
-            редактировать
-          </li>
-
-          <li class="f-size-small d-flex g-gap-_5 a-items-center err-msg c-pointer c-content-hover" @click="this.setModalName('publicationCommentDeleteAlert')">
-            <i class="fa fa-times-circle" aria-hidden="true"></i>
-            удалить
-          </li>
-        </ul>
-      </div>
+      <v-menu-normal v-if="profile && profile.id === publication_comment.creator.id"
+                     @edit="setModalName('publicationCommentEditBlock')"
+                     @delete="this.setModalName('publicationCommentDeleteAlert')"
+                     :menu_list="[{title: 'редактировать', icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
+                                    {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
     <span class="f-size-small m-top-1">{{publication_comment.text}}</span>
 
@@ -45,9 +35,10 @@ import {mapState} from "vuex";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VPublicationCommentEditForm from "@/components/publication/forms/v-publication-comment-edit-form";
+import VMenuNormal from "@/components/_general/v-menu-normal.vue";
 export default {
   name: "v-publication-comment",
-  components: {VPublicationCommentEditForm, VAlertModal, VUserMiniBlock},
+  components: {VMenuNormal, VPublicationCommentEditForm, VAlertModal, VUserMiniBlock},
   mixins: [toggleMixin],
   props: ['publication_comment'],
   computed: mapState({

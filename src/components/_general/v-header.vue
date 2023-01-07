@@ -6,7 +6,7 @@
     </div>
 
     <div class="nav d-flex">
-      <ul class="d-flex j-content-space-between g-gap-3 a-items-center">
+      <ul class="d-flex j-content-space-between g-gap-3 a-items-center padding-0">
         <li>
           <router-link to="/" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
             <i class="fa fa-home" aria-hidden="true"></i>
@@ -37,10 +37,17 @@
 
         <li>
           <router-link to="/users" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-users" aria-hidden="true"></i>
+            <i class="fa fa-user" aria-hidden="true"></i>
             <b>пользователи</b>
           </router-link>
         </li>
+
+<!--        <li>-->
+<!--          <router-link to="/teams" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">-->
+<!--            <i class="fa fa-users" aria-hidden="true"></i>-->
+<!--            <b>команды</b>-->
+<!--          </router-link>-->
+<!--        </li>-->
       </ul>
     </div>
 

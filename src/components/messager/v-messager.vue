@@ -88,6 +88,7 @@ export default {
 .messager{
   bottom: 35px;
   right: 55px;
+  z-index: 2;
 }
 .messager_toggle_block{
   bottom: -18px;

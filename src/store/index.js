@@ -56,6 +56,6 @@ export default new Vuex.Store({
         message,
         room,
         friend,
-        notification
+        notification,
     }
 })

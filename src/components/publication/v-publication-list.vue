@@ -1,30 +1,15 @@
 <template>
   <div class="publication padding-2 bg-fff m-top-1 box-shadow-slim">
-    <div class="head d-flex j-content-space-between a-items-flex-start">
+    <div class="head d-flex j-content-space-between a-items-flex-start p-relative">
       <v-user-mini-block :user="publication.creator"/>
-
-
-
-      <div class="menu_block d-flex j-content-flex-end a-items-flex-start d-block-hover p-relative padding-03" v-if="profile && profile.id === publication.creator.id">
-        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-
-        <ul class="m-0-auto d-none animation-from-hidden p-absolute padding-05 bg-fff box-shadow-slim">
-<!--          <li class="d-flex g-gap-_5 c-content-hover c-pointer a-items-center padding-03">-->
-<!--            <i class="fas fa-eye-slash"></i>-->
-<!--            скрыть-->
-<!--          </li>-->
-
-          <li class="d-flex g-gap-_5 c-content-hover c-pointer err-msg a-items-center padding-03"
-              v-if="profile && publication.creator.id === profile.id" @click="setModalName('publicationDeleteAlert')">
-            <i class="fas fa-trash-alt"></i>
-            удалить
-          </li>
-        </ul>
-      </div>
+      <v-menu-normal
+          @delete="setModalName('publicationDeleteAlert')"
+          v-if="profile && profile.id === publication.creator.id"
+          :menu_list="[{title: 'удалить', icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red'}]"/>
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
-    <p class="margin-1"><b>{{ publication.description }}</b></p>
+    <p class="margin-1"><span>{{ publication.description }}</span></p>
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">
@@ -104,9 +89,10 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import VPublicationCommentCreateForm from "@/components/publication/forms/v-publication-comment-create-form";
 import VPublicationComment from "@/components/publication/v-publication-comment";
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
+import VMenuNormal from "@/components/_general/v-menu-normal.vue";
 export default {
   name: "v-publication-list",
-  components: {VUserMiniBlock, VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
+  components: {VMenuNormal, VUserMiniBlock, VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
   props: ["publication"],
   mixins: [toggleMixin],
   computed: mapState({

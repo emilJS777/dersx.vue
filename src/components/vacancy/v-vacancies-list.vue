@@ -1,9 +1,9 @@
 <template>
   <div class="vacancy box-shadow-slim">
-    <h3 class="m-bottom-0 d-flex j-content-space-between a-items-center g-gap-_3">
-      <a :href="`vacancy?id=${vacancy.id}`" class="c-content-hover">{{ vacancy.title }}</a>
+    <h4 class="m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center g-gap-_3">
+      <a :href="`vacancy?id=${vacancy.id}`" class="c-content-hover c-6d">{{ vacancy.title }}</a>
       <span class="c-content f-size-small">желаемая цена {{ vacancy.price }}$ за <b>{{vacancy.payment_interval.title}}</b></span>
-    </h3>
+    </h4>
     <p>{{vacancy.short_description}}</p>
 
     <ul class="w-max categories_block list-style-content d-grid g-gap-_3 padding-left-1" v-if="this.categories !== false">

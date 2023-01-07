@@ -1,27 +1,33 @@
 <template>
   <div class="service">
     <div class="bg-fff padding-1 w-max box-shadow-slim" v-if="service">
-      <div class="d-flex j-content-space-between a-items-center">
+      <div class="d-flex j-content-space-between a-items-center p-relative padding-05">
         <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
           <i class="fa fa-arrow-left" aria-hidden="true"></i>
           назад
         </span>
 
-        <div class="edit d-flex g-gap-1 j-content-flex-end d-block-hover p-relative f-weight-bold" v-if="profile && service.creator.id === profile.id">
-          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+        <v-menu-normal v-if="profile && profile.id === service.creator.id"
+                       @edit="this.$router.push({name: 'serviceEdit', query:{id: service.id}})"
+                       @delete="setModalName('serviceDeleteAlert', service.id)"
+                       :menu_list="[{title: 'редактировать', icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
+                                    {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
 
-          <ul class="m-0-auto d-none animation-from-hidden p-absolute padding-05 bg-fff box-shadow-slim z-index-max">
-            <li @click="this.$router.push({name: 'serviceEdit', query:{id: service.id}})" class="padding-03 c-pointer c-content-hover f-size-small d-flex g-gap-_5 a-items-center">
-              <i class="far fa-edit"></i>
-              редактировать
-            </li>
+<!--        <div class="edit d-flex g-gap-1 j-content-flex-end d-block-hover p-relative f-weight-bold" v-if="profile && service.creator.id === profile.id">-->
+<!--          <i class="fa fa-ellipsis-v" aria-hidden="true"></i>-->
 
-            <li @click="setModalName('serviceDeleteAlert', service.id)" class="padding-03 c-pointer c-content-hover f-size-small err-msg d-flex g-gap-_5 a-items-center">
-              <i class="fas fa-trash-alt"></i>
-              удалить
-            </li>
-          </ul>
-        </div>
+<!--          <ul class="m-0-auto d-none animation-from-hidden p-absolute padding-05 bg-fff box-shadow-slim z-index-max">-->
+<!--            <li @click="this.$router.push({name: 'serviceEdit', query:{id: service.id}})" class="padding-03 c-pointer c-content-hover f-size-small d-flex g-gap-_5 a-items-center">-->
+<!--              <i class="far fa-edit"></i>-->
+<!--              редактировать-->
+<!--            </li>-->
+
+<!--            <li @click="setModalName('serviceDeleteAlert', service.id)" class="padding-03 c-pointer c-content-hover f-size-small err-msg d-flex g-gap-_5 a-items-center">-->
+<!--              <i class="fas fa-trash-alt"></i>-->
+<!--              удалить-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
       </div>
 
       <div class="service_img_block p-relative o-hidden m-top-05" v-if="service.image" @click="this.$emit('more')">
@@ -74,9 +80,10 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
+import VMenuNormal from "@/components/_general/v-menu-normal.vue";
 export default {
   name: "v-service-block",
-  components: {VUserMiniBlock, VAlertModal},
+  components: {VMenuNormal, VUserMiniBlock, VAlertModal},
   props: ['service_id'],
   mixins: [toggleMixin],
   computed: mapState({
