@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex g-gap-2 a-items-flex-end m-top-2 padding-left-1 padding-right-1">
-    <v-input-normal
-                    :default_value="form.text"
-                    v-if="form.text !== null"
-                    span="редактировать комментарий" @value="value => form.text = value"/>
+    <v-input-emoji :default_value="form.text"
+                   v-if="form.text !== null"
+                   class="w-max"
+                   span="редактировать комментарий" @value="value => form.text = value"/>
 
     <div class="d-flex g-gap-_5">
       <v-button-normal label="обновить"
@@ -23,13 +23,13 @@
 
 <script>
 import VAlertModal from "@/components/_general/v-alert-modal";
-import VInputNormal from "@/components/_general/v-input-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
+import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 
 export default {
   name: "v-publication-comment-edit-form",
-  components: {VAlertModal, VInputNormal, VButtonNormal},
+  components: {VInputEmoji, VAlertModal, VButtonNormal},
   props: ['publication_comment'],
   mixins: [toggleMixin],
   data(){

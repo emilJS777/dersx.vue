@@ -29,7 +29,8 @@
     </div>
 
     <div class="padding-1 d-flex g-gap-_3">
-      <v-input-normal placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>
+<!--      <v-input-normal placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>-->
+      <v-input-emoji  placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>
       <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="onMessage" v-if="modalName === 'inputText'"/>
     </div>
   </div>
@@ -44,14 +45,15 @@
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
-import VInputNormal from "@/components/_general/v-input-normal";
+// import VInputNormal from "@/components/_general/v-input-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VMessageBlock from "@/components/messager/v-message-block";
 import offsetMixin from "@/mixins/offset-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
+import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 export default {
   name: "v-messages-block",
-  components: {VAlertModal, VMessageBlock, VInputNormal, VButtonNormal},
+  components: {VInputEmoji, VAlertModal, VMessageBlock, VButtonNormal},
   props: ['user', 'partner', 'room_id'],
   mixins: [toggleMixin, offsetMixin],
   data(){

@@ -10,7 +10,7 @@
            @click="setModalName('roomBlock')" v-if="!modalName">
 
         <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-        <span class="p-absolute f-size-small padding-03 right-0 top-0 d-flex j-content-center a-items-center b-radius-50 bg-red message_indicator" v-if="new_messages.length">
+        <span class="p-absolute f-size-small padding-1 right-0 top-0 d-flex j-content-center a-items-center b-radius-50 bg-red message_indicator" v-if="new_messages.length">
           {{this.new_messages.length}}
         </span>
       </div>
@@ -81,7 +81,7 @@ export default {
   width: 15px;
 }
 .messager_block{
-  width: 300px;
+  width: 350px;
   border-radius: 8px;
 }
 

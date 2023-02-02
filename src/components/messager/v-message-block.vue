@@ -4,7 +4,7 @@
       <div>
         <v-user-mini-block :user="message.creator_id === this.partner.id ? this.partner : this.user"/>
       </div>
-      <p class="f-size-small margin-1">{{message.text}}</p>
+      <p class=" margin-1">{{message.text}}</p>
 
       <div class="c-ccc f-size-small d-flex j-content-flex-end" v-if="message.creator_id === user.id">
         <span v-if="read">прочитано</span>

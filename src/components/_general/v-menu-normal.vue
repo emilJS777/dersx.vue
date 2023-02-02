@@ -36,6 +36,6 @@ export default {
   z-index: 1;
 }
 ul{
-  top: 30%;
+  top: 80%;
 }
 </style>

@@ -100,6 +100,6 @@ export default {
 
 <style scoped>
 .home{
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1.6fr;
 }
 </style>

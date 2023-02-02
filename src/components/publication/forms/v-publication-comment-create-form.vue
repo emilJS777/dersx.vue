@@ -1,7 +1,10 @@
 <template>
-  <div class="d-flex g-gap-2 a-items-flex-end m-top-2">
-    <v-input-normal label="комментировать"
-                    span="прокомментируйте данную публикацию " @value="value => form.text = value"/>
+  <div class="d-flex g-gap-2 w-max a-items-flex-end m-top-2">
+<!--    <v-input-normal label="комментировать"-->
+<!--                    span="прокомментируйте данную публикацию " @value="value => form.text = value"/>-->
+    <v-input-emoji label="комментировать"
+                   class="w-max"
+                   span="прокомментируйте данную публикацию " @value="value => form.text = value"/>
 
     <v-button-normal label="опубликовать "
                      @click="setModalName('publicationCommentCreateAlert')"/>
@@ -15,12 +18,12 @@
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
-import VInputNormal from "@/components/_general/v-input-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
+import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 export default {
   name: "v-publication-comment-create-form",
-  components: {VAlertModal, VInputNormal, VButtonNormal},
+  components: {VInputEmoji, VAlertModal, VButtonNormal},
   props: ['publication_id'],
   mixins: [toggleMixin],
   data(){

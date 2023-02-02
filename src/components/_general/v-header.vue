@@ -6,7 +6,7 @@
     </div>
 
     <div class="nav d-flex">
-      <ul class="d-flex j-content-space-between g-gap-3 a-items-center padding-0">
+      <ul class="d-flex j-content-space-between g-gap-3 a-items-center padding-0" v-if="profile">
         <li>
           <router-link to="/" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
             <i class="fa fa-home" aria-hidden="true"></i>
@@ -148,5 +148,7 @@ img{
 .router-link-active{
   color: #ea7745;
 }
-
+li{
+  font-size: 17px;
+}
 </style>

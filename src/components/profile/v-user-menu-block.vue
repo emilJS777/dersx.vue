@@ -1,5 +1,5 @@
 <template>
-  <div class="user_menu_block g-gap-1 h-max-content">
+  <div class="user_menu_block g-gap-1 d-grid m-top-1 h-max-content">
     <p class="d-flex a-items-center c-pointer c-555 c-content-hover bg-fff padding-03 b-radius-8 fa-border bg-ccc-opacity" @click="openMessage">
       <i class="fa fa-envelope padding-05" aria-hidden="true"></i> <span>отправить сообщение </span>
     </p>

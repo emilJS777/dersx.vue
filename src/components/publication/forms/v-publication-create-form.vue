@@ -17,9 +17,10 @@
 
     <div class="d-grid w-max m-left-1 a-items-flex-start">
       <div class="d-flex a-items-flex-end g-gap-1">
-        <v-input-normal label="добавьте публикацию "
-                        @value="value => form.description = value"
-                        placeholder="описание публикации "/>
+        <v-input-emoji label="добавьте публикацию "
+                       class="w-max"
+                       @value="value => form.description = value"
+                       placeholder="описание публикации "/>
         <v-input-file-form class=" m-top-05 bg-ccc-opacity w-max-content"
                            span="фото"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
@@ -39,15 +40,15 @@
 </template>
 
 <script>
-import VInputNormal from "@/components/_general/v-input-normal";
 import {mapState} from "vuex";
 import VInputFileForm from "@/components/_general/v-input-file-form";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import toggleMixin from "@/mixins/toggle-mixin";
+import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 export default {
   name: "v-publication-create-form",
-  components: {VAlertModal, VButtonNormal, VInputFileForm, VInputNormal},
+  components: {VInputEmoji, VAlertModal, VButtonNormal, VInputFileForm},
   mixins: [toggleMixin],
   computed: mapState({
     profile: state => state.auth.profile
