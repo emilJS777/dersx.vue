@@ -3,7 +3,7 @@
     <div class="img_parent p-relative">
       <div class="w-max p-relative o-hidden img_div w-max h-max d-block-hover c-pointer">
         <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
-        <img :src="`http://127.0.0.1:5000/image?filename=${this.user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
+        <img :src="`${web_api}/image?filename=${this.user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
       </div>
       <a class="route p-absolute left-0 top-0 w-max h-max" :href="`/profile?id=${user.id}`"></a>
     </div>
@@ -35,7 +35,12 @@ export default {
   props: ['user'],
   computed: mapState({
     profile: state => state.auth.profile
-  })
+  }),
+  data(){
+    return{
+      web_api: process.env.WEB_API
+    }
+  },
 }
 </script>
 

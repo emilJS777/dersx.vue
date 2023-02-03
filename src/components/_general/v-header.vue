@@ -6,24 +6,24 @@
     </div>
 
     <div class="nav d-flex">
-      <ul class="d-flex j-content-space-between g-gap-3 a-items-center padding-0" v-if="profile">
+      <ul class="d-flex j-content-space-between w-max g-gap-3 a-items-center padding-0" v-if="profile">
         <li>
-          <router-link to="/" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-home" aria-hidden="true"></i>
+          <router-link to="/" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-home fa-2x m-0-auto" aria-hidden="true"></i>
             <b>главная</b>
           </router-link>
         </li>
 
         <li>
-          <router-link to="/services" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-briefcase" aria-hidden="true"></i>
+          <router-link to="/services" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-briefcase m-0-auto fa-2x" aria-hidden="true"></i>
             <b>услуги</b>
           </router-link>
         </li>
 
         <li>
-          <router-link to="/vacancies" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-globe" aria-hidden="true"></i>
+          <router-link to="/vacancies" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-globe m-0-auto fa-2x" aria-hidden="true"></i>
             <b>вакансии</b>
           </router-link>
         </li>
@@ -36,8 +36,8 @@
 <!--        </li>-->
 
         <li>
-          <router-link to="/users" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-user" aria-hidden="true"></i>
+          <router-link to="/users" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+            <i class="fa fa-user fa-2x m-0-auto" aria-hidden="true"></i>
             <b>пользователи</b>
           </router-link>
         </li>
@@ -146,9 +146,9 @@ img{
   height: auto;
 }
 .router-link-active{
-  color: #ea7745;
+  color: #ba6f0b;
 }
 li{
-  font-size: 17px;
+  font-size: 12px;
 }
 </style>

@@ -31,7 +31,7 @@
       </div>
 
       <div class="service_img_block p-relative o-hidden m-top-05" v-if="service.image" @click="this.$emit('more')">
-        <img :src="`http://0.0.0.0:5000/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
+        <img :src="`${web_api}/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>
 
       <h4 class="m-top-05 d-flex j-content-space-between a-items-center m-top-1">
@@ -91,7 +91,8 @@ export default {
   }),
   data(){
     return{
-      service: null
+      service: null,
+      web_api: process.env.WEB_API
     }
   },
   mounted(){

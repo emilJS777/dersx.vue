@@ -3,7 +3,7 @@
     <a :href="`/profile?id=${user.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
       <!--            <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!forum.creator.image">-->
       <span v-if="!this.user.image">{{user.first_name[0]}}</span>
-      <img :src="`http://0.0.0.0:5000/image?filename=${this.user.image.filename}`" v-else/>
+      <img :src="`${web_api}/image?filename=${this.user.image.filename}`" v-else/>
 
     </a>
     <div class="d-grid info_block j-content-flex-end f-size-small">
@@ -20,6 +20,11 @@ export default {
   name: "v-user-mini-block",
   props: ["user"],
   mixins: [imageMixin],
+  data(){
+    return{
+      web_api: process.env.WEB_API
+    }
+  },
   mounted() {
     // if(this.user.image) this.getImage(this.user.image.filename)
   }

@@ -3,12 +3,14 @@
     <div class="bg-fff padding-1 w-max padding-1">
       <h3 class="m-top-0 d-flex j-content-space-between">создать услугу <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover" @click="$router.go(-1)">&#9664; назад</span></h3>
 
-      <v-input-file-form label="изображение"
-                         class="d-flex m-top-1 h-max-content"
-                         span="загрузите изображение вашей услуги"
-                         :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
-                         @file_form="file => form.image = file"
-                         sublabel="не загружено"/>
+      <div>
+        <v-input-file-form label="изображение"
+                           class="d-flex m-top-1 h-max-content"
+                           span="загрузите изображение вашей услуги"
+                           :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
+                           @file_form="file => form.image = file"
+                           sublabel="не загружено"/>
+      </div>
 
       <v-input-normal label="название услуги"
                       class="m-top-1"

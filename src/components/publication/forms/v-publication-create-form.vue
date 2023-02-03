@@ -22,7 +22,6 @@
                        @value="value => form.description = value"
                        placeholder="описание публикации "/>
         <v-input-file-form class=" m-top-05 bg-ccc-opacity w-max-content"
-                           span="фото"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
                            @file_form="file => form.image = file"/>
         <v-button-normal label="опубликовать" @click="setModalName('publicationCreateAlert')"/>

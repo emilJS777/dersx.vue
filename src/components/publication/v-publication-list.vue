@@ -13,7 +13,7 @@
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">
-      <img :src="`http://0.0.0.0:5000/image?filename=${publication.image.filename}`" class="publication_image">
+      <img :src="`${web_api}/image?filename=${publication.image.filename}`" class="publication_image">
     </div>
 
 <!--    PUBLICATION CREATION DATE-->
@@ -100,6 +100,7 @@ export default {
   }),
   data(){
     return{
+      web_api: process.env.WEB_API,
       publication_like:{
         self_like: null,
         like_count: 0

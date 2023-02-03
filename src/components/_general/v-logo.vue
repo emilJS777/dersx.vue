@@ -1,5 +1,6 @@
 <template>
-  <h1>Skill<span class="c-content">X</span></h1>
+<!--  <h1>Skill<span class="c-content">X</span></h1>-->
+  <img src="@/assets/images/dersx_logo.png" alt="">
 </template>
 
 <script>
@@ -16,5 +17,9 @@ h1{
 span{
   font-style: italic;
   font-size: 45px;
+}
+img{
+  width: 110px !important;
+  height: auto !important;
 }
 </style>

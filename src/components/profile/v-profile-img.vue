@@ -2,7 +2,7 @@
   <div class="img_parent" v-if="user">
     <div class="w-max p-relative o-hidden img_div w-max h-max d-block-hover">
       <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
-      <img :src="`http://0.0.0.0:5000/image?filename=${user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
+      <img :src="`${web_api}/image?filename=${user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
 
       <v-input-file-normal sublabel="поменять фото"
                            class="bg-content p-absolute w-max t-center d-flex a-items-center j-content-center padding-02 bott-0 d-none animation-from-hidden"
@@ -93,7 +93,8 @@ export default {
   data(){
     return{
       user: {},
-      new_image: null
+      new_image: null,
+      web_api: process.env.WEB_API
     }
   },
   mounted(){

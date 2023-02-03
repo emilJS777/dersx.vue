@@ -1,6 +1,6 @@
 <template>
   <div class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content h-max-content animation-from-hidden">
+    <div class="modal-content h-max-content animation-from-hidden h-max">
       <h3 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 j-content-center a-items-center">
         <v-logo/>
         регистрация
@@ -112,5 +112,6 @@ export default {
 <style scoped>
 .modal-content{
   width: 25%;
+  overflow: auto;
 }
 </style>

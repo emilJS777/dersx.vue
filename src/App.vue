@@ -1,5 +1,6 @@
 <template>
   <v-header/>
+
   <div class="page m-top-2">
     <router-view></router-view>
   </div>
@@ -44,7 +45,6 @@ export default {
     }
   },
   mounted(){
-
     // MESSAGE MODAL
     this.emitter.on("message", (data) => {
       if(data){

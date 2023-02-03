@@ -1,4 +1,13 @@
 const { defineConfig } = require('@vue/cli-service')
+const Dotenv = require("dotenv-webpack")
+
 module.exports = defineConfig({
-  transpileDependencies: true
+  transpileDependencies: true,
+  configureWebpack: (config) => {
+      config.plugins.push(new Dotenv({
+        path: './.env',
+        safe: false,
+        systemvars: true
+      }))
+  }
 })
