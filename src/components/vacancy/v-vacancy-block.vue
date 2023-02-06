@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex j-content-center box-shadow-slim" v-if="vacancy">
-    <div class="padding-1 w-max bg-fff animation-from-hidden">
+    <div class="padding-1 w-max bg-fff d-grid g-gap-1 animation-from-hidden">
       <div class="d-flex j-content-space-between a-items-center p-relative">
         <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover a-items-center" @click="$router.go(-1)">
           <i class="fa fa-arrow-left" aria-hidden="true"></i>

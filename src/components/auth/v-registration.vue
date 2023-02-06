@@ -1,6 +1,6 @@
 <template>
   <div class="modal d-flex a-items-center j-content-center">
-    <div class="modal-content h-max-content animation-from-hidden h-max">
+    <div class="modal-content animation-from-hidden h-max">
       <h3 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 j-content-center a-items-center">
         <v-logo/>
         регистрация
@@ -20,6 +20,11 @@
                         class="m-top-1"
                         type="text"
                         @value="(value) => this.form.last_name = value"/>
+
+        <v-country-region-select label="Местонахождение"
+                                 span="Выберите свое местоположение"
+                                 @value="value => form.region = value"
+                                 class="m-top-1"/>
 
         <v-date-picker label="выберите дату своего рождения"
                        class="m-top-1"
@@ -68,11 +73,12 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VDatePicker from "@/components/_general/v-date-picker";
 import VRadiosNormal from "@/components/_general/v-radios-normal";
 import VLogo from "@/components/_general/v-logo";
+import VCountryRegionSelect from "@/components/_general/v-country-region-select.vue";
 
 export default {
   name: "v-registration",
   mixins: [toggleMixin],
-  components: {VLogo, VRadiosNormal, VDatePicker, VButtonNormal, VInputNormal},
+  components: {VCountryRegionSelect, VLogo, VRadiosNormal, VDatePicker, VButtonNormal, VInputNormal},
   data() {
     return {
       genders: [],
@@ -81,6 +87,7 @@ export default {
         first_name: null,
         last_name: null,
         date_birth: null,
+        region: null,
         password: null,
         email_address: null,
         gender_id: null

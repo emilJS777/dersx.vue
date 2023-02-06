@@ -2,29 +2,26 @@
   <div class="d-grid">
     <label for="" class="f-weight-bold">{{ label }}</label>
     <span class="f-size-very-small">{{span}}</span>
-    <select name="select" id="select" class="w-max form-standard" v-model="selectedItem" @change="onSelect">
-      <option v-for="item in items" :key="item.id" :value="item">{{item.title}}</option>
-    </select>
+    <div class="d-grid g-gap-1">
+      <country-select :countryName="true"  :placeholder="`${placeholder ? placeholder.split(' ')[0] : 'Выберите страну' }` " v-model="country" @change="onRegion" :country="country" topCountry="US" class="w-max form-standard" />
+      <region-select :regionName="true" :countryName="true" :placeholder="`${placeholder ? placeholder.split(' ')[1] : 'Выберите регион'}`" v-model="region" @change="onRegion" :country="country" :region="region" class="w-max form-standard" />
+    </div>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: "v-select-normal",
-  props: ['label', 'items', 'span', 'selected'],
-  data(){
-    return{
-      selectedItem: this.selected || null
-    }
-  },
-  mounted() {
-    if(this.selected)
-      this.onSelect()
-  },
+  name: "v-country-region-select",
+  props: ['label', 'span', 'country_placeholder', 'placeholder'],
+  data: () => ({
+    country: '',
+    region: ''
+  }),
   methods: {
-    onSelect(){
-      this.$emit('select', this.selectedItem)
-    }
+    onRegion(){
+      this.$emit('value', `${this.country && this.region ? this.country+' '+this.region : ''}`)
+    },
   }
 }
 </script>

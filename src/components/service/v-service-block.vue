@@ -1,6 +1,6 @@
 <template>
   <div class="service">
-    <div class="bg-fff padding-1 w-max box-shadow-slim" v-if="service">
+    <div class="bg-fff padding-1 w-max box-shadow-slim d-grid g-gap-1" v-if="service">
       <div class="d-flex j-content-space-between a-items-center p-relative padding-05">
         <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
           <i class="fa fa-arrow-left" aria-hidden="true"></i>

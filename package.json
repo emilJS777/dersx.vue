@@ -24,6 +24,7 @@
     "vue-emojione": "^1.0.3",
     "vue-mitt": "^0.0.1",
     "vue-router": "^4.1.5",
+    "vue3-country-region-select": "^1.0.0",
     "vue3-discordpicker": "^1.1.0",
     "vue3-emoji-picker": "^1.1.7",
     "vuejs-paginate-next": "^1.0.2",

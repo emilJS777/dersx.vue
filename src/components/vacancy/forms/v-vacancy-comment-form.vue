@@ -1,7 +1,7 @@
 <template>
-  <div class="vacancy_comment m-top-2">
-    <v-textarea-normal
-        v-if="profile"
+  <div class="vacancy_comment m-top-2 d-grid a-items-flex-end">
+
+    <v-input-emoji
         @value="value => form.text = value"
         label="ваш комментарии "
         span="не более чем 1500 символов"
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import VTextareaNormal from "@/components/_general/v-textarea-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import {mapState} from "vuex";
+import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 export default {
-  components: {VButtonNormal, VTextareaNormal},
+  components: {VInputEmoji, VButtonNormal},
   props: ['vacancy_id'],
   computed: mapState({
     profile: state => state.auth.profile
@@ -48,5 +48,7 @@ export default {
 </script>
 
 <style scoped>
-
+.vacancy_comment{
+  grid-template-columns: 4fr 1fr;
+}
 </style>

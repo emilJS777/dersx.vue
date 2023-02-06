@@ -3,6 +3,7 @@
 
   <div class="page m-top-2">
     <router-view></router-view>
+    <v-messager v-if="profile"/>
   </div>
 <!--  MESSAGE MODAL-->
   <v-message-modal v-if="message.value"
@@ -13,8 +14,6 @@
   <div class="p-fixed top-0 left-0 w-max h-max d-flex a-items-center j-content-center bg-ccc-opacity z-index-max" v-if="loader">
     <span class="loader"></span>
   </div>
-
-  <v-messager v-if="profile"/>
 
 
 </template>

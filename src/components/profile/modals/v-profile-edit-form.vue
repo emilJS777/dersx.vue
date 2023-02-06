@@ -21,10 +21,17 @@
         <v-input-normal label="фамилия" :placeholder="profile.last_name" class="m-top-1"
                         @value="value => this.form.last_name = value"/>
 
+        <v-country-region-select label="Местонахождение"
+                                 span="Выберите свое местоположение"
+                                 :placeholder="profile.region"
+                                 @value="value => form.region = value"
+                                 class="m-top-1"/>
+
         <v-date-picker label="выберите дату своего рождения"
                        class="m-top-1"
                        :value="profile.date_birth"
                        @value="(value) => this.form.date_birth = value"/>
+
 
         <v-radios-normal label="ваш пол" class="m-top-1"
                          name="gender"
@@ -48,9 +55,10 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VInputNormal from "@/components/_general/v-input-normal";
 import VDatePicker from "@/components/_general/v-date-picker";
 import VRadiosNormal from "@/components/_general/v-radios-normal";
+import VCountryRegionSelect from "@/components/_general/v-country-region-select.vue";
 export default {
   name: "v-profile-edit-form",
-  components: {VRadiosNormal, VDatePicker, VInputNormal, VButtonNormal},
+  components: {VCountryRegionSelect, VRadiosNormal, VDatePicker, VInputNormal, VButtonNormal},
   mixins: [toggleMixin],
   computed: mapState({
     profile: state => state.auth.profile
@@ -64,6 +72,7 @@ export default {
         first_name: '',
         last_name: '',
         date_birth: '',
+        region: '',
         gender_id: null,
       }
     }

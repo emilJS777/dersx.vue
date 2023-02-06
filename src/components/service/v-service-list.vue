@@ -1,5 +1,5 @@
 <template>
-  <div class="service bg-fff padding-1 h-max-content box-shadow-slim">
+  <div class="service bg-fff padding-1 h-max-content box-shadow-slim ">
       <div class="service_img_block p-relative o-hidden" v-if="service.image">
         <img :src="`${web_api}/image?filename=${service.image.filename}`" class="p-absolute absolute-center" alt="">
       </div>
@@ -8,7 +8,7 @@
       <b class="f-size-small c-content">краткое описание: </b>
       <p class="m-top-0">{{service.short_description}}</p>
 
-      <ul class="padding-left-1 list-style-content" v-if="service.categories.length">
+      <ul class="padding-left-1 list-style-content m-top-1 m-bottom-1" v-if="service.categories.length">
         <b class="f-size-small c-content">категории: </b>
         <li v-for="category in service.categories" :key="category.id" class="f-size-small f-weight-bold">{{category.title}}</li>
       </ul>

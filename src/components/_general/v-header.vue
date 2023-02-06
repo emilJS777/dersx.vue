@@ -43,6 +43,13 @@
         </li>
 
 <!--        <li>-->
+<!--          <router-link to="/resume" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
+<!--            <i class="fa fa-file fa-2x m-0-auto" aria-hidden="true"></i>-->
+<!--            <b>резюме</b>-->
+<!--          </router-link>-->
+<!--        </li>-->
+
+<!--        <li>-->
 <!--          <router-link to="/teams" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">-->
 <!--            <i class="fa fa-users" aria-hidden="true"></i>-->
 <!--            <b>команды</b>-->
@@ -121,7 +128,7 @@ export default {
 <style scoped>
 .header{
   background-color: #fff;
-  grid-template-columns: 1fr 2fr 1.5fr;
+  grid-template-columns: 1fr 2fr 1.2fr;
 }
 .logo{
   line-height: .9;

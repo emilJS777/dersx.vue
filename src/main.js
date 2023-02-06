@@ -5,6 +5,7 @@ import store from "@/store";
 import mitt from "mitt";
 import Paginate from "vuejs-paginate-next";
 import WSocket from "./plugins/web_socket"
+import vueCountryRegionSelect from 'vue3-country-region-select'
 //vue-app/src/main.js
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -25,6 +26,7 @@ app.config.globalProperties.emitter = mitt();
 app.use(WSocket)
 app.use(router)
 app.use(store)
+app.use(vueCountryRegionSelect);
 app.use(FontAwesomeIcon)
 app.component('VPaginate', Paginate)
 app.mount('#app')

@@ -1,12 +1,12 @@
 <template>
   <div  class="padding-1">
-    <div class="h-max-content">
-      <v-textarea-normal @value="value => form.text = value"
-                         :default_value="form.text"
-                         v-if="typeof form.text === 'string'"
-                         label="ваш комментарии "
-                         span="не более чем 1500 символов"
-                         placeholder="напишите как вы относитесь к этому проекту "/>
+    <div class="h-max-content d-grid edit_block a-items-flex-end g-gap-1">
+      <v-input-emoji @value="value => form.text = value"
+                     :default_value="form.text"
+                     v-if="typeof form.text === 'string'"
+                     label="ваш комментарии "
+                     span="не более чем 1500 символов"
+                     placeholder="напишите как вы относитесь к этому проекту "/>
 
       <div>
         <div class="btn_block d-flex j-content-flex-end g-gap-1 m-top-1">
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import VTextareaNormal from "@/components/_general/v-textarea-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import toggleMixin from "@/mixins/toggle-mixin";
+import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 export default {
   name: "v-vacancy-comment-edit-form",
-  components: {VAlertModal, VButtonNormal, VTextareaNormal},
+  components: {VInputEmoji, VAlertModal, VButtonNormal},
   props: ['vacancy_comment_id'],
   mixins: [toggleMixin],
   data(){
@@ -64,5 +64,7 @@ export default {
 </script>
 
 <style scoped>
-
+.edit_block{
+  grid-template-columns: 4fr 1fr;
+}
 </style>

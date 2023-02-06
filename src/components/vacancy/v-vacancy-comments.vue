@@ -1,5 +1,5 @@
 <template>
-  <div class="vacancy_comment d-grid m-top-2 padding-1" v-for="vacancy_comment in vacancy_comments" :key="vacancy_comment.id">
+  <div class="vacancy_comment d-grid m-top-2 padding-1 g-gap-1" v-for="vacancy_comment in vacancy_comments" :key="vacancy_comment.id">
     <div class="d-grid g-gap-1 p-relative">
       <v-user-mini-block :user="vacancy_comment.user"/>
       <v-menu-normal v-if="profile && profile.id === vacancy_comment.user.id"
@@ -22,7 +22,7 @@
   </div>
 
   <h3 class="c-ccc" v-if="!vacancy_comments.length">комментарии не найдены</h3>
-  <div v-else class="d-flex j-content-flex-end">
+  <div v-else class="d-flex j-content-flex-end m-top-1">
     <v-paginate
         class="paginate"
         :page-count="page_count"

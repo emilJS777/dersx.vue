@@ -1,5 +1,5 @@
 <template>
-  <div class="vacancy_offer d-grid m-top-2 padding-1" v-for="vacancy_offer in vacancy_offers" :key="vacancy_offer.id">
+  <div class="vacancy_offer d-grid m-top-2 padding-1 d-grid g-gap-1" v-for="vacancy_offer in vacancy_offers" :key="vacancy_offer.id">
     <div class="d-grid g-gap-1 p-relative">
       <v-user-mini-block :user="vacancy_offer.creator"/>
       <v-menu-normal v-if="profile && profile.id === vacancy_offer.creator.id"
@@ -25,7 +25,7 @@
   </div>
 
   <h3 class="c-ccc" v-if="!vacancy_offers.length">предложения не найдены</h3>
-  <div v-else class="d-flex j-content-flex-end">
+  <div v-else class="d-flex j-content-flex-end m-top-1">
     <v-paginate
         class="paginate"
         :page-count="page_count"
