@@ -1,5 +1,5 @@
 <template>
-  <div class="vacancy box-shadow-slim d-grid g-gap-_5">
+  <div class=" box-shadow-slim d-grid g-gap-_5">
     <h4 class="m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center g-gap-_3">
       <a :href="`vacancy?id=${vacancy.id}`" class="c-content-hover c-6d">{{ vacancy.title }}</a>
       <span class="c-content f-size-small">желаемая цена {{ vacancy.price }}$ за <b>{{vacancy.payment_interval.title}}</b></span>
