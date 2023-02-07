@@ -13,8 +13,7 @@ export default {
   },
   created() {
     this.sockets.subscribe('online', (data) => {
-      console.log(data)
-      this.online = true
+      data.user_id === this.user_id ? this.online = true : null
     })
   },
   mounted() {
