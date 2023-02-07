@@ -5,15 +5,14 @@
         <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
         <img :src="`${web_api}/image?filename=${this.user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
       </div>
-      <v-online-indicator :user_id="this.user.id" class="bg-content"/>
-
       <a class="route p-absolute left-0 top-0 w-max h-max" :href="`/profile?id=${user.id}`"></a>
     </div>
 
-    <div>
+    <div class="m-top-05">
       <p class="f-size-small m-bottom-0">{{ user.name }}</p>
       <span class="f-size-small">{{user.first_name}} {{user.last_name}}</span>
       <p v-if="user.gender" class="m-0-auto f-size-small">{{user.gender.title}}</p>
+      <v-online-indicator :user_id="this.user.id" class="c-content p-relative animation-from-hidden-infinite"/>
     </div>
 
 <!--    <div class="btn_block d-flex j-content-space-evenly m-top-1" v-if="profile">-->

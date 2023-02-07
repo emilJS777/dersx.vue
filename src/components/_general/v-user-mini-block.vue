@@ -8,16 +8,19 @@
     </a>
     <div class="d-grid info_block j-content-flex-end f-size-small">
       <i>{{ user.first_name }} {{ user.last_name }}</i>
-      <span class="f-size-very-small">{{user.name}}</span>
+      <span class="f-size-very-small">{{user.name}} </span>
+      <v-online-indicator :user_id="this.user.id" class="c-content left-0 w-max-content p-relative animation-from-hidden-infinite"/>
     </div>
   </div>
 </template>
 
 <script>
 import imageMixin from "@/mixins/image-mixin";
+import VOnlineIndicator from "@/components/user/v-online-indicator.vue";
 
 export default {
   name: "v-user-mini-block",
+  components: {VOnlineIndicator},
   props: ["user"],
   mixins: [imageMixin],
   data(){

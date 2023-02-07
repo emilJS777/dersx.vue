@@ -17,8 +17,6 @@
       </svg>
 
     </div>
-    <v-online-indicator :user_id="parseInt(this.$route.query.id)" class="bg-content" v-if="profile.id !== parseInt(this.$route.query.id)"/>
-
   </div>
 
   <!--  USER MENU-->
@@ -69,7 +67,7 @@
       </svg>
       <span>На сайте с {{ user.creation_date }}</span>
     </p>
-
+    <v-online-indicator :user_id="parseInt(this.$route.query.id)" class="c-content animation-from-hidden-infinite p-relative" v-if="profile.id !== parseInt(this.$route.query.id)"/>
 
 
 
