@@ -5,6 +5,8 @@
         <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
         <img :src="`${web_api}/image?filename=${this.user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
       </div>
+      <v-online-indicator :user_id="this.user.id" class="bg-content"/>
+
       <a class="route p-absolute left-0 top-0 w-max h-max" :href="`/profile?id=${user.id}`"></a>
     </div>
 
@@ -29,9 +31,11 @@
 <script>
 
 import {mapState} from "vuex";
+import VOnlineIndicator from "@/components/user/v-online-indicator.vue";
 
 export default {
   name: "v-user",
+  components: {VOnlineIndicator},
   props: ['user'],
   computed: mapState({
     profile: state => state.auth.profile

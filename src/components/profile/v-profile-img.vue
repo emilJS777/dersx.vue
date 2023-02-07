@@ -1,5 +1,5 @@
 <template>
-  <div class="img_parent" v-if="user">
+  <div class="img_parent p-relative" v-if="user">
     <div class="w-max p-relative o-hidden img_div w-max h-max d-block-hover">
       <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
       <img :src="`${web_api}/image?filename=${user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
@@ -15,7 +15,10 @@
         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
       </svg>
+
     </div>
+    <v-online-indicator :user_id="parseInt(this.$route.query.id)" class="bg-content" v-if="profile.id !== parseInt(this.$route.query.id)"/>
+
   </div>
 
   <!--  USER MENU-->
@@ -91,9 +94,10 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import imageGetMixin from "@/mixins/image-get-mixin";
 import {mapState} from "vuex";
 import VUserMenuBlock from "@/components/profile/v-user-menu-block";
+import VOnlineIndicator from "@/components/user/v-online-indicator.vue";
 export default {
   name: "v-profile-img",
-  components: {VUserMenuBlock, VAlertModal, VInputFileNormal},
+  components: {VOnlineIndicator, VUserMenuBlock, VAlertModal, VInputFileNormal},
   mixins: [toggleMixin, imageGetMixin],
   computed: mapState({
     profile: state => state.auth.profile

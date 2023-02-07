@@ -13,7 +13,7 @@
                                     {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
       </div>
       <div class="m-top-1">
-        <h2 class="m-top-0 d-flex j-content-space-between">
+        <h2 class="m-top-0 m-bottom-0 d-flex j-content-space-between">
           {{vacancy.title}}
         </h2>
 

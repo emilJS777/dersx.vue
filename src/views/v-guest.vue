@@ -12,7 +12,7 @@
     </div>
 
     <div class="d-flex j-content-flex-end h-max-content">
-      <img class="w-max" src="https://freeagent-res.cloudinary.com/image/upload/c_limit,w_1000/dpr_auto,f_auto/website-images/shared/clay--devices-cropped.png" alt="">
+      <img class="w-max" src="@/assets/images/082065f5d7b560b8f9c4c66c94b1429e.png" alt="">
     </div>
   </div>
 
