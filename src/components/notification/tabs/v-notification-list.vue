@@ -72,7 +72,6 @@ export default {
   mounted() {
     this.$store.dispatch("notification/GET", `?id=${this.notification_id}`).then(data => {
       this.notifications.push(data.obj)
-      console.log(data.obj)
     })
   },
   methods: {

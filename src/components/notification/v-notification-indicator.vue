@@ -12,6 +12,12 @@ export default {
   computed: mapState({
     notification_ids: state => state.notification.NOTIFICATION_IDS,
   }),
+  mounted() {
+    this.$store.dispatch("notification/GET", ``).then(() => {})
+    this.sockets.subscribe('notification_ids', (data) => {
+      this.$store.commit("notification/SET_NOTIFICATION_IDS", data.notification_ids)
+    });
+  },
 }
 </script>
 

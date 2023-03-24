@@ -142,12 +142,6 @@ export default {
   computed: mapState({
     profile: state => state.auth.profile,
   }),
-  mounted() {
-    this.$store.dispatch("notification/GET", ``).then(() => {})
-    this.sockets.subscribe('notification_ids', (data) => {
-      this.$store.commit("notification/SET_NOTIFICATION_IDS", data.notification_ids)
-    });
-  },
   methods:{
     logout(){
       this.$store.dispatch("auth/LOGOUT").then(data => {

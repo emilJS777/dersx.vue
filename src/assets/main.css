@@ -249,6 +249,9 @@ a{
 .w-max-content{
     width: max-content;
 }
+.min-height-500{
+    min-height: 500px;
+}
 .h-max{
     height: 100%;
 }
