@@ -58,12 +58,15 @@ export default {
   },
   methods: {
     select_rubric(rubric){
+      console.log(rubric)
       this.body.rubric_id = rubric.id
       this.body.category_ids = []
+      this.categories = []
       this.get_categories()
     },
     select_categories(category_ids){
       this.body.category_ids = category_ids
+      console.log(category_ids)
     },
     get_categories(){
       this.$store.dispatch("category/GET", `?rubric_id=${this.body.rubric_id}`).then(data => {

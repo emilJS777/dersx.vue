@@ -3,8 +3,9 @@
       <div class="d-grid h-max-content g-gap-1 box-shadow-slim">
         <div class="bg-fff padding-1 d-grid j-content-center">
           <v-profile-img/>
-          <v-button-normal label="настройки профиля" class="bg-content-hover w-max m-top-2"
+          <v-button-normal label="настройки профиля" class="bg-content-hover w-max m-top-2 f-size-small"
                            @click="setModalName('profileEditModal')"
+                           icon="fa fa-cog"
                            v-if="profile && profile.id === parseInt(this.$route.query.id)"/>
         </div>
 

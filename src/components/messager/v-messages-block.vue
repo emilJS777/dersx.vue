@@ -1,12 +1,12 @@
 <template>
-  <div class="messages_block bg-initial animation-from-hidden">
-    <div class="d-flex j-content-space-between a-items-center padding-05 p-absolute left-0 top-0 right-0 z-index-max">
+  <div class="messages_block padding-03 animation-from-hidden">
+    <div class="d-flex j-content-space-between a-items-center padding-1 p-absolute left-0 top-0 right-0">
       <span class="c-pointer padding-03 c-content-hover" @click="this.$emit('close')">
         <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
       </span>
-      <h5 class="m-top-0 m-bottom-0 padding-03 d-grid">
+      <h4 class="m-top-0 c-6d m-bottom-0 padding-03 d-grid">
         {{partner.first_name}} {{partner.last_name}}
-      </h5>
+      </h4>
 
 <!--      SETTING MENU-->
       <div class="c-pointer p-relative">
@@ -28,7 +28,7 @@
       <v-message-block  v-for="message in messages" :key="message.id" :message="message" :partner="partner" :user="user"/>
     </div>
 
-    <div class="padding-1 d-flex g-gap-_3">
+    <div class="padding-1 input_form d-grid a-items-flex-end g-gap-_3">
 <!--      <v-input-normal placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>-->
       <v-input-emoji  placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>
       <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="onMessage" v-if="modalName === 'inputText'"/>
@@ -83,8 +83,10 @@ export default {
     onMessage(){
       this.$store.dispatch("message/CREATE", this.form).then(data=>{
         this.form.text = ''
-        if(data.success)
+        if(data.success) {
+          this.$store.commit("room/SET_FIRS", {id: this.room_id})
           this.messages.push(data.obj)
+        }
       }).finally(() => {
         this.setModalName('inputText')
         this.onBottomScroll()
@@ -124,5 +126,7 @@ export default {
   height: 550px;
   overflow-y: scroll;
 }
-
+.input_form{
+  grid-template-columns: 2fr .1fr;
+}
 </style>

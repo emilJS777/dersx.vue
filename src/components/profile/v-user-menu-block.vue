@@ -86,7 +86,8 @@ export default {
   },
   methods:{
     openMessage(){
-      this.emitter.emit('openMessage', this.user)
+      this.$router.push({name: 'messages', params: {userId: this.user.id}})
+      // this.emitter.emit('openMessage', this.user)
     },
     onFriend(){
       this.emitter.emit('load', true)

@@ -1,9 +1,9 @@
 <template>
   <div class="rooms_block o-hidden animation-from-hidden bg-fff">
-   <h4 class="m-top-0 m-bottom-0 padding-1 l-height-0">сообщения</h4>
+   <h4 class="m-top-0 m-bottom-0 padding-1 c-6d l-height-0">контакты</h4>
 
     <div class="list">
-      <div v-for="room in rooms" :key="room.id" class="user_block h-max-content padding-1 bg-ccc-opacity-hover c-pointer d-flex g-gap-1"
+      <div v-for="room in this.rooms" :key="room.id" class="user_block h-max-content padding-1 bg-ccc-opacity-hover c-pointer d-flex g-gap-1"
            @click="this.$emit('messager', room.id, room.user)">
         <div>
           <v-user-mini-block :user="room.user" class=""/>
@@ -29,26 +29,41 @@ export default {
   mixins: [toggleMixin],
   computed: mapState({
     profile: state => state.auth.profile,
-    new_messages: state => state.message.NOT_READ_LIST
+    new_messages: state => state.message.NOT_READ_LIST,
+    rooms: state => state.room.ROOMS,
   }),
   data(){
     return{
-      rooms: [],
       rooms_signals: []
     }
   },
   mounted() {
     this.get_rooms()
-    this.new_messages.forEach(mess => {
-      console.log(mess)
-    })
+    if(this.$route.params.userId){
+      this.get_room(this.$route.params.userId)
+    }
+    else if (!this.$route.params.userId && this.new_messages.length && this.rooms.length){
+      this.rooms.map(room => {
+        if(room.id === this.new_messages[0].room_id) {
+          this.$emit('messager', room.id, room.user)
+        }
+      })
+    }
   },
   methods:{
     get_rooms(){
+      this.emitter.emit('load', true)
       this.$store.dispatch("room/GET", `?limit=5&offset=0&search=`).then(data => {
-        this.rooms = data.obj
-      })
+        this.$store.commit("room/SET_ROOMS", data.obj)
+      }).finally(() => this.emitter.emit('load', false))
     },
+    get_room(user_id){
+      this.emitter.emit('load', true)
+      this.$store.dispatch("room/GET", `?user_id=${user_id}`).then(data => {
+        this.$emit('messager', data.obj.id, data.obj.user)
+        this.$store.commit("room/SET_ONE", data.obj)
+      }).finally(() => this.emitter.emit('load', false))
+    }
   }
 }
 </script>

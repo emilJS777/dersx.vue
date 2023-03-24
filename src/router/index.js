@@ -87,6 +87,66 @@ const routes = [
         component: () => import("@/views/service/v-service-create.vue"),
         beforeEnter: [auth_middleware]
     },
+    {
+        path: "/companies",
+        name: "companies",
+        component: () => import("@/views/company/v-companies.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/companyCreate",
+        name: "companyCreate",
+        component: () => import("@/views/company/v-company-create.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/company",
+        name: "company",
+        component: () => import("@/views/company/v-company.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/resumes",
+        name: "resumes",
+        component: () => import("@/views/resume/v-resumes.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/resumeCreate",
+        name: "resumeCreate",
+        component: () => import("@/views/resume/v-resume-create.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/groups",
+        name: "groups",
+        component: () => import("@/views/group/v-groups.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/group",
+        name: "group",
+        component: () => import("@/views/group/v-group.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/groupCreate",
+        name: "groupCreate",
+        component: () => import("@/views/group/v-group-create.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/messages/:userId?",
+        name: "messages",
+        component: () => import("@/views/v-messages.vue"),
+        beforeEnter: [auth_middleware]
+    },
+    {
+        path: "/notifications",
+        name: "notifications",
+        component: () => import("@/views/v-notifications.vue"),
+        beforeEnter: [auth_middleware]
+    },
 ];
 
 

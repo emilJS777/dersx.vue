@@ -26,6 +26,9 @@ import message from "./modules/messager/message";
 import room from "./modules/messager/room";
 import friend from "./modules/friend"
 import notification from "./modules/notification"
+import company from "@/store/modules/company";
+import group from "@/store/modules/group";
+import group_invite from "@/store/modules/group_invite";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -57,5 +60,8 @@ export default new Vuex.Store({
         room,
         friend,
         notification,
+        company,
+        group,
+        group_invite
     }
 })

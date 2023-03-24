@@ -35,9 +35,10 @@
 <!--        <span class="f-size-small c-content c-pointer t-decoration-underline-hover" @click="setModalName('serviceCreateModal')">создать услугу</span>-->
 <!--      </div>-->
 
-      <div class="services-list d-grid g-gap-1" v-if="services.length">
+      <div class="services-list w-max-content g-gap-1" v-if="services.length">
         <v-service-list v-for="service in services"
                         :key="service.id"
+                        class="m-bottom-2"
                         :service="service"/>
       </div>
       <h3 class="t-center c-ccc" v-if="!services.length">ничего не найдено</h3>
@@ -126,6 +127,6 @@ export default {
   grid-template-columns: 1fr 2fr;
 }
 .services-list{
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 </style>

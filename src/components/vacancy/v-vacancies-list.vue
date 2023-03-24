@@ -6,8 +6,8 @@
     </h4>
     <p>{{vacancy.short_description}}</p>
 
-    <ul class="w-max categories_block list-style-content d-grid g-gap-_3 padding-left-1" v-if="this.categories !== false">
-      <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 m-right-03">{{category.title}}</li>
+    <ul class="w-max categories_block list-style-content padding-left-1" v-if="this.categories !== false">
+      <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 d-inline-block m-right-1 m-right-03">{{category.title}}</li>
     </ul>
     <div class="footer d-flex a-items-center j-content-space-between f-size-small m-top-05" v-if="this.footer !== false">
       <v-user-mini-block :user="vacancy.creator"/>
@@ -31,7 +31,5 @@ export default {
 h3{
   margin-top: 0;
 }
-.categories_block{
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
+
 </style>

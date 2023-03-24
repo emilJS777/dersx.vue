@@ -111,6 +111,9 @@ a{
 .m-left-1{
     margin-left: 1em;
 }
+.m-left-2{
+    margin-left: 2em;
+}
 .m-right-03{
     margin-right: .3em;
 }
@@ -329,6 +332,9 @@ a{
 }
 .bott-0{
     bottom: 0;
+}
+.top-max{
+    top: 100%;
 }
 .top-0{
     top: 0;

@@ -10,9 +10,7 @@
            @click="setModalName('roomBlock')" v-if="!modalName">
 
         <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
-        <span class="p-absolute f-size-small padding-1 right-0 top-0 d-flex j-content-center a-items-center b-radius-50 bg-red message_indicator" v-if="new_messages.length">
-          {{this.new_messages.length}}
-        </span>
+        <v-messages-indicator class="p-absolute indicator"/>
       </div>
 
       <div class="c-content-hover b-radius-50 c-pointer box-shadow-slim animation-from-hidden w-max-content d-flex j-content-flex-end"
@@ -29,13 +27,13 @@ import VRoomsBlock from "@/components/messager/v-rooms-block";
 import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
 import VMessagesBlock from "@/components/messager/v-messages-block";
+import VMessagesIndicator from "@/components/messager/v-messages-indicator";
 export default {
   name: "v-messager",
-  components: {VMessagesBlock, VRoomsBlock},
+  components: {VMessagesIndicator, VMessagesBlock, VRoomsBlock},
   mixins: [toggleMixin],
   computed: mapState({
-    profile: state => state.auth.profile,
-    new_messages: state => state.message.NOT_READ_LIST
+    profile: state => state.auth.profile
   }),
   data(){
     return{
@@ -61,7 +59,8 @@ export default {
     this.emitter.on('openMessage', user => {
       this.$store.dispatch("room/GET", `?user_id=${user.id}`).then(data => {
         if(data.success)
-          this.setModalName('messagerBlock', data.obj.id, user)
+          this.$store.commit("room/SET_ONE", data.obj)
+          // this.setModalName('messagerBlock', data.obj.id, user)
         else
           this.emitter.emit('message', data)
       })
@@ -76,10 +75,6 @@ export default {
 </script>
 
 <style scoped>
-.message_indicator{
-  height: 15px;
-  width: 15px;
-}
 .messager_block{
   width: 350px;
   border-radius: 8px;
@@ -93,5 +88,12 @@ export default {
 .messager_toggle_block{
   bottom: -18px;
   right: -18px;
+}
+.indicator{
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  top: -4px;
+  right: 6px;
 }
 </style>

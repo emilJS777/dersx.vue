@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex j-content-center h-max a-items-center">
+  <div class="d-flex j-content-center h-max a-items-center box-shadow-slim">
     <div class="bg-fff padding-1 animation-from-hidden d-grid h-max-content w-max">
       <h3 class="m-top-0 m-bottom-0">личнные даннные</h3>
       <span class="f-size-very-small m-top-0">не прописывайте те поля которые не хотите изменить</span>

@@ -26,8 +26,8 @@
         <p>{{vacancy.long_description}}</p>
       </div>
 
-      <ul class="w-max categories_block list-style-content d-grid g-gap-_3 padding-left-1">
-        <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 m-right-03">{{category.title}}</li>
+      <ul class="w-max categories_block list-style-content padding-left-1">
+        <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small d-inline-block m-right-1 f-weight-bold padding-02 m-right-03">{{category.title}}</li>
       </ul>
 
       <div class="tabs_btn d-flex g-gap-1">

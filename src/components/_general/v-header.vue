@@ -14,12 +14,12 @@
           </router-link>
         </li>
 
-        <li>
-          <router-link to="/services" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-briefcase m-0-auto fa-2x" aria-hidden="true"></i>
-            <b>услуги</b>
-          </router-link>
-        </li>
+<!--        <li>-->
+<!--          <router-link to="/services" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
+<!--            <i class="fa fa-briefcase m-0-auto fa-2x" aria-hidden="true"></i>-->
+<!--            <b>услуги</b>-->
+<!--          </router-link>-->
+<!--        </li>-->
 
         <li>
           <router-link to="/vacancies" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
@@ -29,9 +29,16 @@
         </li>
 
 <!--        <li>-->
-<!--          <router-link to="/companies" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-building" aria-hidden="true"></i>-->
+<!--          <router-link to="/companies" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
+<!--            <i class="fa fa-building m-0-auto fa-2x" aria-hidden="true"></i>-->
 <!--            <b>компании</b>-->
+<!--          </router-link>-->
+<!--        </li>-->
+
+<!--        <li>-->
+<!--          <router-link to="/resumes" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
+<!--            <i class="fa fa-file-pdf m-0-auto fa-2x" aria-hidden="true"></i>-->
+<!--            <b>резюме</b>-->
 <!--          </router-link>-->
 <!--        </li>-->
 
@@ -39,6 +46,29 @@
           <router-link to="/users" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
             <i class="fa fa-user fa-2x m-0-auto" aria-hidden="true"></i>
             <b>пользователи</b>
+          </router-link>
+        </li>
+
+<!--        <li>-->
+<!--          <router-link to="/groups" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
+<!--            <i class="fa fa-users fa-2x m-0-auto" aria-hidden="true"></i>-->
+<!--            <b>группы</b>-->
+<!--          </router-link>-->
+<!--        </li>-->
+
+        <li class="p-relative">
+          <router-link to="/notifications" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+            <v-notification-indicator class="p-absolute indicator notification_indicator"/>
+            <i class="fa fa-bell fa-2x m-0-auto" aria-hidden="true"></i>
+            <b>уведомления</b>
+          </router-link>
+        </li>
+
+        <li class="p-relative">
+          <router-link to="/messages" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+            <v-messages-indicator class="p-absolute indicator"/>
+            <i class="fa fa-envelope fa-2x m-0-auto" aria-hidden="true"></i>
+            <b>сообщения</b>
           </router-link>
         </li>
 
@@ -60,13 +90,12 @@
 
     <div v-if="profile" class="d-grid g-gap-1 p-relative">
       <div class="auth d-flex j-content-flex-end a-items-center g-gap-1 p-relative" >
-<!--        NOTIFICATION BLOCK-->
-        <v-notification/>
 
         <div class="d-grid info_block j-content-flex-end">
           <b>{{ profile.first_name }} {{ profile.last_name }}</b>
           <i>{{profile.email_address}}</i>
           <span class="c-content f-size-very-small w-max-content c-pointer" @click="setModalName('logoutAlertModal')">выйти из аккаунта</span>
+
         </div>
 
         <a :href="`/profile?id=${this.profile.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
@@ -102,14 +131,23 @@ import {mapState} from "vuex"
 import imageGetMixin from "@/mixins/image-get-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VLogo from "@/components/_general/v-logo";
-import VNotification from "@/components/notification/v-notification";
+import VMessagesIndicator from "@/components/messager/v-messages-indicator";
+import VNotificationIndicator from "@/components/notification/v-notification-indicator";
 export default {
   name: "v-header",
   mixins: [toggleMixin, imageGetMixin],
-  components: {VNotification, VLogo, VAlertModal, VRegistration, VLoginModal, VButtonNormal},
+  components: {
+    VNotificationIndicator,
+    VMessagesIndicator, VLogo, VAlertModal, VRegistration, VLoginModal, VButtonNormal},
   computed: mapState({
     profile: state => state.auth.profile,
   }),
+  mounted() {
+    this.$store.dispatch("notification/GET", ``).then(() => {})
+    this.sockets.subscribe('notification_ids', (data) => {
+      this.$store.commit("notification/SET_NOTIFICATION_IDS", data.notification_ids)
+    });
+  },
   methods:{
     logout(){
       this.$store.dispatch("auth/LOGOUT").then(data => {
@@ -128,7 +166,7 @@ export default {
 <style scoped>
 .header{
   background-color: #fff;
-  grid-template-columns: 1fr 2fr 1.2fr;
+  grid-template-columns: 1fr 3fr 1.1fr;
 }
 .logo{
   line-height: .9;
@@ -157,5 +195,15 @@ img{
 }
 li{
   font-size: 12px;
+}
+.indicator{
+  width: 10px;
+  height: 10px;
+  font-size: 9px;
+  top: -4px;
+  right: 6px;
+}
+.notification_indicator{
+  right: 12px;
 }
 </style>

@@ -1,34 +1,54 @@
 <template>
-  <div class="friend_request_block fa-border padding-1" v-for="notification in this.notifications" :key="notification.id">
+  <div class="friend_request_block fa-border padding-1 d-grid g-gap-2" v-for="notification in this.notifications" :key="notification.id">
 <!--    FRIEND-->
-    <div v-if="notification.friend">
+    <div v-if="notification.friend" class="d-flex j-content-space-between">
       <div class="m-bottom-1">
         <v-user-mini-block :user="notification.creator"/>
       </div>
-      <div v-if="notification.friend.confirmed" class="d-flex g-gap-1 a-items-center j-content-space-evenly">
-        <span class=" c-ccc f-weight-bold">теперь вы друзья !</span>
-        <span class="t-decoration-underline f-size-small c-pointer f-weight-bold c-content-hover fa-border padding-left-1 padding-right-1" @click="notificationDelete(notification.id)">
-          OK
-        </span>
+
+      <div class="d-flex g-gap-1 a-items-center j-content-space-evenly c-ccc f-weight-bold">
+        <span v-if="notification.friend.confirmed" class="">теперь вы друзья !</span>
+        <span v-else>запрос на добавление в друзья</span>
       </div>
 
-      <div class="menu d-flex g-gap-_5 m-top-1" v-else>
-        <v-button-normal label="принять" class="f-size-very-small c-content-hover" icon="fa fa-check" @click="onUpdateFriendRequest(notification.id, notification.friend.id)"/>
-        <v-button-normal label="отклонить" class="f-size-very-small c-red" icon="fa fa-ban" @click="onDeleteFriendRequest(notification.id, notification.friend.id)"/>
+      <div class="f-size-small menu d-flex g-gap-_5 m-top-1 f-weight-bold c-content-hover padding-left-1 padding-right-1">
+        <v-button-normal v-if="notification.friend.confirmed" label="OK" @click="notificationDelete(notification.id)"/>
+
+        <div class="menu d-flex g-gap-_5 m-top-1" v-else>
+          <v-button-normal label="принять" class=" c-content-hover" icon="fa fa-check" @click="onUpdateFriendRequest(notification.id, notification.friend.id)"/>
+          <v-button-normal label="отклонить" class=" c-red" icon="fa fa-ban" @click="onDeleteFriendRequest(notification.id, notification.friend.id)"/>
+        </div>
       </div>
     </div>
 
 <!--    VACANCY OFFER-->
-    <div v-if="notification.vacancy_offer">
+    <div v-if="notification.vacancy_offer" class="d-flex j-content-space-between a-items-center">
       <div class="m-bottom-1">
         <v-user-mini-block :user="notification.creator"/>
       </div>
       <div>
-        <h4 class="f-size-small m-bottom-0 m-top-0">отклик на вакансию</h4>
+        <h4 class="d-flex g-gap-1 a-items-center j-content-space-evenly c-ccc f-weight-bold m-bottom-0 m-top-0">отклик на вакансию</h4>
         <p class="o-hidden f-size-small cut-text">{{notification.vacancy_offer.description}}</p>
-        <a :href="`/vacancy?id=${notification.vacancy_offer.vacancy_id}`" @click="notificationDelete(notification.id)" class="f-size-small c-content">посмотреть</a>
+      </div>
+      <div class="f-size-small">
+        <v-button-normal label="посмотреть" icon="fa fa-eye" @click="notificationDelete(notification.id);this.$router.push({name: 'vacancy', query: {id: notification.vacancy_offer.vacancy_id}})"/>
       </div>
     </div>
+
+<!--&lt;!&ndash;    GROUP INVITE&ndash;&gt;-->
+<!--    <div v-if="notification.group_invite">-->
+<!--      <div class="m-bottom-1">-->
+<!--        <v-user-mini-block :user="notification.creator"/>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <h4 class="f-size-small m-bottom-0 m-top-0">приглашает в группу {{notification.group_invite.group.title}}</h4>-->
+<!--        <div class="d-flex g-gap-_5 m-top-1">-->
+<!--          <v-button-normal label="принять" class="f-size-very-small c-content-hover" icon="fa fa-check" @click="onUpdateGroupInvite(notification.group_invite.id, notification.id)"/>-->
+<!--          <v-button-normal label="отклонить" class="f-size-very-small c-red" icon="fa fa-ban" @click="onDeleteGroupInvite(notification.group_invite.group.id, notification.id)"/>-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <a :href="`/vacancy?id=${notification.vacancy_offer.vacancy_id}`" @click="notificationDelete(notification.id)" class="f-size-small c-content">посмотреть</a>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -52,6 +72,7 @@ export default {
   mounted() {
     this.$store.dispatch("notification/GET", `?id=${this.notification_id}`).then(data => {
       this.notifications.push(data.obj)
+      console.log(data.obj)
     })
   },
   methods: {
@@ -70,11 +91,19 @@ export default {
     onUpdateFriendRequest(notification_id, friend_id){
       this.$store.dispatch("friend/UPDATE", `?id=${friend_id}`)
       this.notification_clear_local(notification_id)
+    },
+    onUpdateGroupInvite(group_invite_id, notification_id){
+      this.$store.dispatch("group_invite/UPDATE", group_invite_id)
+      this.notificationDelete(notification_id)
+    },
+    onDeleteGroupInvite(group_id, notification_id){
+      this.notification_clear_local(notification_id)
+      this.$store.dispatch("group_invite/DELETE", `?group_id=${group_id}&user_id=${this.profile.id}`).then(data => console.log(data))
     }
   }
 }
 </script>
 
 <style scoped>
-p{}
+
 </style>

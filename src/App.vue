@@ -7,6 +7,7 @@
   </div>
 <!--  MESSAGE MODAL-->
   <v-message-modal v-if="message.value"
+                   class="z-index-max"
                    :message="message.value"
                    :success="message.success"/>
 
