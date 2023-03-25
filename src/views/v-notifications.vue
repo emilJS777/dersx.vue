@@ -2,7 +2,7 @@
   <div class="notifications d-grid g-gap-3">
     <div></div>
     <div class="bg-fff padding-1 d-grid g-gap-1 min-height-500 box-shadow-slim">
-      <h3 class="f-weight-bold c-ccc t-center" v-if="!notification_ids.length">раздел пуст</h3>
+      <i class="f-weight-bold c-ccc t-center" v-if="!notification_ids.length"> у вас нет уведомлений </i>
       <div v-for="notification_id in notification_ids" :key="notification_id">
         <v-notification-list :notification_id="notification_id"/>
       </div>

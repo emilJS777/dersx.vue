@@ -1,6 +1,7 @@
 <template>
-  <v-header/>
 
+  <v-header/>
+  
   <div class="page m-top-2">
     <router-view></router-view>
     <v-messager v-if="profile"/>

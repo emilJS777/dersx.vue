@@ -14,7 +14,7 @@
           <i class="fa fa-cog" aria-hidden="true"></i>
         </div>
 
-        <ul class="p-absolute right-0 bg-fff padding-05 box-shadow-slim w-max-content" v-if="modalName === 'messageSettings'">
+        <ul class="p-absolute right-0 bg-fff padding-05 box-shadow-slim w-max-content z-index-max" v-if="modalName === 'messageSettings'">
           <li class="d-flex g-gap-1 a-items-center c-red bg-ccc-opacity-hover" @click="setModalName('messagesDeleteAlert', this.room_id, this.partner)">
             <i class="fa fa-ban" aria-hidden="true"></i>
             <span>удалить сообщения</span>
@@ -24,14 +24,17 @@
     </div>
 
     <div class="m-top-3" id="messages_block">
-      <p class="m-top-0 m-bottom-0 t-center f-size-small c-content c-pointer t-decoration-underline-hover" v-if="show_more" @click="()=>{setOffset();this.getMessages()}">показать еще</p>
-      <v-message-block  v-for="message in messages" :key="message.id" :message="message" :partner="partner" :user="user"/>
+      <p class="m-top-0 m-top-1 m-bottom-0 t-center f-size-small c-content c-pointer t-decoration-underline-hover" v-if="show_more" @click="()=>{setOffset();this.getMessages()}">показать еще</p>
+      <v-message-block  v-for="(message, index) in messages" :key="message.id" :index="index" :message="message" :partner="partner" :room_id="this.room_id" :user="user" @editMessage="body => this.editForm = body"/>
     </div>
 
-    <div class="padding-1 input_form d-grid a-items-flex-end g-gap-_3">
-<!--      <v-input-normal placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>-->
-      <v-input-emoji  placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>
-      <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="onMessage" v-if="modalName === 'inputText'"/>
+    <div :class="`padding-1 padding-top-2 d-grid a-items-flex-end g-gap-_3 a-items-center  input_form p-relative`" v-if="modalName === 'inputText'">
+      <span class="c-content c-pointer d-flex a-items-center padding-03 p-absolute t-decoration-underline-hover m-left-2 top-0 f-size-small" @click="this.editForm=null" v-if="modalName === 'inputText' && this.editForm"><i class="fa fa-close m-right-05"></i> отменить редактирование</span>
+      <v-input-emoji  placeholder="редактировать сообщния..." :default_value="editForm.text" @value="value => editForm.text = value" v-if="modalName === 'inputText' && this.editForm"/>
+      <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="updateMessage" v-if="modalName === 'inputText' && this.editForm"/>
+      <!--      <v-input-normal placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>-->
+      <v-input-emoji  placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText' && !this.editForm"/>
+      <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="onMessage" v-if="modalName === 'inputText' && !this.editForm"/>
     </div>
   </div>
 
@@ -63,8 +66,9 @@ export default {
       form:{
         text: '',
         room_id: this.room_id,
-        user_id: parseInt(this.partner.id)
-      }
+        user_id: parseInt(this.partner.id),
+      },
+      editForm: null
     }
   },
   created() {
@@ -80,6 +84,19 @@ export default {
     this.getMessages(true)
   },
   methods:{
+    updateMessage(){
+      this.emitter.emit('load', true)
+      this.$store.dispatch("message/UPDATE", {id: this.editForm.id, form: this.editForm}).then(data => {
+        if(data.success) {
+          this.editForm.edited = true
+          this.messages[this.editForm.index] = this.editForm
+          this.editForm = null
+          this.setModalName('inputText')
+        }
+        else
+          this.emitter.emit('message', data)
+      }).finally(() => this.emitter.emit('load', false))
+    },
     onMessage(){
       this.$store.dispatch("message/CREATE", this.form).then(data=>{
         this.form.text = ''
@@ -99,6 +116,7 @@ export default {
       }).finally(() => this.emitter.emit('load', false))
     },
     getMessages(on_bottom){
+      this.emitter.emit('load', true)
       this.$store.dispatch("message/GET", `?limit=${this.limit}&offset=${this.offset}&room_id=${this.room_id}`).then(data => {
         data.obj.map(message => {
           this.messages.unshift(message)
@@ -109,6 +127,7 @@ export default {
           this.show_more = true
 
       }).finally(() => {
+        this.emitter.emit('load', false)
         if(on_bottom)
           this.onBottomScroll()
       })

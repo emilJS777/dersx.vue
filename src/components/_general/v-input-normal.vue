@@ -14,6 +14,9 @@ export default {
     return{
       value: this.default_value || null
     }
+  },
+  mounted() {
+
   }
 }
 </script>
