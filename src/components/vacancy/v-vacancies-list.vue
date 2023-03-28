@@ -11,7 +11,7 @@
     </ul>
     <div class="footer d-flex a-items-center j-content-space-between f-size-small m-top-05" v-if="this.footer !== false">
       <v-user-mini-block :user="vacancy.creator"/>
-      <span>опубликовано {{vacancy.creation_date}}</span>
+      <span>опубликовано {{this.date_time}}</span>
       <span>предложений {{ vacancy.vacancy_offers_count }}</span>
       <span class="c-pointer c-content-hover"><a :href="`vacancy?id=${vacancy.id}`">подробнее</a></span>
     </div>
@@ -20,10 +20,15 @@
 
 <script>
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
+import localTimeMixin from "@/mixins/local-time-mixin";
 export default {
   name: "v-vacancies-list",
   components: {VUserMiniBlock},
   props: ['vacancy', 'categories', 'footer'],
+  mixins: [localTimeMixin],
+  mounted() {
+    this.getLocalTime(this.vacancy.creation_date)
+  }
 }
 </script>
 

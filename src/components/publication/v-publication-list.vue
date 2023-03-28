@@ -19,7 +19,7 @@
 <!--    PUBLICATION CREATION DATE-->
     <div class="d-grid g-gap-_5">
       <span class="f-size-small m-top-0">
-        <b>опубликовано:</b> {{publication.creation_date}}
+        <b>опубликовано:</b> {{this.date_time}}
       </span>
     </div>
 
@@ -90,11 +90,12 @@ import VPublicationCommentCreateForm from "@/components/publication/forms/v-publ
 import VPublicationComment from "@/components/publication/v-publication-comment";
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import VMenuNormal from "@/components/_general/v-menu-normal.vue";
+import localTimeMixin from "@/mixins/local-time-mixin";
 export default {
   name: "v-publication-list",
   components: {VMenuNormal, VUserMiniBlock, VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
   props: ["publication"],
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, localTimeMixin],
   computed: mapState({
     profile: state => state.auth.profile
   }),
@@ -115,6 +116,7 @@ export default {
   },
   mounted() {
     this.publication_like.like_count = this.publication.like_count
+    this.getLocalTime(this.publication.creation_date)
   //  SELF LIKE GET
     this.emitter.emit('load', true)
     this.$store.dispatch("publication_like/GET", `?publication_id=${this.publication.id}`).then(data => {

@@ -19,6 +19,7 @@
     "dotenv-webpack": "^8.0.1",
     "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.1",
+    "moment": "^2.29.4",
     "socket.io-client": "^4.5.4",
     "vue": "^3.2.13",
     "vue-3-socket.io": "^1.0.5",

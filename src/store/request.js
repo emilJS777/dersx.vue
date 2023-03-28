@@ -6,9 +6,9 @@ const request = (context, path, method, body, access=true) => {
         url: api_url+path,
         method: method,
         data: body || {},
-        headers: access ? {"Authorization": "Bearer " + localStorage.getItem("access_token")} : {}
+        headers: access ? {"Authorization": "Bearer " + localStorage.getItem("access_token")} : {},
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
     }).then(data => data.data).catch(err => {
-        //
         // if(err.response.status === 401 && access || err.response.status === 422 && access)
         //     return REFRESH({path, method, body})
 

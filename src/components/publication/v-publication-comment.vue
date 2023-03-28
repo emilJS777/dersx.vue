@@ -13,7 +13,7 @@
     <span class="f-size-small m-top-1">{{publication_comment.text}}</span>
 
     <div class="d-flex j-content-space-between a-items-center">
-      <p class="m-bottom-0 f-size-small"><b>опубликовано</b> {{publication_comment.creation_date}}</p>
+      <p class="m-bottom-0 f-size-small"><b>опубликовано</b> {{this.date_time}}</p>
     </div>
 
     <v-publication-comment-edit-form v-if="modalName === 'publicationCommentEditBlock' && this.publication_comment"
@@ -36,14 +36,18 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VPublicationCommentEditForm from "@/components/publication/forms/v-publication-comment-edit-form";
 import VMenuNormal from "@/components/_general/v-menu-normal.vue";
+import localTimeMixin from "@/mixins/local-time-mixin";
 export default {
   name: "v-publication-comment",
   components: {VMenuNormal, VPublicationCommentEditForm, VAlertModal, VUserMiniBlock},
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, localTimeMixin],
   props: ['publication_comment'],
   computed: mapState({
     profile: state => state.auth.profile
   }),
+  mounted() {
+    this.getLocalTime(this.publication_comment.creation_date)
+  },
   methods:{
     onDeletePublicationComment(){
       this.emitter.emit('load', true)

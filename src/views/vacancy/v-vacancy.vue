@@ -39,6 +39,6 @@ export default {
 
 <style scoped>
 .vacancy{
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1.6fr;
 }
 </style>

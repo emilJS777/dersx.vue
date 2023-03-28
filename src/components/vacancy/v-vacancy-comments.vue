@@ -12,7 +12,6 @@
 
     <div>
       <span class="m-top-1 m-left-1 f-size-small ">опубликовано {{ vacancy_comment.creation_date }}</span>
-
     </div>
 
     <v-vacancy-comment-edit-form :vacancy_comment_id="this.id"
@@ -53,12 +52,13 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import VVacancyCommentEditForm from "@/components/vacancy/forms/v-vacancy-comment-edit-form";
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import VMenuNormal from "@/components/_general/v-menu-normal.vue";
+import localTimeMixin from "@/mixins/local-time-mixin";
 
 export default {
   name: "v-vacancy-comments",
   components: {VMenuNormal, VUserMiniBlock, VVacancyCommentEditForm, VAlertModal},
   props: ['vacancy_id'],
-  mixins: [paginateMixin, toggleMixin],
+  mixins: [paginateMixin, toggleMixin, localTimeMixin],
   computed: mapState({
     profile: state => state.auth.profile
   }),
@@ -75,12 +75,21 @@ export default {
       this.page = selectedPage
       this.getVacancyComments()
     },
+    setSmartTime(){
+      this.vacancy_comments.map(comment => {
+        this.getLocalTime(comment.creation_date)
+        comment.creation_date = this.date_time
+      })
+    },
     getVacancyComments(){
       this.emitter.emit("load", true)
       this.$store.dispatch("vacancy_comment/GET", `?page=${this.page}&per_page=${this.per_page}&vacancy_id=${this.vacancy_id}`).then(data => {
         this.vacancy_comments = data.obj.items
         this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
-      }).finally(() => this.emitter.emit("load", false))
+      }).finally(() => {
+        this.emitter.emit("load", false)
+        this.setSmartTime()
+      })
     },
     deleteVacancyComment(){
       this.emitter.emit("load", true)

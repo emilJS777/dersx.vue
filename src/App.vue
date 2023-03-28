@@ -1,5 +1,4 @@
 <template>
-
   <v-header/>
   
   <div class="page m-top-2">
@@ -16,8 +15,6 @@
   <div class="p-fixed top-0 left-0 w-max h-max d-flex a-items-center j-content-center bg-ccc-opacity z-index-max" v-if="loader">
     <span class="loader"></span>
   </div>
-
-
 </template>
 
 <script>

@@ -56,11 +56,12 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import VVacancyOfferEditForm from "@/components/vacancy/forms/v-vacancy-offer-edit-form";
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import VMenuNormal from "@/components/_general/v-menu-normal.vue";
+import localTimeMixin from "@/mixins/local-time-mixin";
 
 export default {
   name: "v-vacancy-offers",
   components: {VMenuNormal, VUserMiniBlock, VVacancyOfferEditForm, VAlertModal},
-  mixins: [paginateMixin, toggleMixin],
+  mixins: [paginateMixin, toggleMixin, localTimeMixin],
   props: ['vacancy_id'],
   computed: mapState({
     profile: state => state.auth.profile
@@ -79,9 +80,19 @@ export default {
       this.getVacancyOffers()
     },
     getVacancyOffers(){
+      this.emitter.emit('load', true)
       this.$store.dispatch("vacancy_offer/GET", `?page=${this.page}&per_page=${this.per_page}&vacancy_id=${this.vacancy_id}`).then(data => {
         this.vacancy_offers = data.obj.items
         this.setPaginate(data.obj.pages, data.obj.page, data.obj.per_page)
+      }).finally(() => {
+        this.emitter.emit('load', false)
+        this.setSmartTime()
+      })
+    },
+    setSmartTime(){
+      this.vacancy_offers.map(offer => {
+        this.getLocalTime(offer.creation_date)
+        offer.creation_date = this.date_time
       })
     },
     deleteVacancyOffer(){
