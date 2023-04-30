@@ -3,20 +3,26 @@
       <div class="d-grid h-max-content g-gap-1 box-shadow-slim">
         <div class="bg-fff padding-1 d-grid j-content-center">
           <v-profile-img/>
-          <v-button-normal label="настройки профиля" class="bg-content-hover w-max m-top-2 f-size-small"
+            <v-button-normal :label="lang.profile.language_block.title" class="bg-content-hover w-max m-top-2 f-size-small"
+                             @click="this.emitter.emit('lang_block', true)"
+                             icon="fa fa-language"
+                             v-if="profile && profile.id === parseInt(this.$route.query.id)"/>
+
+          <v-button-normal :label="lang.profile.buttons.profile_settings" class="bg-content-hover w-max m-top-1 f-size-small"
                            @click="setModalName('profileEditModal')"
                            icon="fa fa-cog"
                            v-if="profile && profile.id === parseInt(this.$route.query.id)"/>
+
         </div>
 
       </div>
 
       <div class="d-grid g-gap-1 h-max-content">
         <div class="toggle_block d-flex g-gap-1 padding-03 bg-fff c-ccc box-shadow-slim">
-          <span v-bind:class="modalName === 'infoUserTab' ? 'padding-03' : 'c-pointer c-content padding-03'" @click="setModalName('infoUserTab')">информация</span>
-          <span v-bind:class="modalName === 'friendsTab' ? 'padding-03' : 'c-pointer c-content padding-03'" @click="get_friends">друзья</span>
-          <span v-bind:class="modalName === 'publicationVacancies' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_vacancies">вакансии</span>
-          <span v-bind:class="modalName === 'servicesTab' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_services">услуги </span>
+          <span v-bind:class="modalName === 'infoUserTab' ? 'padding-03' : 'c-pointer c-content padding-03'" @click="setModalName('infoUserTab')">{{ lang.profile.information.information }}</span>
+          <span v-bind:class="modalName === 'friendsTab' ? 'padding-03' : 'c-pointer c-content padding-03'" @click="get_friends">{{ lang.profile.information.friends }}</span>
+          <span v-bind:class="modalName === 'publicationVacancies' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_vacancies">{{ lang.general.vacancies }}</span>
+<!--          <span v-bind:class="modalName === 'servicesTab' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_services">услуги </span>-->
 <!--          <span v-bind:class="modalName === 'teamsTab' ? ' padding-03' : 'c-pointer c-content padding-03'" @click="get_teams">команды </span>-->
         </div>
 <!--        PROFILE EDIT -->
@@ -33,7 +39,7 @@
                               :key="vacancy.id"
                               :vacancy="vacancy"
                               class="bg-fff padding-1"/>
-            <h3 v-if="!vacancies.length" class="c-ccc t-center">ничего не найдено </h3>
+            <h3 v-if="!vacancies.length" class="c-ccc t-center">{{ lang.general.nothing_found }} </h3>
 
             <!--    PAGINATION-->
             <div v-else class="d-flex j-content-flex-end">
@@ -143,7 +149,8 @@ export default {
     VVacanciesList, VProfileEditBlock, VProfileAbout, VProfileImg, VButtonNormal},
   mixins: [toggleMixin, paginateMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

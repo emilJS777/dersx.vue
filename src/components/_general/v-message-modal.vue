@@ -4,7 +4,7 @@
       <i>{{ message }}</i>
 
       <div class="m-top-1 d-flex j-content-center">
-        <v-button-normal label="хорошо"/>
+        <v-button-normal :label="lang.general.ok"/>
       </div>
     </div>
   </div>
@@ -12,10 +12,14 @@
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
+import {mapState} from "vuex";
 export default {
   name: "v-message-modal",
   props: ['message', 'success'],
   components: {VButtonNormal},
+  computed: mapState({
+    lang: state => state.lang.LANG
+  }),
   methods: {
     close(){
       if(this.success)

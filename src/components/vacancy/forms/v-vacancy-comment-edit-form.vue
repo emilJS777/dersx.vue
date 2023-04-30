@@ -4,21 +4,21 @@
       <v-input-emoji @value="value => form.text = value"
                      :default_value="form.text"
                      v-if="typeof form.text === 'string'"
-                     label="ваш комментарии "
-                     span="не более чем 1500 символов"
-                     placeholder="напишите как вы относитесь к этому проекту "/>
+                     :label="lang.vacancies.your_comment.title"
+                     :span="lang.vacancies.your_comment.description"
+                     :placeholder="lang.vacancies.your_comment.placeholder"/>
 
       <div>
         <div class="btn_block d-flex j-content-flex-end g-gap-1 m-top-1">
-          <v-button-normal class="bg-content" label="изменить" @click="setModalName('vacancyCommentEditAlert')"/>
-          <v-button-normal label="закрыть" @click="this.$emit('close')"/>
+          <v-button-normal class="bg-content" :label="lang.general.confirm" @click="setModalName('vacancyCommentEditAlert')"/>
+          <v-button-normal :label="lang.general.cancel" @click="this.$emit('close')"/>
         </div>
       </div>
     </div>
   </div>
 
 <!--  ALERT-->
-  <v-alert-modal label="вы уверены что хотите изменить комментарии ?"
+  <v-alert-modal :label="lang.general.comment_edit.confirm"
                  v-if="modalName === 'vacancyCommentEditAlert'"
                  @close="setModalName(false)"
                  @confirm="onEditVacancyComment"/>
@@ -29,11 +29,15 @@ import VButtonNormal from "@/components/_general/v-button-normal";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
+import {mapState} from "vuex";
 export default {
   name: "v-vacancy-comment-edit-form",
   components: {VInputEmoji, VAlertModal, VButtonNormal},
   props: ['vacancy_comment_id'],
   mixins: [toggleMixin],
+  computed: mapState({
+    lang: state => state.lang.LANG
+  }),
   data(){
     return{
       form: {

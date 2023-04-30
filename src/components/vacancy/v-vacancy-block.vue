@@ -1,28 +1,25 @@
 <template>
-  <div class="d-flex j-content-center box-shadow-slim" v-if="vacancy">
+  <div class="d-flex j-content-center box-shadow-slim h-max-content" v-if="vacancy">
     <div class="padding-1 w-max bg-fff d-grid g-gap-1 animation-from-hidden">
-      <div class="d-flex j-content-space-between a-items-center p-relative">
-        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover a-items-center" @click="$router.go(-1)">
+      <div class="d-flex j-content-space-between a-items-flex-start p-relative">
+        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover a-items-center m-top-05" @click="$router.go(-1)">
           <i class="fa fa-arrow-left" aria-hidden="true"></i>
-          назад
+           {{ lang.general.back }}
         </span>
         <v-menu-normal v-if="profile && profile.id === vacancy.creator.id"
                        @edit="this.$router.push({name: 'vacancyEdit', query:{id: vacancy.id}})"
                        @delete="setModalName('vacancyDeleteAlert', vacancy.id)"
-                       :menu_list="[{title: 'редактировать', icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
-                                    {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
+                       :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
+                                    {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
       </div>
-      <div class="m-top-1">
-        <h2 class="m-top-0 m-bottom-0 d-flex j-content-space-between">
+      <div class="m-top-1 l-height-0 d-flex j-content-space-between">
+        <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between">
           {{vacancy.title}}
-        </h2>
-
-      </div>
-      <div class="d-grid g-gap-1 p-relative">
-        <v-user-mini-block :user="vacancy.creator"/>
+        </h3>
+        <b class="c-content f-size-small"><i v-if="vacancy.payment_interval.price">{{ vacancy.price }} {{ lang.general.dram }}</i> <b>{{vacancy.payment_interval.title}}</b></b>
       </div>
 
-      <div class="description">
+      <div class="description m-top-1">
         <p>{{vacancy.long_description}}</p>
       </div>
 
@@ -30,14 +27,18 @@
         <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small d-inline-block m-right-1 f-weight-bold padding-02 m-right-03">{{category.title}}</li>
       </ul>
 
+        <div class="d-flex j-content-space-between a-items-center g-gap-1 p-relative h-max-content">
+            <v-user-mini-block :user="vacancy.creator"/>
+        </div>
+
       <div class="tabs_btn d-flex g-gap-1">
         <span :class="modalName === 'vacancyOfferForm' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyOfferForm')">
           <i class="fa fa-file" aria-hidden="true"></i>
-          предложение <b class="f-size-small" v-if="vacancy.vacancy_offers_count"> {{vacancy.vacancy_offers_count}} </b> <b class="f-size-small" v-else>0</b>
+          {{ lang.vacancies.offers }} <b class="f-size-small" v-if="vacancy.vacancy_offers_count"> {{vacancy.vacancy_offers_count}} </b> <b class="f-size-small" v-else>0</b>
         </span>
         <span :class="modalName === 'vacancyComments' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyComments')">
           <i class="fa fa-comments" aria-hidden="true"></i>
-          комментарии <b class="f-size-small" v-if="vacancy.vacancy_comments_count"> {{vacancy.vacancy_comments_count}} </b> <b class="f-size-small" v-else>0</b>
+          {{ lang.general.comments }} <b class="f-size-small" v-if="vacancy.vacancy_comments_count"> {{vacancy.vacancy_comments_count}} </b> <b class="f-size-small" v-else>0</b>
         </span>
       </div>
 
@@ -65,7 +66,7 @@
   </div>
 
 <!--  ALERTS-->
-  <v-alert-modal label="вы дествительно хотите удалить вакансию ?"
+  <v-alert-modal :label="lang.vacancies.confirm_delete"
                  @confirm="vacancyDelete"
                  @close="setModalName('vacancyOfferForm')"
                  v-if="modalName === 'vacancyDeleteAlert'"/>
@@ -89,7 +90,8 @@ export default {
   props: ['vacancy_id'],
   mixins: [toggleMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

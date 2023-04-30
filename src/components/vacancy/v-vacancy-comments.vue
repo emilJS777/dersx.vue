@@ -5,13 +5,13 @@
       <v-menu-normal v-if="profile && profile.id === vacancy_comment.user.id"
                      @edit="setModalName('vacancyCommentEditModal', vacancy_comment.id)"
                      @delete="setModalName('vacancyCommentDeleteAlert', vacancy_comment.id)"
-                     :menu_list="[{title: 'редактировать', icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
-                                    {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
+                     :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
+                                    {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
     <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0">{{vacancy_comment.text}}</p>
 
     <div>
-      <span class="m-top-1 m-left-1 f-size-small ">опубликовано {{ vacancy_comment.creation_date }}</span>
+      <span class="m-top-1 m-left-1 f-size-small ">{{ lang.general.published }} {{ vacancy_comment.creation_date }}</span>
     </div>
 
     <v-vacancy-comment-edit-form :vacancy_comment_id="this.id"
@@ -20,7 +20,7 @@
                                  @close="setModalName(false)"/>
   </div>
 
-  <h3 class="c-ccc" v-if="!vacancy_comments.length">комментарии не найдены</h3>
+  <h3 class="c-ccc" v-if="!vacancy_comments.length">{{ lang.general.nothing_found }}</h3>
   <div v-else class="d-flex j-content-flex-end m-top-1">
     <v-paginate
         class="paginate"
@@ -39,7 +39,7 @@
 
   <!--  ALERTS-->
   <v-alert-modal v-if="modalName === 'vacancyCommentDeleteAlert'"
-                 label="вы действительно хотите удалить данную комментарии ?"
+                 :label="lang.general.comment_delete.confirm"
                  @confirm="deleteVacancyComment"
                  @close="setModalName(false)"/>
 </template>
@@ -60,7 +60,8 @@ export default {
   props: ['vacancy_id'],
   mixins: [paginateMixin, toggleMixin, localTimeMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

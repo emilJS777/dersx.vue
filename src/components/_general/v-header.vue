@@ -2,7 +2,6 @@
   <div class="header d-grid g-gap-_3 a-items-center box-shadow-slim">
     <div class="logo">
       <v-logo/>
-      <i>freelance exchange</i>
     </div>
 
     <div class="nav d-flex">
@@ -10,7 +9,7 @@
         <li>
           <router-link to="/" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
             <i class="fa fa-home fa-2x m-0-auto" aria-hidden="true"></i>
-            <b>главная</b>
+            <b>{{ lang.general.home }}</b>
           </router-link>
         </li>
 
@@ -24,7 +23,7 @@
         <li>
           <router-link to="/vacancies" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
             <i class="fa fa-globe m-0-auto fa-2x" aria-hidden="true"></i>
-            <b>вакансии</b>
+            <b>{{ lang.general.vacancies }}</b>
           </router-link>
         </li>
 
@@ -45,7 +44,7 @@
         <li>
           <router-link to="/users" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
             <i class="fa fa-user fa-2x m-0-auto" aria-hidden="true"></i>
-            <b>пользователи</b>
+            <b>{{ lang.general.users }}</b>
           </router-link>
         </li>
 
@@ -60,7 +59,7 @@
           <router-link to="/notifications" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
             <v-notification-indicator class="p-absolute indicator notification_indicator"/>
             <i class="fa fa-bell fa-2x m-0-auto" aria-hidden="true"></i>
-            <b>уведомления</b>
+            <b>{{ lang.general.notifications }}</b>
           </router-link>
         </li>
 
@@ -68,7 +67,7 @@
           <router-link to="/messages" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
             <v-messages-indicator class="p-absolute indicator"/>
             <i class="fa fa-envelope fa-2x m-0-auto" aria-hidden="true"></i>
-            <b>сообщения</b>
+            <b>{{ lang.general.messages }}</b>
           </router-link>
         </li>
 
@@ -93,8 +92,8 @@
 
         <div class="d-grid info_block j-content-flex-end">
           <b>{{ profile.first_name }} {{ profile.last_name }}</b>
-          <i>{{profile.email_address}}</i>
-          <span class="c-content f-size-very-small w-max-content c-pointer" @click="setModalName('logoutAlertModal')">выйти из аккаунта</span>
+          <i>{{profile.email.address}}</i>
+          <span class="c-content f-size-very-small w-max-content c-pointer" @click="setModalName('logoutAlertModal')">{{ lang.general.sign_out }}</span>
 
         </div>
 
@@ -106,14 +105,16 @@
     </div>
 
     <div class="auth_block d-flex g-gap-1 j-content-flex-end" v-if="!profile">
-      <v-button-normal label="логин" @click="setModalName('login')"/>
-      <v-button-normal label="регистрация" class="bg-content" @click="setModalName('registration')"/>
+      <v-button-normal :label="lang.general.sign_in" @click="setModalName('login')"/>
+      <v-button-normal :label="lang.general.sign_up" class="bg-content" @click="setModalName('registration')"/>
     </div>
   </div>
 
 <!--  AUTH MODAL-->
-  <v-login-modal v-if="modalName === 'login'" @close="setModalName(false)"/>
+  <v-login-modal v-if="modalName === 'login'" @close="setModalName(false)" @restore_password="setModalName('restorePassword')"/>
   <v-registration v-if="modalName === 'registration'" @close="setModalName(false)"/>
+  <v-create-restore-password v-if="modalName === 'restorePassword'" @close="setModalName(false)"/>
+  <v-update-restore-password v-if="this.$route.query.restore_password_security_code"/>
 
 <!--  CONFIRM MODAL-->
   <v-alert-modal v-if="modalName === 'logoutAlertModal'"
@@ -133,16 +134,21 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import VLogo from "@/components/_general/v-logo";
 import VMessagesIndicator from "@/components/messager/v-messages-indicator";
 import VNotificationIndicator from "@/components/notification/v-notification-indicator";
+import VCreateRestorePassword from "@/components/auth/v-create-restore-password.vue";
+import VUpdateRestorePassword from "@/components/auth/v-update-restore-password.vue";
 export default {
   name: "v-header",
   mixins: [toggleMixin, imageGetMixin],
   components: {
+      VUpdateRestorePassword,
+      VCreateRestorePassword,
     VNotificationIndicator,
     VMessagesIndicator, VLogo, VAlertModal, VRegistration, VLoginModal, VButtonNormal},
   computed: mapState({
     profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
-  methods:{
+    methods:{
     logout(){
       this.$store.dispatch("auth/LOGOUT").then(data => {
         if(data.success){

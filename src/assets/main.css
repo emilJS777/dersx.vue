@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+*{
+    font-family: 'Ubuntu', sans-serif;
+}
 body{
     background-color: #f7f7f7;
     margin: 0;
@@ -62,6 +66,9 @@ a{
 }
 .t-decoration-underline, .t-decoration-underline-hover:hover{
     text-decoration: underline;
+}
+.l-height-1{
+    line-height: 1;
 }
 .l-height-0{
     line-height: 0;
@@ -245,13 +252,14 @@ a{
 .b-radius-50{
     border-radius: 50%;
 }
-
-
 .w-max{
     width: 100%;
 }
 .w-max-content{
     width: max-content;
+}
+.w-200{
+    width: 200px;
 }
 .min-height-500{
     min-height: 500px;
@@ -499,4 +507,11 @@ a{
     box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.12);
     -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.12);
     -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.12);
+}
+.lang_radio label{
+    font-size: 22px !important;
+}
+.lang_radio .radios{
+    display: grid;
+    line-height: 1;
 }

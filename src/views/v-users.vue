@@ -1,25 +1,25 @@
 <template>
   <div class="users d-grid g-gap-3">
     <div class="filter_form d-grid g-gap-1 h-max-content bg-fff padding-1 box-shadow-slim">
-      <v-select-normal label="выберите рубрику"
-                       span="рубрика пользователя"
+      <v-select-normal :label="lang.general.rubric"
+                       :span="lang.users.filter.rubric.description"
                        :items="rubrics"
                        :selected="rubrics[0]"
                        v-if="rubrics.length"
                        @select="item => {selected_rubric_id = item.id;page=1;categoriesGet(item.id)}"/>
 
-      <v-input-normal label="поиск"
-                      span="пропешите имя или фамилию пользователя"
+      <v-input-normal :label="lang.general.search"
+                      :span="lang.users.filter.search.description"
                       type="text"
                       @value="value => search = value"/>
 
-      <v-checkboxes-normal label="категории"
-                           span="выберите категории который обладает пользователь"
+      <v-checkboxes-normal :label="lang.general.categories"
+                           :span="lang.users.filter.category.description"
                            :checkboxes="categories"
                            @select="selected_ids => selected_category_ids = selected_ids"
                            v-if="categories.length"/>
       <div>
-        <v-button-normal label="поиск" @click="clickPage(1)"/>
+        <v-button-normal :label="lang.general.search" @click="clickPage(1)"/>
       </div>
     </div>
 
@@ -28,7 +28,7 @@
         <v-user v-for="user in users" :key="user.id" :user="user" class="box-shadow-slim"/>
       </div>
 
-      <h3 class="t-center c-ccc" v-if="!users.length">ничего не найдено</h3>
+      <h3 class="t-center c-ccc" v-if="!users.length">{{ lang.general.nothing_found }}</h3>
 
       <!--    PAGINATION-->
       <div v-else class="d-flex j-content-flex-end">
@@ -60,7 +60,8 @@ export default {
   components: {VUser, VButtonNormal, VCheckboxesNormal, VInputNormal, VSelectNormal},
   mixins: [paginateMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

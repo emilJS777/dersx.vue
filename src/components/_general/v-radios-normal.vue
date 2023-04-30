@@ -5,8 +5,8 @@
     <div class="d-flex g-gap-1 radios">
 
       <div v-for="radio in radios" :key="radio.id">
-        <label class="container d-flex" @click="this.$emit('value', radio)">
-          {{radio.title}}
+        <label class="container d-flex l-height-1" @click="this.$emit('value', radio)">
+          <span>{{radio.title}}</span>
           <input type="radio" :checked="radio.id === active_id" :name="name">
           <span class="checkmark outline-content"></span>
         </label>
@@ -18,7 +18,16 @@
 <script>
 export default {
   name: "v-radios-normal",
-  props: ['label', 'radios', 'span', 'name', 'active_id']
+  props: ['label', 'radios', 'span', 'name', 'active_id'],
+    mounted() {
+      if(this.active_id && this.radios.length > 0){
+          this.radios.forEach(radio => {
+              if(radio.id === this.active_id){
+                  this.$emit('value', radio)
+              }
+          })
+      }
+    }
 }
 </script>
 

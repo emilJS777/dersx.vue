@@ -1,15 +1,19 @@
 <template>
   <div class="vacancy-create d-grid g-gap-3">
-    <div>asd</div>
+    <div>{{ lang.vacancies.create.description }}</div>
     <v-vacancy-create-form/>
   </div>
 </template>
 
 <script>
 import VVacancyCreateForm from "@/components/vacancy/forms/v-vacancy-create-form";
+import {mapState} from "vuex";
 export default {
   name: "v-vacancy-create",
-  components: {VVacancyCreateForm}
+  components: {VVacancyCreateForm},
+  computed: mapState({
+    lang: state => state.lang.LANG
+  })
 }
 </script>
 

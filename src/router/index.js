@@ -147,6 +147,12 @@ const routes = [
         component: () => import("@/views/v-notifications.vue"),
         beforeEnter: [auth_middleware]
     },
+    {
+        path: "/email",
+        name: "email",
+        component: () => import("@/views/v-email.vue"),
+        beforeEnter: [auth_middleware]
+    },
 ];
 
 

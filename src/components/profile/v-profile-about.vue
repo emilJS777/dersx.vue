@@ -1,29 +1,29 @@
 <template>
   <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-top-0 m-bottom-0 d-flex j-content-space-between a-items-center">
-      навыки и умения
+        {{ lang.profile.experience_add.skills_or_technologies.title }}
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
            @click="setModalName('skillsEditModal')"  v-if="profile && profile.id === parseInt(this.$route.query.id)">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
       </svg>
     </h3>
-    <i class="m-top-0" v-if="!skills.length">данный раздел пуст </i>
+    <i class="m-top-0" v-if="!skills.length">{{ lang.profile.information.section_empty }}</i>
     <div v-else>
       <div v-for="skill in skills" :key="skill.id" class="d-grid g-gap-1 a-items-center about_block">
         <div class="m-top-1">
           <div class="d-flex g-gap-1 a-items-center">
-            <b>рубрика: </b>
+            <b>{{ lang.general.rubric }}: </b>
             <span class="f-size-small">{{skill.rubric.title}}</span>
           </div>
           <div class="" v-if="skill.categories.length">
-            <b>категории: </b>
+            <b>{{ lang.general.categories }}: </b>
             <span v-for="category in skill.categories" :key="category.id" class="f-size-small">
               - {{category.title}}
             </span>
           </div>
           <div class="">
-            <b>теги: </b>
+            <b>{{ lang.general.tags }}: </b>
             <span class="f-size-small">{{skill.tags}}</span>
           </div>
         </div>
@@ -40,48 +40,48 @@
 
   <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
-      опыт работы
+        {{ lang.profile.information.experience }}
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
            @click="setModalName('workExperienceEditModal')"  v-if="profile && profile.id === parseInt(this.$route.query.id)">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
       </svg>
     </h3>
-    <i class="m-top-0" v-if="!work_experiences.length">данный раздел пуст </i>
+    <i class="m-top-0" v-if="!work_experiences.length">{{ lang.profile.information.section_empty }}</i>
     <div v-else>
       <div v-for="work_experience in work_experiences" :key="work_experience.id" class="d-grid g-gap-1 a-items-center about_block">
         <div class="m-top-1">
           <div class="d-flex g-gap-1">
-            <b>название: </b>
+            <b>{{ lang.profile.experience_add.title.title }}:</b>
             <span class="f-size-small" v-if="work_experience.title">{{work_experience.title}}</span>
-            <span class="f-size-small" v-else>(не указан)</span>
+            <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
           <div class="d-flex g-gap-1">
-            <b>линк: </b>
+            <b>{{ lang.profile.experience_add.link.title }}: </b>
             <span class="f-size-small" v-if="work_experience.link">
               <a :href="work_experience.link" class="c-content">{{work_experience.link}}</a>
             </span>
-            <span class="f-size-small" v-else>(не указан)</span>
+            <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
           <div class="d-flex g-gap-1">
-            <b>используемые скилы или технологии: </b>
+            <b>{{ lang.profile.experience_add.skills_or_technologies.title }}: </b>
             <span class="f-size-small" v-if="work_experience.skills">{{work_experience.skills}}</span>
-            <span class="f-size-small" v-else>(не указан)</span>
+            <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
           <div class="d-flex g-gap-1">
-            <b>описание: </b>
+            <b>{{ lang.profile.experience_add.description.title}}: </b>
             <span class="f-size-small" v-if="work_experience.description">{{work_experience.description}}</span>
-            <span class="f-size-small" v-else>(не указан)</span>
+            <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
           <div class="d-flex g-gap-1">
-            <b>дата начало работы: </b>
+            <b>{{ lang.profile.experience_add.start_date.title }}: </b>
             <span class="f-size-small" v-if="work_experience.date_start">{{work_experience.date_start}}</span>
-            <span class="f-size-small" v-else>(не указан)</span>
+            <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
           <div class="d-flex g-gap-1">
-            <b>дата окончание работы: </b>
+            <b>{{ lang.profile.experience_add.end_date.title }}: </b>
             <span class="f-size-small" v-if="work_experience.date_end">{{work_experience.date_end}}</span>
-            <span class="f-size-small" v-else>(не указан)</span>
+            <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
         </div>
         <div class="edit d-flex g-gap-1"  v-if="profile && profile.id === parseInt(this.$route.query.id)">
@@ -109,14 +109,14 @@
 
   <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
-      контакты
+        {{ lang.profile.contact.contact_information.title }}
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
            @click="setModalName('contactEditModal')"  v-if="profile && profile.id === parseInt(this.$route.query.id)">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
       </svg>
     </h3>
-    <i class="m-top-0" v-if="!user_contacts.length">данный раздел пуст </i>
+    <i class="m-top-0" v-if="!user_contacts.length">{{ lang.profile.not_specified }}</i>
     <div v-else>
       <div v-for="user_contact in user_contacts" :key="user_contact.id" class="d-grid a-items-center g-gap-_5 about_block m-top-1">
         <div class="d-flex g-gap-_5 a-items-center">
@@ -136,14 +136,14 @@
 
   <div class="bg-fff padding-1 box-shadow-slim" v-if="!modalName">
     <h3 class="f-weight-bold m-bottom-0 m-top-0 d-flex j-content-space-between a-items-center">
-      о себе
+        {{ lang.profile.information.about_me }}
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-pencil-square c-pointer c-content-hover d-none" viewBox="0 0 16 16"
            @click="setModalName('aboutMeEditModal')"  v-if="profile && profile.id === parseInt(this.$route.query.id)">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
       </svg>
     </h3>
-    <i class="m-top-0" v-if="!user_abouts.length">данный раздел пуст </i>
+    <i class="m-top-0" v-if="!user_abouts.length">{{ lang.profile.information.section_empty }}</i>
     <div v-else>
       <div v-for="user_about in user_abouts" :key="user_about.id" class="m-top-1 d-grid g-gap-_5 a-items-center about_block">
         <span class="f-size-small">{{user_about.description}}</span>
@@ -163,25 +163,26 @@
   <v-work-experience-edit-form v-if="modalName === 'workExperienceEditModal'" @close="setModalName(false)"/>
   <v-contact-edit-form v-if="modalName === 'contactEditModal'" @close="setModalName(false)"/>
 
-  <v-alert-modal label="вы дествительно хотите удалить ваш скилл ?"
+  <v-alert-modal :label="lang.profile.skills_add.confirm_delete"
                  v-if="modalName === 'skillDeleteAlertModal'"
                  @confirm="delete_skill(this.id)"
                  @close="setModalName(false)"/>
 
-  <v-alert-modal label="вы дествительно хотите удалить ваш опыт работы ?"
+  <v-alert-modal :label="lang.profile.experience_add.confirm_delete"
                  v-if="modalName === 'workExperiencesDeleteAlertModal'"
                  @confirm="delete_work_experiences(this.id)"
                  @close="setModalName(false)"/>
 
-  <v-alert-modal label="вы дествительно хотите удалить информацию о вас ?"
+  <v-alert-modal :label="lang.profile.about_me_add.confirm_delete"
                  v-if="modalName === 'userAboutDeleteAlertModal'"
                  @confirm="delete_user_about(this.id)"
                  @close="setModalName(false)"/>
 
-  <v-alert-modal label="вы дествительно хотите удалить контактную информацию ?"
+  <v-alert-modal :label="lang.profile.contact.confirm_delete"
                  v-if="modalName === 'userContactDeleteAlertModal'"
                  @confirm="delete_user_contact(this.id)"
                  @close="setModalName(false)"/>
+
 </template>
 
 <script>
@@ -192,12 +193,14 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import {mapState} from "vuex";
 import VWorkExperienceEditForm from "@/components/profile/modals/v-work-experience-edit-form";
 import VContactEditForm from "@/components/profile/modals/v-contact-edit-form";
+import localTimeMixin from "@/mixins/local-time-mixin";
 export default {
   name: "v-profile-about",
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, localTimeMixin],
   components: {VContactEditForm, VWorkExperienceEditForm, VAlertModal, VAboutMeEditForm, VSkillsEditForm},
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

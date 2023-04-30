@@ -1,12 +1,8 @@
 <template>
   <div class="d-grid head_content g-gap-3  m-top-2 animation-from-hidden">
     <div class="">
-      <h2>Веб платформа для фриланса </h2>
-      <p>
-        Это Фриланс онлайн биржа - это место, где можно добавлять вакансии, предложения своих услуг, искать айтишников и вакансии.
-        Здесь вы можете выставить свой опыт работы, показать свои навыки и умения, а также заниматься своими публикациями.
-        профиль и станьте частью активно растущей сети фрилансеров на нашей платформе!
-      </p>
+      <h2> {{lang.guest.title}} </h2>
+      <p>{{lang.guest.description}}</p>
 
       <v-button-normal label="" class="w-max bg-content m-top-2 f-weight-bold"/>
     </div>
@@ -49,10 +45,14 @@
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal.vue";
+import {mapState} from "vuex";
 
 export default {
   name: "v-guest",
-  components: {VButtonNormal}
+  components: {VButtonNormal},
+  computed: mapState({
+      lang: state => state.lang.LANG
+  })
 }
 </script>
 

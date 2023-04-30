@@ -3,7 +3,7 @@
   <div class="d-grid">
     <label for="" class="f-weight-bold">{{ label }}</label>
     <span class="f-size-very-small">{{span}}</span>
-    <div class="m-top-05 checkboxes d-grid">
+    <div class="m-top-05 checkboxes d-grid l-height-1">
       <div v-for="checkbox in checkboxes" :key="checkbox.id">
         <label class="container d-flex">{{checkbox.title}}
           <input type="checkbox" :checked="selected_item_ids_from_props !== null ? selected_item_ids_from_props.find(id => checkbox.id === id) : selected_ids.find(id => checkbox.id === id)" @change="onChange(checkbox)">

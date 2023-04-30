@@ -4,7 +4,7 @@
       <img src="@/assets/images/user-unknown-1.png" class="p-absolute absolute-center" alt="" v-if="!user.image">
       <img :src="`${web_api}/image?filename=${user.image.filename}`" class="p-absolute absolute-center" alt="" v-else>
 
-      <v-input-file-normal sublabel="поменять фото"
+      <v-input-file-normal :sublabel="lang.profile.photo.change_photo"
                            class="bg-content p-absolute w-max t-center d-flex a-items-center j-content-center padding-02 bott-0 d-none animation-from-hidden"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
                            @file_form="file =>{new_image = file; setModalName('imageUploadAlertModal')}"
@@ -24,7 +24,7 @@
 
   <div class="info d-grid g-gap-1" v-if="user">
     <div class="t-center">
-      <h4 class="t-center">персональные данные</h4>
+      <h4 class="t-center">{{lang.profile.information.personal_information}}</h4>
       <i class="t-center">{{user.name}}</i>
     </div>
     <p class="d-flex g-gap-1 a-items-center">
@@ -40,13 +40,16 @@
       <span>{{ user.region }}</span>
     </p>
 
-    <p class="d-flex g-gap-1 a-items-center">
+    <p class="d-flex g-gap-1 a-items-center" v-if="user.email">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
         <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
       </svg>
       <span class="d-grid">
-        {{ user.email_address }}
-       <i class="f-size-small err-msg">не подтверждено</i>
+        {{ user.email.address }}
+       <div class="f-size-very-small d-flex a-items-center g-gap-1" v-if="!user.email.active">
+           <i class="f-size-small err-msg">{{lang.profile.email.not_confirmed}}</i>
+           <v-button-normal  v-if="user.id === profile.id" class="" icon="fa fa-refresh" title="отправить повторное письмо для подтверждения" @click="send_email_activation"/>
+       </div>
       </span>
 
     </p>
@@ -57,7 +60,6 @@
       </svg>
       <span class="d-grid">
         <span v-if="user.gender">{{user.gender.title}}</span>
-        <span v-else>не указано</span>
       </span>
     </p>
 
@@ -65,19 +67,19 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
       </svg>
-      <span>На сайте с {{ user.creation_date }}</span>
+      <span>{{ lang.profile.information.online_since }} {{ user.creation_date }}</span>
     </p>
     <v-online-indicator :user_id="parseInt(this.$route.query.id)" class="c-content animation-from-hidden-infinite p-relative" v-if="profile.id !== parseInt(this.$route.query.id)"/>
 
 
 
 <!--    ALERT MODALS-->
-    <v-alert-modal :label="`вы хотите поменять фото профиля на ${new_image.name} ?`"
+    <v-alert-modal :label="`${lang.profile.photo.confirm_change_photo} ${new_image.name} ?`"
                    v-if="modalName === 'imageUploadAlertModal'"
                    @close="setModalName(false)"
                    @confirm="upload_image"/>
 
-    <v-alert-modal :label="`вы дествительно хотите удалить фото профиля ?`"
+    <v-alert-modal :label="lang.profile.photo.confirm_delete"
                    v-if="modalName === 'imageDeleteAlertModal'"
                    @close="setModalName(false)"
                    @confirm="delete_image"/>
@@ -93,12 +95,14 @@ import imageGetMixin from "@/mixins/image-get-mixin";
 import {mapState} from "vuex";
 import VUserMenuBlock from "@/components/profile/v-user-menu-block";
 import VOnlineIndicator from "@/components/user/v-online-indicator.vue";
+import VButtonNormal from "@/components/_general/v-button-normal.vue";
 export default {
   name: "v-profile-img",
-  components: {VOnlineIndicator, VUserMenuBlock, VAlertModal, VInputFileNormal},
+  components: {VButtonNormal, VOnlineIndicator, VUserMenuBlock, VAlertModal, VInputFileNormal},
   mixins: [toggleMixin, imageGetMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{
@@ -115,6 +119,12 @@ export default {
     }).finally(() => this.emitter.emit('load', false))
   },
   methods: {
+    send_email_activation(){
+        this.emitter.emit('load', true)
+        this.$store.dispatch('email/GET', `?activation_code=true`).then(data => {
+            this.emitter.emit('message', data)
+        }).finally(() => this.emitter.emit('load', false))
+    },
     async upload_image(){
       this.emitter.emit('load', true)
       if(this.new_image){
@@ -126,6 +136,7 @@ export default {
         }
         // CREATE IMAGE
         const data = await this.$store.dispatch("image/CREATE", {query: `?user_id=${this.user.id}`, form: this.new_image})
+          console.log(data)
         this.emitter.emit('message', data)
         this.emitter.emit('load', false)
       }

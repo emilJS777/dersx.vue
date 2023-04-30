@@ -15,8 +15,8 @@ const localTimeMixin = {
 
             if (localTime.toDateString() === now.toDateString()) {
                 this.date_time = localTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            } else if (localTime.toDateString() === new Date(now.getTime() - 24 * 60 * 60 * 1000).toDateString()) {
-                this.date_time = 'Yesterday ' + localTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            // } else if (localTime.toDateString() === new Date(now.getTime() - 24 * 60 * 60 * 1000).toDateString()) {
+            //     this.date_time = 'Yesterday ' + localTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             } else {
                 this.date_time = localTime.toLocaleString();
             }

@@ -1,37 +1,37 @@
 <template>
   <div class="d-flex a-items-center j-content-center">
     <div class="bg-fff padding-1 h-max-content w-max animation-from-hidden d-grid g-gap-1">
-      <h3 class="m-top-0">опыт работы</h3>
+      <h3 class="m-top-0">{{ lang.profile.information.experience }}</h3>
 
-      <v-input-normal label="название"
-                      span="как назывался проект который вы выполняли"
+      <v-input-normal :label="lang.profile.experience_add.title.title"
+                      :span="lang.profile.experience_add.title.description"
                       @value="title => form.title = title"/>
 
-      <v-input-normal label="описание"
-                      span="вы также можете описать данный проект, какими особенностями обладал проект "
+      <v-input-normal :label="lang.profile.experience_add.description.title"
+                      :span="lang.profile.experience_add.description.description"
                       @value="description => form.description = description"/>
 
-      <v-input-normal label="ссылка"
-                      span="ссылка на проект или репозиторий"
+      <v-input-normal :label="lang.profile.experience_add.link.title"
+                      :span="lang.profile.experience_add.link.description"
                       @value="link => form.link = link"/>
 
-      <v-input-normal label="скилы или технологии"
-                      span="какие скилы или технологии вы использывали при работе с данным проектом "
+      <v-input-normal :label="lang.profile.experience_add.skills_or_technologies.title"
+                      :span="lang.profile.experience_add.skills_or_technologies.description"
                       @value="skills => form.skills = skills"/>
 
       <div class="d-flex g-gap-1">
-        <v-date-picker label="начало c"
-                       span="дата начало работы с данным проектом "
+        <v-date-picker :label="lang.profile.experience_add.start_date.title"
+                       :span="lang.profile.experience_add.start_date.description"
                        @value="date => form.date_start = date"/>
 
-        <v-date-picker label="завершение"
-                       span="дата завершения"
+        <v-date-picker :label="lang.profile.experience_add.start_date.title"
+                       :span="lang.profile.experience_add.start_date.description"
                        @value="date => form.date_end = date"/>
       </div>
 
       <div class="d-flex g-gap-1 m-top-1 j-content-flex-end">
-        <v-button-normal label="сохранить" class="bg-content" @click="onWorkExperience"/>
-        <v-button-normal label="закрыть" @click="this.$emit('close')"/>
+        <v-button-normal :label="lang.general.save" class="bg-content" @click="onWorkExperience"/>
+        <v-button-normal :label="lang.general.cancel" @click="this.$emit('close')"/>
       </div>
     </div>
   </div>
@@ -41,9 +41,13 @@
 import VInputNormal from "@/components/_general/v-input-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VDatePicker from "@/components/_general/v-date-picker";
+import {mapState} from "vuex";
 export default {
   name: "v-work-experience-edit-form",
   components: {VDatePicker, VButtonNormal, VInputNormal},
+    computed: mapState({
+        lang: state => state.lang.LANG
+    }),
   data(){
     return{
       form: {

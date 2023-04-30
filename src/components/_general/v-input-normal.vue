@@ -2,7 +2,7 @@
   <div class="d-grid w-max">
     <label for="" class="f-weight-bold">{{label}}</label>
     <span class="f-size-very-small">{{span}}</span>
-    <input :type="type" :placeholder="placeholder" class="outline-content form-standard" v-model="value" @change="this.$emit('value', this.value)">
+    <input :type="type" min="0" :placeholder="placeholder" class="outline-content form-standard" v-model="value" @change="this.$emit('value', this.value)">
   </div>
 </template>
 

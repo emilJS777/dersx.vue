@@ -3,13 +3,15 @@
     <label for="" class="f-weight-bold">{{ label }}</label>
     <span class="f-size-very-small">{{span}}</span>
     <div class="d-grid g-gap-1">
-      <country-select :countryName="true"  :placeholder="`${placeholder ? placeholder.split(' ')[0] : 'Выберите страну' }` " v-model="country" @change="onRegion" :country="country" topCountry="US" class="w-max form-standard" />
-      <region-select :regionName="true" :countryName="true" :placeholder="`${placeholder ? placeholder.split(' ')[1] : 'Выберите регион'}`" v-model="region" @change="onRegion" :country="country" :region="region" class="w-max form-standard" />
+      <country-select :countryName="true"  :placeholder="`${placeholder ? placeholder.split(' ')[0] : lang.profile.profile_settings.location.country }` " v-model="country" @change="onRegion" :country="country" topCountry="US" class="w-max form-standard" />
+      <region-select :regionName="true" :countryName="true" :placeholder="`${placeholder ? placeholder.split(' ')[1] : lang.profile.profile_settings.location.region}`" v-model="region" @change="onRegion" :country="country" :region="region" class="w-max form-standard" />
     </div>
   </div>
 </template>
 
 <script>
+
+import {mapState} from "vuex";
 
 export default {
   name: "v-country-region-select",
@@ -17,6 +19,9 @@ export default {
   data: () => ({
     country: '',
     region: ''
+  }),
+  computed: mapState({
+    lang: state => state.lang.LANG
   }),
   methods: {
     onRegion(){

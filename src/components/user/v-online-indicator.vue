@@ -1,12 +1,17 @@
 <template>
-  <span class="p-absolute bottom-0 right-0 f-size-very-small w-max t-center" v-if="this.online">В сети</span>
+  <span class="p-absolute bottom-0 right-0 f-size-very-small w-max t-center" v-if="this.online">{{ lang.general.online }}</span>
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "v-online-indicator",
   props: ['user_id'],
-  data(){
+    computed: mapState({
+        lang: state => state.lang.LANG
+    }),
+    data(){
     return{
       online: false
     }

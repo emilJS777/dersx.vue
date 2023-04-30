@@ -7,16 +7,16 @@
       </div>
 
       <div class="d-flex g-gap-1 a-items-center j-content-space-evenly c-ccc f-weight-bold">
-        <span v-if="notification.friend.confirmed" class="">теперь вы друзья !</span>
-        <span v-else>запрос на добавление в друзья</span>
+        <span v-if="notification.friend.confirmed" class="">{{ lang.notifications.friend.accepted }}</span>
+        <span v-else>{{ lang.notifications.friend.friend_request }}</span>
       </div>
 
       <div class="f-size-small menu d-flex g-gap-_5 m-top-1 f-weight-bold c-content-hover padding-left-1 padding-right-1">
         <v-button-normal v-if="notification.friend.confirmed" label="OK" @click="notificationDelete(notification.id)"/>
 
         <div class="menu d-flex g-gap-_5 m-top-1" v-else>
-          <v-button-normal label="принять" class=" c-content-hover" icon="fa fa-check" @click="onUpdateFriendRequest(notification.id, notification.friend.id)"/>
-          <v-button-normal label="отклонить" class=" c-red" icon="fa fa-ban" @click="onDeleteFriendRequest(notification.id, notification.friend.id)"/>
+          <v-button-normal :label="lang.general.accept" class=" c-content-hover" icon="fa fa-check" @click="onUpdateFriendRequest(notification.id, notification.friend.id)"/>
+          <v-button-normal :label="lang.general.reject" class=" c-red" icon="fa fa-ban" @click="onDeleteFriendRequest(notification.id, notification.friend.id)"/>
         </div>
       </div>
     </div>
@@ -27,11 +27,11 @@
         <v-user-mini-block :user="notification.creator"/>
       </div>
       <div>
-        <h4 class="d-flex g-gap-1 a-items-center j-content-space-evenly c-ccc f-weight-bold m-bottom-0 m-top-0">отклик на вакансию</h4>
+        <h4 class="d-flex g-gap-1 a-items-center j-content-space-evenly c-ccc f-weight-bold m-bottom-0 m-top-0">{{ lang.notifications.job_posting}}</h4>
         <p class="o-hidden f-size-small cut-text">{{notification.vacancy_offer.description}}</p>
       </div>
       <div class="f-size-small">
-        <v-button-normal label="посмотреть" icon="fa fa-eye" @click="notificationDelete(notification.id);this.$router.push({name: 'vacancy', query: {id: notification.vacancy_offer.vacancy_id}})"/>
+        <v-button-normal :label="lang.general.look" icon="fa fa-eye" @click="notificationDelete(notification.id);this.$router.push({name: 'vacancy', query: {id: notification.vacancy_offer.vacancy_id}})"/>
       </div>
     </div>
 
@@ -63,6 +63,7 @@ export default {
   props: ['notification_id'],
   computed: mapState({
     profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return {
@@ -71,6 +72,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("notification/GET", `?id=${this.notification_id}`).then(data => {
+        console.log(data.obj)
       this.notifications.push(data.obj)
     })
   },

@@ -1,33 +1,33 @@
 <template>
   <div class="vacancies d-grid g-gap-3">
     <div class="filter_form d-grid g-gap-1 h-max-content bg-fff padding-1 box-shadow-slim">
-      <v-select-normal label="выберите рубрику"
-                       span="ваша желаемая рубрика для поиска"
+      <v-select-normal :label="lang.general.rubric"
+                       :span="lang.vacancies.filter.rubric.description"
                        :items="rubrics"
                        :selected="rubrics[0]"
                        v-if="rubrics.length"
                        @select="item => {selected_rubric_id = item.id;page=1;categoriesGet(item.id)}"/>
 
-      <v-input-normal label="поиск"
-                      span="поиск по названию или по описанию"
+      <v-input-normal :label="lang.general.search"
+                      :span="lang.vacancies.filter.search.description"
                       type="text"
                       @value="value => search = value"/>
 
-      <v-checkboxes-normal label="категории" :checked="true"
-                           span="выберите интересующие для вас категории"
+      <v-checkboxes-normal :label="lang.general.categories" :checked="true"
+                           :span="lang.vacancies.filter.categories.description"
                            :checkboxes="categories"
                            @select="selected_ids => {selected_category_ids = selected_ids}"
                            v-if="categories.length"/>
 
-      <v-checkboxes-normal label="оплата за" :checked="true"
+      <v-checkboxes-normal :label="lang.general.payment_interval" :checked="true"
                            :checkboxes="payment_intervals"
-                           span="выберите желаемый интервал оплаты"
+                           :span="lang.vacancies.filter.payment_interval.description"
                            @select="selected_ids => {selected_payment_interval_ids = selected_ids}"
                            v-if="payment_intervals.length"/>
 
       <div class="d-flex g-gap-1">
-        <v-button-normal label="поиск" class="bg-content" @click="clickPage(1)"/>
-        <v-button-normal label="создать вакансию" @click="this.$router.push({name: 'vacancyCreate'})" v-if="profile"/>
+        <v-button-normal :label="lang.general.search" class="bg-content" @click="clickPage(1)"/>
+        <v-button-normal :label="lang.vacancies.filter.create_vacancy" @click="this.$router.push({name: 'vacancyCreate'})" v-if="profile"/>
       </div>
     </div>
 
@@ -88,7 +88,8 @@ export default {
     }
   },
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   mounted() {
     // RUBRICS GET

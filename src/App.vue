@@ -1,19 +1,22 @@
 <template>
-  <v-header/>
-  
-  <div class="page m-top-2">
-    <router-view></router-view>
-    <v-messager v-if="profile"/>
-  </div>
-<!--  MESSAGE MODAL-->
-  <v-message-modal v-if="message.value"
-                   class="z-index-max"
-                   :message="message.value"
-                   :success="message.success"/>
+  <div v-if="lang">
+      <v-header/>
 
-<!--  LOADER-->
-  <div class="p-fixed top-0 left-0 w-max h-max d-flex a-items-center j-content-center bg-ccc-opacity z-index-max" v-if="loader">
-    <span class="loader"></span>
+      <div class="page m-top-2">
+          <router-view></router-view>
+          <v-messager v-if="profile"/>
+      </div>
+      <!--  MESSAGE MODAL-->
+      <v-message-modal v-if="message.value"
+                       class="z-index-max"
+                       :message="message.value"
+                       :success="message.success"/>
+
+      <v-lang-block v-if="lang_block" @close="this.emitter.emit('lang_block', false)"/>
+      <!--  LOADER-->
+      <div class="p-fixed top-0 left-0 w-max h-max d-flex a-items-center j-content-center bg-ccc-opacity z-index-max" v-if="loader">
+          <span class="loader"></span>
+      </div>
   </div>
 </template>
 
@@ -23,15 +26,18 @@ import VHeader from "@/components/_general/v-header";
 import VMessageModal from "@/components/_general/v-message-modal";
 import {mapState} from "vuex";
 import VMessager from "@/components/messager/v-messager";
+import VLangBlock from "@/components/_general/v-lang-block.vue";
 export default {
   name: 'App',
   components: {
+    VLangBlock,
     VMessager,
     VMessageModal,
     VHeader,
   },
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{
@@ -39,10 +45,17 @@ export default {
         value: null,
         success: true,
       },
-      loader: false
+      loader: false,
+      lang_block: false
     }
   },
   mounted(){
+    // LANG
+    if(!localStorage.getItem('lang'))
+        this.lang_block = true
+
+    this.$store.dispatch("lang/GET", `?lang=${localStorage.getItem('lang') || 'eng'}`)
+
     // MESSAGE MODAL
     this.emitter.on("message", (data) => {
       if(data){
@@ -60,6 +73,11 @@ export default {
     this.emitter.on('load', bool => {
       this.loader = bool
     })
+
+    // LANG BLOCK
+      this.emitter.on('lang_block', bool => {
+          this.lang_block = bool
+      })
 
     this.get_profile()
   },

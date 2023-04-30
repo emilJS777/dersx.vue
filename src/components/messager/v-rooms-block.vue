@@ -1,6 +1,6 @@
 <template>
   <div class="rooms_block o-hidden animation-from-hidden bg-fff">
-   <h4 class="m-top-0 m-bottom-0 padding-1 c-6d l-height-0">контакты</h4>
+   <h4 class="m-top-0 m-bottom-0 padding-1 c-6d l-height-0">{{ lang.profile.information.contacts }}</h4>
 
     <div class="list">
       <div v-for="room in this.rooms" :key="room.id" class="user_block h-max-content padding-1 bg-ccc-opacity-hover c-pointer d-flex g-gap-1"
@@ -31,6 +31,7 @@ export default {
     profile: state => state.auth.profile,
     new_messages: state => state.message.NOT_READ_LIST,
     rooms: state => state.room.ROOMS,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

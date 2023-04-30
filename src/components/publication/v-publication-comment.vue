@@ -7,13 +7,13 @@
       <v-menu-normal v-if="profile && profile.id === publication_comment.creator.id"
                      @edit="setModalName('publicationCommentEditBlock')"
                      @delete="this.setModalName('publicationCommentDeleteAlert')"
-                     :menu_list="[{title: 'редактировать', icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
-                                    {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
+                     :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
+                                    {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
     <span class="f-size-small m-top-1">{{publication_comment.text}}</span>
 
     <div class="d-flex j-content-space-between a-items-center">
-      <p class="m-bottom-0 f-size-small"><b>опубликовано</b> {{this.date_time}}</p>
+      <p class="m-bottom-0 f-size-small"><b>{{ lang.general.published }}</b> {{this.date_time}}</p>
     </div>
 
     <v-publication-comment-edit-form v-if="modalName === 'publicationCommentEditBlock' && this.publication_comment"
@@ -23,7 +23,7 @@
   </div>
 
 <!--  ALERTS-->
-  <v-alert-modal label="вы дествительно хотите удалить комментарий ?"
+  <v-alert-modal :label="lang.general.comment_delete.confirm"
                  @close="setModalName(false)"
                  @confirm="onDeletePublicationComment"
                  v-if="this.modalName === 'publicationCommentDeleteAlert'"/>
@@ -43,7 +43,8 @@ export default {
   mixins: [toggleMixin, localTimeMixin],
   props: ['publication_comment'],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   mounted() {
     this.getLocalTime(this.publication_comment.creation_date)

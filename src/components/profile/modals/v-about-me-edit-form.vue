@@ -1,15 +1,15 @@
 <template>
   <div class="d-flex a-items-center j-content-center">
     <div class="bg-fff padding-1 w-max h-max-content animation-from-hidden">
-      <h3 class="m-top-0">о себя</h3>
+      <h3 class="m-top-0">{{ lang.profile.about_me_add.title }}</h3>
 
-      <v-textarea-normal label="несколько слов о себя"
-                         span="не меньше 20 символов"
+      <v-textarea-normal :label="lang.profile.about_me_add.description.title"
+                         :span="lang.profile.about_me_add.description.description"
                          @value="value => form.description = value"/>
 
       <div class="d-flex g-gap-1 m-top-1 j-content-flex-end">
-        <v-button-normal label="сохранить" class="bg-content" @click="onAboutUser"/>
-        <v-button-normal label="закрыть" @click="this.$emit('close')"/>
+        <v-button-normal :label="lang.general.save" class="bg-content" @click="onAboutUser"/>
+        <v-button-normal :label="lang.general.cancel" @click="this.$emit('close')"/>
       </div>
     </div>
   </div>
@@ -18,9 +18,13 @@
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VTextareaNormal from "@/components/_general/v-textarea-normal";
+import {mapState} from "vuex";
 export default {
   name: "v-about-me-edit-form",
   components: {VTextareaNormal, VButtonNormal},
+    computed: mapState({
+        lang: state => state.lang.LANG
+    }),
   data(){
     return{
       form: {

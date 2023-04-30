@@ -17,23 +17,23 @@
         <ul class="p-absolute right-0 bg-fff padding-05 box-shadow-slim w-max-content z-index-max" v-if="modalName === 'messageSettings'">
           <li class="d-flex g-gap-1 a-items-center c-red bg-ccc-opacity-hover" @click="setModalName('messagesDeleteAlert', this.room_id, this.partner)">
             <i class="fa fa-ban" aria-hidden="true"></i>
-            <span>удалить сообщения</span>
+            <span>{{ lang.message.delete_messages }}</span>
           </li>
         </ul>
       </div>
     </div>
 
     <div class="m-top-3" id="messages_block">
-      <p class="m-top-0 m-top-1 m-bottom-0 t-center f-size-small c-content c-pointer t-decoration-underline-hover" v-if="show_more" @click="()=>{setOffset();this.getMessages()}">показать еще</p>
-      <v-message-block  v-for="(message, index) in messages" :key="message.id" :index="index" :message="message" :partner="partner" :room_id="this.room_id" :user="user" @editMessage="body => this.editForm = body"/>
+      <p class="m-top-0 m-top-1 m-bottom-0 t-center f-size-small c-content c-pointer t-decoration-underline-hover" v-if="show_more" @click="()=>{setOffset();this.getMessages()}">{{ lang.message.show_more }}</p>
+      <v-message-block  v-for="(message, index) in messages" :key="message.id" :index="index" :message="message" :partner="partner" :room_id="this.room_id" :user="user" @editMessage="body => {this.editForm = body; this.editForm.old_text = body.text}"/>
     </div>
 
-    <div :class="`padding-1 padding-top-2 d-grid a-items-flex-end g-gap-_3 a-items-center  input_form p-relative`" v-if="modalName === 'inputText'">
-      <span class="c-content c-pointer d-flex a-items-center padding-03 p-absolute t-decoration-underline-hover m-left-2 top-0 f-size-small" @click="this.editForm=null" v-if="modalName === 'inputText' && this.editForm"><i class="fa fa-close m-right-05"></i> отменить редактирование</span>
+    <div class="padding-1 padding-top-2 d-grid a-items-flex-end g-gap-_3 a-items-center  input_form p-relative" v-if="modalName === 'inputText'">
+      <span class="c-content c-pointer d-flex a-items-center padding-03 p-absolute t-decoration-underline-hover m-left-2 top-0 f-size-small w-max-content h-max-content" @click="close_edit" v-if="modalName === 'inputText' && this.editForm"><i class="fa fa-close m-right-05"></i> {{ lang.general.cancel }}</span>
       <v-input-emoji  placeholder="редактировать сообщния..." :default_value="editForm.text" @value="value => editForm.text = value" v-if="modalName === 'inputText' && this.editForm"/>
       <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="updateMessage" v-if="modalName === 'inputText' && this.editForm"/>
       <!--      <v-input-normal placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText'"/>-->
-      <v-input-emoji  placeholder="ваше сообщния..." @value="value => form.text = value" v-if="modalName === 'inputText' && !this.editForm"/>
+      <v-input-emoji  :placeholder="lang.message.placeholder" @value="value => form.text = value" v-if="modalName === 'inputText' && !this.editForm"/>
       <v-button-normal class="bg-content-hover" icon="fa fa-paper-plane" @click="onMessage" v-if="modalName === 'inputText' && !this.editForm"/>
     </div>
   </div>
@@ -43,7 +43,7 @@
   <v-alert-modal v-if="modalName === 'messagesDeleteAlert'"
                  @close="setModalName('inputText')"
                  @confirm="deleteRoom"
-                 :label="`вы хотите удалить все сообщения с ${this.obj.first_name} ${this.obj.last_name} ?`"/>
+                 :label="lang.message.confirm_delete"/>
 </template>
 
 <script>
@@ -54,11 +54,15 @@ import VMessageBlock from "@/components/messager/v-message-block";
 import offsetMixin from "@/mixins/offset-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
+import {mapState} from "vuex";
 export default {
   name: "v-messages-block",
   components: {VInputEmoji, VAlertModal, VMessageBlock, VButtonNormal},
   props: ['user', 'partner', 'room_id'],
   mixins: [toggleMixin, offsetMixin],
+  computed: mapState({
+     lang: state => state.lang.LANG
+  }),
   data(){
     return{
       messages: [],
@@ -84,6 +88,10 @@ export default {
     this.getMessages(true)
   },
   methods:{
+    close_edit(){
+        this.messages[this.editForm.index].text = this.editForm.old_text
+        this.editForm = null
+    },
     updateMessage(){
       this.emitter.emit('load', true)
       this.$store.dispatch("message/UPDATE", {id: this.editForm.id, form: this.editForm}).then(data => {

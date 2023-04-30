@@ -4,20 +4,20 @@
       <div>
         <v-user-mini-block :user="this.message_body.creator_id === this.partner.id ? this.partner : this.user"/>
       </div>
-      <p class=" margin-1">{{this.message_body.text}} <i class="f-size-small c-ccc" v-if="this.message_body.edited"> редактирован</i></p>
+      <p class=" margin-1">{{this.message_body.text}} <i class="f-size-small c-ccc" v-if="this.message_body.edited">{{ lang.message.edited }}</i></p>
 
       <div class="c-ccc f-size-small d-flex j-content-space-between padding-left-1 padding-right-1">
         <span v-if="this.date_time">{{this.date_time}}</span>
 
         <div v-if="this.message_body.creator_id === user.id">
-          <span v-if="read">прочитано</span>
-          <span v-else>не прочитано</span>
+          <span v-if="read">{{ lang.message.read }}</span>
+          <span v-else>{{ lang.message.unread }}</span>
         </div>
       </div>
 
       <v-menu-normal v-if="this.message_body.creator_id === profile.id" class="m-right-05 c-555 m-top-05" :menu_list="
-      [{title: 'редактировать', icon_class: 'fa fa-edit', emit_name: 'editMessage'},
-      {title: 'удалить', icon_class: 'fa fa-remove', class: 'c-red', emit_name: 'deleteMessage'}]"
+      [{title: lang.general.redactor, icon_class: 'fa fa-edit', emit_name: 'editMessage'},
+      {title: lang.general.delete, icon_class: 'fa fa-remove', class: 'c-red', emit_name: 'deleteMessage'}]"
       @editMessage="this.$emit('editMessage', this.message)" @deleteMessage="this.deleteMessage"/>
 
     </div>
@@ -36,7 +36,8 @@ export default {
   props: ['message', 'partner', 'user', 'room_id', 'index'],
   mixins: [toggleMixin, localTimeMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

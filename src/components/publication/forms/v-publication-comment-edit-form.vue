@@ -3,19 +3,19 @@
     <v-input-emoji :default_value="form.text"
                    v-if="form.text !== null"
                    class="w-max"
-                   span="редактировать комментарий" @value="value => form.text = value"/>
+                   :span="lang.general.comment_edit.title" @value="value => form.text = value"/>
 
     <div class="d-flex g-gap-_5">
-      <v-button-normal label="обновить"
+      <v-button-normal :label="lang.general.update"
                        class="bg-content"
                        @click="setModalName('publicationCommentUpdateAlert')"/>
-      <v-button-normal label="отменить" @click="this.$emit('close')"/>
+      <v-button-normal :label="lang.general.cancel" @click="this.$emit('close')"/>
     </div>
   </div>
 
 
   <!-- ALERTS -->
-  <v-alert-modal label="ви хотите обновить коментарий ?"
+  <v-alert-modal :label="lang.general.comment_edit.confirm"
                  v-if="modalName === 'publicationCommentUpdateAlert'"
                  @close="setModalName(false)"
                  @confirm="onEditPublicationComment"/>
@@ -26,6 +26,7 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
+import {mapState} from "vuex";
 
 export default {
   name: "v-publication-comment-edit-form",
@@ -39,6 +40,9 @@ export default {
       }
     }
   },
+    computed: mapState({
+        lang: state => state.lang.LANG
+    }),
   mounted() {
     this.form.text = this.publication_comment.text
   },

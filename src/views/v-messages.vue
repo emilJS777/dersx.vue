@@ -4,7 +4,7 @@
     <div class="p-relative bg-fff box-shadow-slim">
       <v-messages-block class="bg-fff h-max" v-if="modalName==='messagerBlock'" :user="profile" :partner="this.obj" :room_id="this.id" @close="setModalName('roomBlock')"/>
       <div v-else class="padding-1">
-        <i class="c-6d">расширьте сеть своих контактов. найдите их в странице  <router-link to="/users" class="c-content t-decoration-underline">пользователи</router-link></i>
+        <i class="c-6d">{{ lang.message.description }}  <router-link to="/users" class="c-content t-decoration-underline">{{ lang.general.users }}</router-link></i>
       </div>
     </div>
   </div>
@@ -20,7 +20,8 @@ export default {
   components: {VMessagesBlock, VRoomsBlock},
   mixins: [toggleMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
 }
 </script>

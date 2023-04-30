@@ -5,7 +5,7 @@
       <v-menu-normal
           @delete="setModalName('publicationDeleteAlert')"
           v-if="profile && profile.id === publication.creator.id"
-          :menu_list="[{title: 'удалить', icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red'}]"/>
+          :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red'}]"/>
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
@@ -19,7 +19,7 @@
 <!--    PUBLICATION CREATION DATE-->
     <div class="d-grid g-gap-_5">
       <span class="f-size-small m-top-0">
-        <b>опубликовано:</b> {{this.date_time}}
+        <b>published:</b> {{this.date_time}}
       </span>
     </div>
 
@@ -29,26 +29,26 @@
             v-if="modalName !== 'publicationComments'"
             @click="()=>{setModalName('publicationComments');publicationCommentGet()}">
         <i class="fa fa-comments" aria-hidden="true"></i>
-        комментарий: {{ publication.comment_count }}
+        {{ lang.general.comments }}: {{ publication.comment_count }}
       </span>
 
       <span class="c-ccc f-size-small d-flex g-gap-_5 a-items-center f-weight-bold" v-else>
         <i class="fa fa-comments" aria-hidden="true"></i>
-        комментарий: {{ publication.comment_count }}
+        {{ lang.general.comments }}: {{ publication.comment_count }}
       </span>
 
       <span class="c-pointer c-content f-size-small d-flex g-gap-_5 a-items-center f-weight-bold"
             @click="publicationLikeCreate"
             v-if="!publication_like.self_like && profile">
         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-        нравится: {{ publication_like.like_count }}
+        {{ lang.general.likes }}: {{ publication_like.like_count }}
       </span>
 
       <span class="c-pointer f-size-small d-flex g-gap-_5 a-items-center f-weight-bold"
             v-if="publication_like.self_like && profile"
             @click="publicationLikeDelete">
         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-        нравится: {{ publication_like.like_count }} (вам понравился)
+        {{ lang.general.likes }}: {{ publication_like.like_count }} ({{ lang.general.did_you_like }})
       </span>
     </div>
 
@@ -69,14 +69,14 @@
 
       <p class="c-pointer t-decoration-underline-hover c-content f-size-small m-top-2"
             v-if="publication_comment.see_more"
-            @click="publicationCommentGet(6, 6)">посмотреть еще</p>
+            @click="publicationCommentGet(6, 6)">{{ lang.general.see_more }}</p>
     </div>
 
   </div>
 
 
 <!--  ALERTS-->
-  <v-alert-modal label="вы действительно хотите удалить публикацию ?"
+  <v-alert-modal :label="lang.home.publication.confirm_delete"
                  v-if="modalName === 'publicationDeleteAlert'"
                  @close="setModalName(false)"
                  @confirm="publicationDelete"/>
@@ -97,7 +97,8 @@ export default {
   props: ["publication"],
   mixins: [toggleMixin, localTimeMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

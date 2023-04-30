@@ -3,12 +3,12 @@
 
     <v-input-emoji
         @value="value => form.text = value"
-        label="ваш комментарии "
-        span="не более чем 1500 символов"
-        placeholder="напишите как вы относитесь к этому проекту "/>
+        :label="lang.vacancies.your_comment.title"
+        :span="lang.vacancies.your_comment.description"
+        :placeholder="lang.vacancies.your_comment.placeholder"/>
 
     <div class="btn_block d-flex j-content-flex-end g-gap-1 m-top-1">
-      <v-button-normal class="bg-content" label="отправить" @click="onVacancyComment" v-if="profile"/>
+      <v-button-normal class="bg-content" :label="lang.general.send" @click="onVacancyComment" v-if="profile"/>
     </div>
 
   </div>
@@ -22,7 +22,8 @@ export default {
   components: {VInputEmoji, VButtonNormal},
   props: ['vacancy_id'],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

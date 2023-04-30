@@ -10,21 +10,21 @@
 
         <div class="d-grid info_block j-content-flex-end f-size-very-small">
           <b>{{ profile.first_name }} {{ profile.last_name }}</b>
-          <i>{{profile.email_address}}</i>
+          <i>{{profile.email.address}}</i>
         </div>
       </div>
     </div>
 
     <div class="d-grid w-max m-left-1 a-items-flex-start">
       <div class="d-flex a-items-flex-end g-gap-1">
-        <v-input-emoji label="добавьте публикацию "
+        <v-input-emoji :label="lang.home.publication.create.form.title"
                        class="w-max"
                        @value="value => form.description = value"
-                       placeholder="описание публикации "/>
+                       :placeholder="lang.home.publication.create.form.description"/>
         <v-input-file-form class=" m-top-05 bg-ccc-opacity w-max-content"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
                            @file_form="file => form.image = file"/>
-        <v-button-normal label="опубликовать" @click="setModalName('publicationCreateAlert')"/>
+        <v-button-normal :label="lang.general.create" @click="setModalName('publicationCreateAlert')"/>
       </div>
 
 
@@ -32,7 +32,7 @@
   </div>
 
 <!--  ALERTS-->
-  <v-alert-modal label="создать публикацию ?"
+  <v-alert-modal :label="lang.home.publication.create.confirm_create"
                  v-if="modalName === 'publicationCreateAlert'"
                  @close="setModalName(false)"
                  @confirm="onPublication"/>
@@ -50,7 +50,8 @@ export default {
   components: {VInputEmoji, VAlertModal, VButtonNormal, VInputFileForm},
   mixins: [toggleMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{

@@ -29,6 +29,9 @@ import notification from "./modules/notification"
 import company from "@/store/modules/company";
 import group from "@/store/modules/group";
 import group_invite from "@/store/modules/group_invite";
+import email from "@/store/modules/email";
+import restore_password from "@/store/modules/restore_password";
+import lang from "@/store/modules/lang";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -62,6 +65,9 @@ export default new Vuex.Store({
         notification,
         company,
         group,
-        group_invite
+        group_invite,
+        email,
+        restore_password,
+        lang
     }
 })

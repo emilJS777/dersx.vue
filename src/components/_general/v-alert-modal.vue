@@ -4,8 +4,8 @@
       <i>{{ label }}</i>
 
       <div class="m-top-1 d-flex j-content-center g-gap-1">
-        <v-button-normal label="подтвердить" @click="this.$emit('confirm')" class="bg-content"/>
-        <v-button-normal label="отменить"  @click="this.$emit('close')"/>
+        <v-button-normal :label="lang.general.confirm" @click="this.$emit('confirm')" class="bg-content"/>
+        <v-button-normal :label="lang.general.cancel"  @click="this.$emit('close')"/>
       </div>
     </div>
   </div>
@@ -13,10 +13,14 @@
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
+import {mapState} from "vuex";
 export default {
   name: "v-alert-modal",
   components: {VButtonNormal},
-  props: ['label']
+  props: ['label'],
+    computed: mapState({
+        lang: state => state.lang.LANG
+    }),
 }
 </script>
 

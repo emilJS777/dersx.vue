@@ -2,8 +2,8 @@
   <div class="notifications d-grid g-gap-3">
     <div></div>
     <div class="bg-fff padding-1 d-grid g-gap-1 min-height-500 box-shadow-slim">
-      <i class="f-weight-bold c-ccc t-center" v-if="!notification_ids.length"> у вас нет уведомлений </i>
-      <div v-for="notification_id in notification_ids" :key="notification_id">
+      <i class="f-weight-bold c-ccc t-center" v-if="!notification_ids.length"> {{ lang.notifications.no_notifications }}</i>
+      <div v-for="notification_id in notification_ids" :key="notification_id" v-else>
         <v-notification-list :notification_id="notification_id"/>
       </div>
     </div>
@@ -18,7 +18,8 @@ export default {
   components: {VNotificationList},
   computed: mapState({
     notification_ids: state => state.notification.NOTIFICATION_IDS,
-    notifications: state => state.notification.NOTIFICATIONS
+    notifications: state => state.notification.NOTIFICATIONS,
+    lang: state => state.lang.LANG
   }),
 }
 </script>

@@ -3,8 +3,8 @@
 <!--    VACANCIES-->
     <div class="h-max-content">
       <h4 class="m-top-0 m-bottom-0 padding-05 bg-ccc-opacity d-flex j-content-space-between a-items-center">
-        <span class="c-content">новые вакансии</span>
-        <router-link to="/vacancies" class="f-size-small">смотреть все</router-link>
+        <span class="c-content">{{lang.home.new_vacancies.title}}</span>
+        <router-link to="/vacancies" class="f-size-small">{{lang.home.new_vacancies.button}}</router-link>
       </h4>
       <div class="d-grid">
           <v-vacancies-list v-for="vacancy in vacancies"
@@ -25,16 +25,17 @@
       </div>
 
       <div class="m-top-1 d-flex g-gap-_5 box-shadow-slim padding-1 bg-fff">
-        <a href="/"  :class="`padding-05 bg-fff b-radius-8 c-pointer b-solid-ccc ${!Object.keys(this.$route.query).length ? 'c-ccc' : ''}`">все</a>
+        <a href="/"  :class="`padding-05 bg-fff b-radius-8 c-pointer b-solid-ccc ${!Object.keys(this.$route.query).length ? 'c-ccc' : ''}`">{{ lang.home.publication.menu.all }}</a>
 
         <a :href="`?publicator_id=${profile.id}`"
            :class="`padding-05 bg-fff b-radius-8 c-pointer b-solid-ccc ${this.$route.query.publicator_id === profile.id.toString() ? 'c-ccc' : ''}`"
-           v-if="profile">мои публикации </a>
+           v-if="profile">{{ lang.home.publication.menu.my_posts}}</a>
 
         <a :href="`?liked_id=${profile.id}`"
            v-if="profile"
            :class="`padding-05 bg-fff b-radius-8 c-pointer b-solid-ccc ${this.$route.query.liked_id === profile.id.toString() ? 'c-ccc' : ''}`">
-          понравившийся</a>
+          {{lang.home.publication.menu.liked}}
+        </a>
       </div>
 
       <h3 class="c-ccc t-center" v-if="!publications.length">ничего не найдено </h3>
@@ -58,7 +59,8 @@ export default {
   components: {VPublicationList, VPublicationCreateForm, VVacanciesList},
   mixins: [toggleMixin, offsetMixin],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{
@@ -79,8 +81,21 @@ export default {
 
     this.setModalName('allPublications')
     this.publicationGet()
+
+    if(localStorage.getItem('email_send'))
+        this.send_email_activation()
   },
   methods:{
+      send_email_activation(){
+          this.emitter.emit('load', true)
+          this.$store.dispatch('email/GET', `?activation_code=true`).then(data => {
+              console.log(data)
+              this.emitter.emit('message', data)
+          }).finally(() => {
+              localStorage.removeItem('email_send')
+              this.emitter.emit('load', false)
+          })
+      },
     publicationGet(){
       this.emitter.emit('load', true)
       this.$store.dispatch("publication/GET", `?limit=${this.limit}&offset=${this.offset}&creator_id=${this.$route.query.publicator_id ? this.$route.query.publicator_id  : ''}&liked_id=${this.$route.query.liked_id ? this.$route.query.liked_id : ''}`).then(data => {

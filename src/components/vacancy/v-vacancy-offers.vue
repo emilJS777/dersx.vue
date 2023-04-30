@@ -5,17 +5,15 @@
       <v-menu-normal v-if="profile && profile.id === vacancy_offer.creator.id"
                      @edit="setModalName('vacancyOfferEditModal', vacancy_offer.id)"
                      @delete="setModalName('vacancyOfferDeleteAlert', vacancy_offer.id)"
-                     :menu_list="[{title: 'редактировать', icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
-                                    {title: 'удалить', icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
+                     :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
+                                    {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
 
     <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0">{{vacancy_offer.description}}</p>
 
     <div>
-      <p class="m-bottom-0 c-content f-size-small m-left-1">цена {{vacancy_offer.price}} за {{vacancy_offer.payment_interval.title}}</p>
-
-      <span class="m-top-1 m-left-1 f-size-small ">опубликовано {{ vacancy_offer.creation_date }}</span>
-
+      <p class="m-bottom-0 c-content f-size-small m-left-1"><i v-if="vacancy_offer.payment_interval.price">{{vacancy_offer.price}} {{lang.general.dram}} </i> {{vacancy_offer.payment_interval.title}}</p>
+      <span class="m-top-1 m-left-1 f-size-small ">{{ lang.general.published }} {{ vacancy_offer.creation_date }}</span>
     </div>
 
     <v-vacancy-offer-edit-form :vacancy_offer_id="this.id"
@@ -24,7 +22,7 @@
                                v-if="modalName === 'vacancyOfferEditModal'"/>
   </div>
 
-  <h3 class="c-ccc" v-if="!vacancy_offers.length">предложения не найдены</h3>
+  <h3 class="c-ccc m-0-auto" v-if="!vacancy_offers.length">{{ lang.general.nothing_found }}</h3>
   <div v-else class="d-flex j-content-flex-end m-top-1">
     <v-paginate
         class="paginate"
@@ -39,7 +37,7 @@
   </div>
 
 <!--  ALERTS-->
-  <v-alert-modal label="вы дествительно хотите удалить ваше  предложение ?"
+  <v-alert-modal :label="lang.vacancies.offer.confirm_delete"
                  v-if="modalName === 'vacancyOfferDeleteAlert'"
                  @confirm="deleteVacancyOffer"
                  @close="setModalName(false)"/>
@@ -64,7 +62,8 @@ export default {
   mixins: [paginateMixin, toggleMixin, localTimeMixin],
   props: ['vacancy_id'],
   computed: mapState({
-    profile: state => state.auth.profile
+    profile: state => state.auth.profile,
+    lang: state => state.lang.LANG
   }),
   data(){
     return{
