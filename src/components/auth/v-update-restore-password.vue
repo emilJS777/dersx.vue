@@ -1,13 +1,13 @@
 <template>
     <div class="modal d-flex a-items-center j-content-center">
         <form class="modal-content h-max-content animation-from-hidden">
-            <h4 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 a-items-center j-content-center" v-if="user">{{user.name}} восстановления пароля  </h4>
-            <v-input-normal label="новый пароль" type="password" span="пароль должен содержать не менее 8 и не больше 32 символов" @value="value => form.new_password = value"/>
-            <v-input-normal label="повторите пароль" type="password" class="m-top-1" @value="value => form.confirm_password = value"/>
+            <h4 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 a-items-center j-content-center" v-if="user">{{user.name}} {{lang.guest.restore_password.title}}</h4>
+            <v-input-normal :label="lang.guest.restore_password.restore.new_password.title" type="password" :span="lang.guest.restore_password.restore.new_password.description" @value="value => form.new_password = value"/>
+            <v-input-normal :label="lang.guest.restore_password.restore.repeat_password.title" type="password" class="m-top-1" @value="value => form.confirm_password = value"/>
 
             <div class="btn_block d-flex g-gap-1 m-top-1 j-content-flex-end">
-                <v-button-normal label="отправить" class="bg-content" @click="updateRestorePassword"/>
-                <v-button-normal label="закрыт" @click="this.$emit('close')"/>
+                <v-button-normal :label="lang.general.send" class="bg-content" @click="updateRestorePassword"/>
+                <v-button-normal :label="lang.general.cancel" @click="this.$emit('close')"/>
             </div>
         </form>
     </div>
@@ -16,10 +16,14 @@
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal.vue";
 import VInputNormal from "@/components/_general/v-input-normal.vue";
+import {mapState} from "vuex";
 
 export default {
     name: "v-update-restore-password",
     components: {VInputNormal, VButtonNormal},
+    computed: mapState({
+        lang: state => state.lang.LANG
+    }),
     data(){
         return{
             user: null,

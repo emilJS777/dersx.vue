@@ -12,7 +12,7 @@
                        :message="message.value"
                        :success="message.success"/>
 
-      <v-lang-block v-if="lang_block" @close="this.emitter.emit('lang_block', false)"/>
+<!--      <v-lang-block v-if="lang_block" @close="this.emitter.emit('lang_block', false)"/>-->
       <!--  LOADER-->
       <div class="p-fixed top-0 left-0 w-max h-max d-flex a-items-center j-content-center bg-ccc-opacity z-index-max" v-if="loader">
           <span class="loader"></span>
@@ -26,11 +26,9 @@ import VHeader from "@/components/_general/v-header";
 import VMessageModal from "@/components/_general/v-message-modal";
 import {mapState} from "vuex";
 import VMessager from "@/components/messager/v-messager";
-import VLangBlock from "@/components/_general/v-lang-block.vue";
 export default {
   name: 'App',
   components: {
-    VLangBlock,
     VMessager,
     VMessageModal,
     VHeader,

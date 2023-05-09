@@ -87,14 +87,13 @@
       </ul>
     </div>
 
-    <div v-if="profile" class="d-grid g-gap-1 p-relative">
-      <div class="auth d-flex j-content-flex-end a-items-center g-gap-1 p-relative" >
+    <div v-if="profile" class="d-grid g-gap-1 p-relative t-right">
+      <div class="auth d-flex j-content-flex-end a-items-center g-gap-1 p-relative">
 
         <div class="d-grid info_block j-content-flex-end">
           <b>{{ profile.first_name }} {{ profile.last_name }}</b>
-          <i>{{profile.email.address}}</i>
-          <span class="c-content f-size-very-small w-max-content c-pointer" @click="setModalName('logoutAlertModal')">{{ lang.general.sign_out }}</span>
-
+          <i class="f-size-very-small">{{profile.email.address}}</i>
+          <p class="c-content t-right f-size-very-small  c-pointer" @click="setModalName('logoutAlertModal')">{{ lang.general.sign_out }}</p>
         </div>
 
         <a :href="`/profile?id=${this.profile.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
@@ -108,6 +107,8 @@
       <v-button-normal :label="lang.general.sign_in" @click="setModalName('login')"/>
       <v-button-normal :label="lang.general.sign_up" class="bg-content" @click="setModalName('registration')"/>
     </div>
+
+    <v-select-lang class="m-left-05"/>
   </div>
 
 <!--  AUTH MODAL-->
@@ -118,7 +119,7 @@
 
 <!--  CONFIRM MODAL-->
   <v-alert-modal v-if="modalName === 'logoutAlertModal'"
-                 label="вы хотите выйти из аккаунта ?"
+                 :label="lang.general.sign_out_confirm"
                  @close="setModalName(false)"
                  @confirm="logout"/>
 </template>
@@ -136,10 +137,12 @@ import VMessagesIndicator from "@/components/messager/v-messages-indicator";
 import VNotificationIndicator from "@/components/notification/v-notification-indicator";
 import VCreateRestorePassword from "@/components/auth/v-create-restore-password.vue";
 import VUpdateRestorePassword from "@/components/auth/v-update-restore-password.vue";
+import VSelectLang from "@/components/_general/v-select-lang.vue";
 export default {
   name: "v-header",
   mixins: [toggleMixin, imageGetMixin],
   components: {
+      VSelectLang,
       VUpdateRestorePassword,
       VCreateRestorePassword,
     VNotificationIndicator,
@@ -166,7 +169,7 @@ export default {
 <style scoped>
 .header{
   background-color: #fff;
-  grid-template-columns: 1fr 3fr 1.1fr;
+  grid-template-columns: 1fr 2.5fr 1.1fr .2fr;
 }
 .logo{
   line-height: .9;

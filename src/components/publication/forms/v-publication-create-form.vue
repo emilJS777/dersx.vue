@@ -19,12 +19,16 @@
       <div class="d-flex a-items-flex-end g-gap-1">
         <v-input-emoji :label="lang.home.publication.create.form.title"
                        class="w-max"
+                       style="margin-bottom: -2px;"
                        @value="value => form.description = value"
                        :placeholder="lang.home.publication.create.form.description"/>
-        <v-input-file-form class=" m-top-05 bg-ccc-opacity w-max-content"
+
+        <v-input-file-form class=" m-top-05 bg-ccc-opacity w-max-content o-hidden d-flex a-items-flex-end"
+                           icon="fa fa-image f-size-22"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
                            @file_form="file => form.image = file"/>
-        <v-button-normal :label="lang.general.create" @click="setModalName('publicationCreateAlert')"/>
+
+        <v-button-normal :label="lang.general.create" style="border-radius: 30px;" @click="setModalName('publicationCreateAlert')"/>
       </div>
 
 

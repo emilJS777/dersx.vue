@@ -1,7 +1,7 @@
 <template>
   <div class="modal d-flex a-items-center j-content-center">
     <div class="modal-content h-max-content animation-from-hidden">
-      <h3 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 a-items-center j-content-center"><v-logo class="t-center m-top-0 m-bottom-0"/> вход в систему </h3>
+      <h3 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 a-items-center j-content-center"><v-logo class="t-center m-top-0 m-bottom-0"/> {{lang.general.sign_in}}</h3>
       <v-input-normal :label="lang.guest.user_name_or_email" @value="value => form.name = value"/>
       <v-input-normal :label="lang.guest.password.title" class="m-top-1" type="password" @value="value => form.password = value"/>
 
@@ -12,7 +12,7 @@
 <!--          <i class="fab fa-google c-pointer"/>-->
 <!--        </div>-->
 
-        <span class="t-decoration-underline c-content-hover c-pointer" @click="this.$emit('restore_password')">восстановить пароль </span>
+        <span class="t-decoration-underline c-content-hover c-pointer" @click="this.$emit('restore_password')">{{lang.guest.restore_password.title}}</span>
       </div>
 
       <div class="btn_block d-flex g-gap-1 m-top-1 j-content-flex-end">

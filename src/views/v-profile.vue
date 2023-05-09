@@ -3,10 +3,6 @@
       <div class="d-grid h-max-content g-gap-1 box-shadow-slim">
         <div class="bg-fff padding-1 d-grid j-content-center">
           <v-profile-img/>
-            <v-button-normal :label="lang.profile.language_block.title" class="bg-content-hover w-max m-top-2 f-size-small"
-                             @click="this.emitter.emit('lang_block', true)"
-                             icon="fa fa-language"
-                             v-if="profile && profile.id === parseInt(this.$route.query.id)"/>
 
           <v-button-normal :label="lang.profile.buttons.profile_settings" class="bg-content-hover w-max m-top-1 f-size-small"
                            @click="setModalName('profileEditModal')"

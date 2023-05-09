@@ -1,12 +1,16 @@
 <template>
-  <div class="d-flex a-items-flex-end">
-    <div class="d-grid w-max">
-      <label for="" class="f-weight-bold">{{label}}</label>
-      <span class="f-size-very-small">{{span}}</span>
-      <textarea v-model="value" class="w-max outline-content form-standard" :placeholder="this.placeholder"  @change="changeValue"></textarea>
+    <div class="d-grid">
+        <label for="" class="f-weight-bold">{{label}}</label>
+        <span class="f-size-very-small">{{span}}</span>
+
+
+        <div class="d-flex a-items-center">
+            <div class="d-flex a-items-center  w-max">
+                <textarea v-model="value" class="w-max outline-content form-standard" :placeholder="this.placeholder"  @change="changeValue"></textarea>
+                <discord-picker style="margin-bottom: -2px;" class="padding-02 d-flex a-items-center" @emoji="addEmoji"></discord-picker>
+            </div>
+        </div>
     </div>
-    <discord-picker class="padding-02" @emoji="addEmoji"></discord-picker>
-  </div>
 </template>
 
 <script>

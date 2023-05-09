@@ -21,9 +21,14 @@
 
 <script>
 
+import {mapState} from "vuex";
+
 export default {
   name: "v-input-file-normal",
   props: ['label', 'sublabel', 'allowedTypes'],
+  computed: mapState({
+      lang: state => state.lang.LANG
+  }),
   data(){
     return{
       fileForm:{
@@ -45,11 +50,11 @@ export default {
           this.fileForm.file = files[0]
         }
         else{
-          this.fileForm.msg = "не верный формат файла"
+          this.fileForm.msg = this.lang.general.file.format_validate
         }
       }
       else{
-        this.fileForm.msg = 'размер файла не должно превышать 1мб'
+        this.fileForm.msg = this.lang.general.file.size_validate
       }
     },
   }

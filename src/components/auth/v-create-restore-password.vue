@@ -1,13 +1,13 @@
 <template>
     <div class="modal d-flex a-items-center j-content-center">
         <form class="modal-content h-max-content animation-from-hidden" @submit="createRestorePassword">
-            <h3 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 a-items-center j-content-center"> восстановления пароля  </h3>
-            <v-input-normal label="адрес эл. почты" span="мы отправим письмо на эл. почту для восстановления пароля" @value="value => form.address = value"/>
+            <h3 class="m-top-0 m-bottom-1 t-center d-flex g-gap-1 a-items-center j-content-center"> {{ lang.guest.restore_password.title }}  </h3>
+            <v-input-normal :label="lang.guest.restore_password.email.title" :span="lang.guest.restore_password.email.description" @value="value => form.address = value"/>
 
 
             <div class="btn_block d-flex g-gap-1 m-top-1 j-content-flex-end">
-                <v-button-normal label="отправить" class="bg-content" @click="createRestorePassword"/>
-                <v-button-normal label="закрыт" @click="this.$emit('close')"/>
+                <v-button-normal :label="lang.general.send" class="bg-content" @click="createRestorePassword"/>
+                <v-button-normal :label="lang.general.cancel" @click="this.$emit('close')"/>
             </div>
         </form>
     </div>
@@ -16,10 +16,14 @@
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal.vue";
 import VInputNormal from "@/components/_general/v-input-normal.vue";
+import {mapState} from "vuex";
 
 export default {
     name: "v-create-restore-password",
     components: {VInputNormal, VButtonNormal},
+    computed: mapState({
+        lang: state => state.lang.LANG
+    }),
     data(){
         return{
             form: {
