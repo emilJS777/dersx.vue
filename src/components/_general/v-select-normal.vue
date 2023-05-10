@@ -3,15 +3,24 @@
     <label for="" class="f-weight-bold">{{ label }}</label>
     <span class="f-size-very-small">{{span}}</span>
     <select name="select" id="select" class="w-max form-standard" v-model="selectedItem" @change="onSelect">
-      <option v-for="item in items" :key="item.id" :value="item">{{item.title}}</option>
+      <option v-for="item in items" :key="item.id" :value="item">
+          <span v-if="lang.lang === 'arm'">{{item.title_arm}}</span>
+          <span v-if="lang.lang === 'eng'">{{item.title_eng}}</span>
+          <span v-if="lang.lang === 'rus'">{{item.title_rus}}</span>
+      </option>
     </select>
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "v-select-normal",
   props: ['label', 'items', 'span', 'selected'],
+  computed: mapState({
+    lang: state => state.lang.LANG
+  }),
   data(){
     return{
       selectedItem: this.selected || null

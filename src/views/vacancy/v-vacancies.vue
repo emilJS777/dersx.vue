@@ -43,7 +43,7 @@
                        :key="vacancy.id"
                        :vacancy="vacancy"/>
 
-      <h3 class="t-center c-ccc" v-if="!vacancies.length">ничего не найдено</h3>
+      <h3 class="t-center c-ccc" v-if="!vacancies.length">{{ lang.general.nothing_found }}</h3>
       <!--    PAGINATION-->
       <div v-else class="d-flex j-content-flex-end">
         <v-paginate

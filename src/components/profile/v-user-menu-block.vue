@@ -121,4 +121,7 @@ export default {
 </script>
 
 <style scoped>
+.user_menu_block{
+    max-width: 230px;
+}
 </style>

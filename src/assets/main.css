@@ -42,6 +42,11 @@ label{
         padding: 20px 8%;
     }
 }
+@media only screen and (max-width: 1210px) {
+    .page, .header{
+        padding: 20px 2%;
+    }
+}
 .pagination{
     background-color: #fff;
 }
@@ -179,6 +184,12 @@ a{
 .f-size-small{
     font-size: 13px;
 }
+.f-size-15{
+    font-size: 15px;
+}
+.f-size-16{
+    font-size: 16px;
+}
 .f-size-22{
     font-size: 22px;
 }
@@ -279,6 +290,13 @@ a{
 .bg-red{
     background-color: #a43030;
 }
+.bg-97{
+    background-color: #979797;
+}
+.bg-97-hover:hover{
+    background-color: #979797;
+    color: #fff;
+}
 .bg-content, .bg-content-hover:hover{
     background-color: #ba6f0b;
     color: #fff;
@@ -306,6 +324,9 @@ a{
 }
 .c-content, .c-content-hover:hover{
     color: #ba6f0b;
+}
+.c-97{
+    color: #979797;
 }
 .c-ccc{
     color: #ccc;

@@ -1,9 +1,9 @@
 <template>
   <div class="notifications d-grid g-gap-3">
     <div></div>
-    <div class="bg-fff padding-1 d-grid g-gap-1 min-height-500 box-shadow-slim">
-      <i class="f-weight-bold c-ccc t-center" v-if="!notification_ids.length"> {{ lang.notifications.no_notifications }}</i>
-      <div v-for="notification_id in notification_ids" :key="notification_id" v-else>
+    <div class="bg-fff padding-1 min-height-500 w-max box-shadow-slim h-max-content">
+      <i class="f-weight-bold c-ccc t-center d-block" v-if="!notification_ids.length"> {{ lang.notifications.no_notifications }}</i>
+      <div v-for="notification_id in notification_ids" class="h-max-content m-bottom-1" :key="notification_id" v-else>
         <v-notification-list :notification_id="notification_id"/>
       </div>
     </div>

@@ -14,12 +14,18 @@
         <div class="m-top-1">
           <div class="d-flex g-gap-1 a-items-center">
             <b>{{ lang.general.rubric }}: </b>
-            <span class="f-size-small">{{skill.rubric.title}}</span>
+            <span class="f-size-small">
+                <span v-if="lang.lang === 'arm'">{{skill.rubric.title_arm}}</span>
+                <span v-if="lang.lang === 'eng'">{{skill.rubric.title_eng}}</span>
+                <span v-if="lang.lang === 'rus'">{{skill.rubric.title_rus}}</span>
+            </span>
           </div>
           <div class="" v-if="skill.categories.length">
             <b>{{ lang.general.categories }}: </b>
             <span v-for="category in skill.categories" :key="category.id" class="f-size-small">
-              - {{category.title}}
+               <span v-if="lang.lang === 'arm'">- {{category.title_arm}}</span>
+               <span v-if="lang.lang === 'rus'">- {{category.title_rus}}</span>
+               <span v-if="lang.lang === 'eng'">- {{category.title_eng}}</span>
             </span>
           </div>
           <div class="">
@@ -116,7 +122,7 @@
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
       </svg>
     </h3>
-    <i class="m-top-0" v-if="!user_contacts.length">{{ lang.profile.not_specified }}</i>
+    <i class="m-top-0" v-if="!user_contacts.length">{{ lang.profile.information.section_empty }}</i>
     <div v-else>
       <div v-for="user_contact in user_contacts" :key="user_contact.id" class="d-grid a-items-center g-gap-_5 about_block m-top-1">
         <div class="d-flex g-gap-_5 a-items-center">

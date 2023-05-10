@@ -169,7 +169,12 @@ export default {
 <style scoped>
 .header{
   background-color: #fff;
-  grid-template-columns: 1fr 2.5fr 1.1fr .2fr;
+  grid-template-columns: 1fr 3fr 1.1fr .2fr;
+}
+@media only screen and (max-width: 1000px) {
+    .header{
+        grid-template-columns: 0fr 3fr 1.1fr .2fr;
+    }
 }
 .logo{
   line-height: .9;

@@ -12,7 +12,12 @@
     <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0">{{vacancy_offer.description}}</p>
 
     <div>
-      <p class="m-bottom-0 c-content f-size-small m-left-1"><i v-if="vacancy_offer.payment_interval.price">{{vacancy_offer.price}} {{lang.general.dram}} </i> {{vacancy_offer.payment_interval.title}}</p>
+      <p class="m-bottom-0 c-content f-size-small m-left-1">
+          <i v-if="vacancy_offer.payment_interval.price" class="d-flex g-gap-_3"> <span>{{vacancy_offer.price}}</span> <span>{{lang.general.dram}}</span> </i>
+          <i v-if="lang.lang === 'arm'"> {{vacancy_offer.payment_interval.title_arm}}</i>
+          <i v-if="lang.lang === 'eng'"> {{vacancy_offer.payment_interval.title_eng}}</i>
+          <i v-if="lang.lang === 'rus'"> {{vacancy_offer.payment_interval.title_rus}}</i>
+      </p>
       <span class="m-top-1 m-left-1 f-size-small ">{{ lang.general.published }} {{ vacancy_offer.creation_date }}</span>
     </div>
 

@@ -19,7 +19,7 @@
 <!--    PUBLICATION CREATION DATE-->
     <div class="d-grid g-gap-_5">
       <span class="f-size-small m-top-0">
-        <b>published:</b> {{this.date_time}}
+        <b>{{ lang.general.published }}:</b> {{this.date_time}}
       </span>
     </div>
 

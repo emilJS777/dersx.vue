@@ -60,7 +60,7 @@
                             :key="service.id"
                             :service="service"/>
           </div>
-          <h3 v-if="!services.length" class="c-ccc t-center">ничего не найдено </h3>
+          <h3 v-if="!services.length" class="c-ccc t-center">{{ lang.general.nothing_found}}</h3>
           <!--    PAGINATION-->
           <div v-else class="d-flex j-content-flex-end">
             <v-paginate
@@ -82,7 +82,7 @@
               <v-user v-for="user in friends" :key="user.id" :user="user" class="box-shadow-slim"/>
             </div>
 
-          <h3 v-if="!friends.length" class="c-ccc t-center">ничего не найдено </h3>
+          <h3 v-if="!friends.length" class="c-ccc t-center">{{ lang.general.nothing_found}}</h3>
 
           <!--    PAGINATION-->
           <div v-else class="d-flex j-content-flex-end">

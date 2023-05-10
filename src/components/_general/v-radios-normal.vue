@@ -6,7 +6,10 @@
 
       <div v-for="radio in radios" :key="radio.id">
         <label class="container d-flex l-height-1" @click="this.$emit('value', radio)">
-          <span>{{radio.title}}</span>
+          <span v-if="lang.lang === 'eng'">{{radio.title_eng}}</span>
+          <span v-if="lang.lang === 'arm'">{{radio.title_arm}}</span>
+          <span v-if="lang.lang === 'rus'">{{radio.title_rus}}</span>
+<!--          <span v-else>{{radio.title}}</span>-->
           <input type="radio" :checked="radio.id === active_id" :name="name">
           <span class="checkmark outline-content"></span>
         </label>
@@ -16,9 +19,14 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "v-radios-normal",
   props: ['label', 'radios', 'span', 'name', 'active_id'],
+    computed: mapState({
+       lang: state => state.lang.LANG
+    }),
     mounted() {
       if(this.active_id && this.radios.length > 0){
           this.radios.forEach(radio => {

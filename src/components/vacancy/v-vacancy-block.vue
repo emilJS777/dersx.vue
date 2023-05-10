@@ -16,7 +16,12 @@
         <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between">
           {{vacancy.title}}
         </h3>
-        <b class="c-content f-size-small"><i v-if="vacancy.payment_interval.price">{{ vacancy.price }} {{ lang.general.dram }}</i> <b>{{vacancy.payment_interval.title}}</b></b>
+        <b class="c-content f-size-small d-flex g-gap-_3">
+            <b v-if="vacancy.payment_interval.price"><span>{{ vacancy.price }}</span>  <span>{{ lang.general.dram }}</span> </b>
+            <b v-if="lang.lang === 'arm'"> {{vacancy.payment_interval.title_arm}}</b>
+            <b v-if="lang.lang === 'eng'"> {{vacancy.payment_interval.title_eng}}</b>
+            <b v-if="lang.lang === 'rus'"> {{vacancy.payment_interval.title_rus}}</b>
+        </b>
       </div>
 
       <div class="description m-top-1">
@@ -24,7 +29,11 @@
       </div>
 
       <ul class="w-max categories_block list-style-content padding-left-1">
-        <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small d-inline-block m-right-1 f-weight-bold padding-02 m-right-03">{{category.title}}</li>
+          <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 d-inline-block m-right-1 m-right-03">
+              <span v-if="lang.lang === 'arm'">{{category.title_arm}}</span>
+              <span v-if="lang.lang === 'eng'">{{category.title_eng}}</span>
+              <span v-if="lang.lang === 'rus'">{{category.title_rus}}</span>
+          </li>
       </ul>
 
         <div class="d-flex j-content-space-between a-items-center g-gap-1 p-relative h-max-content">

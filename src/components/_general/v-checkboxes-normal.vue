@@ -5,7 +5,10 @@
     <span class="f-size-very-small">{{span}}</span>
     <div class="m-top-05 checkboxes d-grid l-height-1">
       <div v-for="checkbox in checkboxes" :key="checkbox.id">
-        <label class="container d-flex">{{checkbox.title}}
+        <label class="container d-flex">
+            <span v-if="lang.lang === 'arm'">{{checkbox.title_arm}}</span>
+            <span v-if="lang.lang === 'eng'">{{checkbox.title_eng}}</span>
+            <span v-if="lang.lang === 'rus'">{{checkbox.title_rus}}</span>
           <input type="checkbox" :checked="selected_item_ids_from_props !== null ? selected_item_ids_from_props.find(id => checkbox.id === id) : selected_ids.find(id => checkbox.id === id)" @change="onChange(checkbox)">
           <span class="checkmark outline-content"></span>
         </label>
@@ -17,9 +20,14 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name: "v-checkboxes-normal",
   props: ['checkboxes', 'label', 'span', 'checked', 'selected_item_ids'],
+  computed: mapState({
+    lang: state => state.lang.LANG
+  }),
   data(){
     return{
       selected_ids: [],

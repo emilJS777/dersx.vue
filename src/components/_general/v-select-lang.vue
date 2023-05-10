@@ -68,6 +68,9 @@ export default {
 .select_block{
     border: 1px solid #d2d4d5;
 }
+.select_list_block{
+    top: 100%;
+}
 /*.select_list_block{*/
 /*    top: 90%;*/
 /*}*/
