@@ -19,8 +19,8 @@
             class="paginate f-size-small"
             :page-count="page_count"
             :click-handler="getMembers"
-            :prev-text="'prev'"
-            :next-text="'next'"
+            :prev-text="'❮'"
+            :next-text="'❯'"
             :page="page"
             :container-class="'className'"
             :force-page="page">
@@ -42,8 +42,8 @@
             class="paginate f-size-small"
             :page-count="page_count"
             :click-handler="getInviteUsers"
-            :prev-text="'prev'"
-            :next-text="'next'"
+            :prev-text="'❮'"
+            :next-text="'❯'"
             :page="page"
             :container-class="'className'"
             :force-page="page">

@@ -32,8 +32,8 @@
             class="paginate"
             :page-count="page_count"
             :click-handler="clickPage"
-            :prev-text="'prev'"
-            :next-text="'next'"
+            :prev-text="'❮'"
+            :next-text="'❯'"
             :page="page"
             :container-class="'className'"
             :force-page="page">
