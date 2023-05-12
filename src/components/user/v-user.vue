@@ -11,12 +11,12 @@
     <div class="m-top-05">
       <p class="f-size-small m-bottom-0">{{ user.name }}</p>
       <span class="f-size-small">{{user.first_name}} {{user.last_name}}</span>
-<!--      <p v-if="user.gender" class="m-0-auto f-size-small">-->
+      <p class="m-0-auto f-size-small">
+          <v-online-indicator :user_id="this.user.id" class="c-content p-relative animation-from-hidden-infinite m-left-05"/>
 <!--          <span v-if="lang.lang === 'arm'">{{ user.gender.title_arm }}</span>-->
 <!--          <span v-if="lang.lang === 'eng'">{{ user.gender.title_eng }}</span>-->
 <!--          <span v-if="lang.lang === 'rus'">{{ user.gender.title_rus }}</span>-->
-<!--      </p>-->
-        <v-online-indicator :user_id="this.user.id" class="c-content p-relative animation-from-hidden-infinite m-left-05"/>
+      </p>
     </div>
 
 <!--    <div class="btn_block d-flex j-content-space-evenly m-top-1" v-if="profile">-->
