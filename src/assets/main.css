@@ -217,6 +217,12 @@ a{
 .g-gap-3{
     grid-gap: 3em;
 }
+.g-gap-4{
+    grid-gap: 4em;
+}
+.g-gap-5{
+    grid-gap: 5em;
+}
 .d-flex{
     display: flex;
 }

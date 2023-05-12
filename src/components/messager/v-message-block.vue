@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <v-menu-normal v-if="this.message_body.creator_id === profile.id" class="m-right-05 c-555 m-top-05" :menu_list="
+      <v-menu-normal v-if="this.message_body.creator_id === profile.id" class="m-right-05 c-555 m-top-05" :opening="true" :menu_list="
       [{title: lang.general.redactor, icon_class: 'fa fa-edit', emit_name: 'editMessage'},
       {title: lang.general.delete, icon_class: 'fa fa-remove', class: 'c-red', emit_name: 'deleteMessage'}]"
       @editMessage="this.$emit('editMessage', this.message)" @deleteMessage="this.deleteMessage"/>

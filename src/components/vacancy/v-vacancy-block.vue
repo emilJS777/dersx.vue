@@ -8,6 +8,7 @@
         </span>
         <v-menu-normal v-if="profile && profile.id === vacancy.creator.id"
                        @edit="this.$router.push({name: 'vacancyEdit', query:{id: vacancy.id}})"
+                       :opening="true"
                        @delete="setModalName('vacancyDeleteAlert', vacancy.id)"
                        :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
                                     {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>

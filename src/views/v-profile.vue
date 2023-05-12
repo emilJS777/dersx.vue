@@ -78,14 +78,14 @@
 
 <!--        FRIENDS TAB-->
         <div v-if="modalName === 'friendsTab'">
-            <div class="friends_list d-grid g-gap-3 m-top-2 h-max-content" v-if="friends.length">
-              <v-user v-for="user in friends" :key="user.id" :user="user" class="box-shadow-slim"/>
+            <div class="friends_list d-grid g-gap-5 m-top-2 h-max-content" v-if="friends.length">
+              <v-user v-for="user in friends" :key="user.id" :user="user" class="box-shadow-slim "/>
             </div>
 
           <h3 v-if="!friends.length" class="c-ccc t-center">{{ lang.general.nothing_found}}</h3>
 
           <!--    PAGINATION-->
-          <div v-else class="d-flex j-content-flex-end">
+          <div v-else class="d-flex j-content-flex-end m-top-2">
             <v-paginate
                 class="paginate"
                 :page-count="page_count"
