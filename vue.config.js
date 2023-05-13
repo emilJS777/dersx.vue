@@ -9,5 +9,11 @@ module.exports = defineConfig({
         safe: false,
         systemvars: true
       }))
-  }
+  },
+    chainWebpack: config => {
+        config.plugin('html').tap(args => {
+            args[0].title = 'skillx';
+            return args;
+        })
+    }
 })
