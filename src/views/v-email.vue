@@ -1,13 +1,18 @@
 <template>
   <div class="email">
       {{this.message}}
-      <a href="/" class="c-content">перейти на главную</a>
+      <a href="/" class="c-content">{{ lang.general.go_home_page }}</a>
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
     name: "v-email",
+    computed: mapState({
+       lang: state => state.lang.LANG
+    }),
     data(){
        return{
            message: ''
