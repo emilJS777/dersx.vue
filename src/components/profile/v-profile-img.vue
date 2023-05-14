@@ -7,6 +7,7 @@
       <v-input-file-normal :sublabel="lang.profile.photo.change_photo"
                            class="bg-content p-absolute w-max t-center d-flex a-items-center j-content-center padding-02 bott-0 d-none animation-from-hidden"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
+                           accept="image/*"
                            @file_form="file =>{new_image = file; setModalName('imageUploadAlertModal')}"
                            v-if="profile && profile.id === parseInt(this.$route.query.id)"/>
 

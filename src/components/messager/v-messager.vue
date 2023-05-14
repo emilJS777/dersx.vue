@@ -76,7 +76,7 @@ export default {
 
 <style scoped>
 .messager_block{
-  width: 350px;
+  width: 400px;
   border-radius: 8px;
 }
 

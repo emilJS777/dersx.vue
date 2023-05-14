@@ -32,6 +32,7 @@ import group_invite from "@/store/modules/group_invite";
 import email from "@/store/modules/email";
 import restore_password from "@/store/modules/restore_password";
 import lang from "@/store/modules/lang";
+import complaint from "@/store/modules/complaint";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -68,6 +69,7 @@ export default new Vuex.Store({
         group_invite,
         email,
         restore_password,
-        lang
+        lang,
+        complaint
     }
 })

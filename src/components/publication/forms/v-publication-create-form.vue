@@ -25,6 +25,7 @@
 
         <v-input-file-form class=" m-top-05 bg-ccc-opacity w-max-content o-hidden d-flex a-items-flex-end c-97"
                            icon="fa fa-image f-size-22"
+                           accept="image/*"
                            :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
                            @file_form="file => form.image = file"/>
 

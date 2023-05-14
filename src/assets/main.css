@@ -114,6 +114,12 @@ a{
 .m-bottom-0{
     margin-bottom: 0;
 }
+.m-bottom-_1{
+    margin-bottom: .1em;
+}
+.m-bottom-_2{
+    margin-bottom: .2em;
+}
 .m-left-minus-1{
     margin-left: -1em;
 }

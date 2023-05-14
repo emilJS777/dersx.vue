@@ -14,7 +14,7 @@
         <span class="err f-size-very-small">{{this.fileForm.msg}}</span>
       </div>
 
-      <input type="file" id="file-normal" @change="changeFile" style="display: none" aria-label="Upload file">
+      <input type="file" id="file-normal" :accept="this.accept ? this.accept : null" @change="changeFile" style="display: none" aria-label="Upload file">
     </label>
   </div>
 </template>
@@ -25,7 +25,7 @@ import {mapState} from "vuex";
 
 export default {
   name: "v-input-file-normal",
-  props: ['label', 'sublabel', 'allowedTypes'],
+  props: ['label', 'sublabel', 'allowedTypes', 'accept'],
   computed: mapState({
       lang: state => state.lang.LANG
   }),

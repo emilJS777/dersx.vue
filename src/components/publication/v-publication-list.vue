@@ -4,8 +4,11 @@
       <v-user-mini-block :user="publication.creator"/>
       <v-menu-normal
           @delete="setModalName('publicationDeleteAlert')"
-          v-if="profile && profile.id === publication.creator.id"
-          :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red'}]"/>
+          @complaint="complaintCreate()"
+          @complaintDelete="complaintDelete()"
+          :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red', hidden: publication.creator.id !== profile.id},
+                       {title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
+                       {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true}]"/>
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
@@ -103,6 +106,7 @@ export default {
   data(){
     return{
       web_api: process.env.WEB_API,
+      complaint_id: false,
       publication_like:{
         self_like: null,
         like_count: 0
@@ -125,6 +129,20 @@ export default {
     }).finally(() => this.emitter.emit('load', false))
   },
   methods:{
+    complaintCreate(){
+      this.emitter.emit('load', true)
+      this.$store.dispatch("complaint/CREATE", {'publication_id': this.publication.id}).then(data => {
+          this.complaint_id = data.obj.id
+          console.log(data.obj)
+      }).finally(() => this.emitter.emit('load', false))
+    },
+      complaintDelete(){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("complaint/DELETE", this.complaint_id).then(data => {
+              if(data.success)
+                  this.complaint_id = false
+          }).finally(() => this.emitter.emit('load', false))
+      },
     publicationDelete(){
       this.setModalName(false)
       this.emitter.emit('load', true)

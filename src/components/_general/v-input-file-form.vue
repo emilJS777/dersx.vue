@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <input type="file" id="file-form" @change="changeFile" style="display: none" aria-label="Upload file">
+      <input type="file" id="file-form" :accept="this.accept ? this.accept : null" @change="changeFile" style="display: none" aria-label="Upload file">
     </label>
   </div>
 </template>
@@ -30,7 +30,7 @@ import {mapState} from "vuex";
 
 export default {
   name: "v-input-file-form",
-  props: ['label', 'sublabel', 'allowedTypes', 'span', 'icon'],
+  props: ['label', 'sublabel', 'allowedTypes', 'span', 'icon', 'accept'],
   computed: mapState({
       lang: state => state.lang.LANG
   }),

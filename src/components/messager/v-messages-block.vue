@@ -28,6 +28,7 @@
       <v-message-block  v-for="(message, index) in messages" :key="message.id" :index="index" :message="message" :partner="partner" :room_id="this.room_id" :user="user" @editMessage="body => {this.editForm = body; this.editForm.old_text = body.text}"/>
     </div>
 
+
     <div class="padding-1 padding-top-2 d-grid a-items-flex-end g-gap-_3 a-items-center  input_form p-relative" v-if="modalName === 'inputText'">
       <span class="c-content c-pointer d-flex a-items-center padding-03 p-absolute t-decoration-underline-hover m-left-2 top-0 f-size-small w-max-content h-max-content" @click="close_edit" v-if="modalName === 'inputText' && this.editForm"><i class="fa fa-close m-right-05"></i> {{ lang.general.cancel }}</span>
       <v-input-emoji  placeholder="редактировать сообщния..." :default_value="editForm.text" @value="value => editForm.text = value" v-if="modalName === 'inputText' && this.editForm"/>
@@ -155,5 +156,9 @@ export default {
 }
 .input_form{
   grid-template-columns: 2fr .1fr;
+}
+.file_block img{
+    max-width: 100px;
+    max-height: 100px;
 }
 </style>
