@@ -2,7 +2,7 @@
   <div class="d-grid">
     <label for="" class="f-weight-bold">{{label}}</label>
     <span class="f-size-very-small">{{span}}</span>
-    <textarea class="w-max outline-content form-standard" :placeholder="placeholder" v-html="this.value.replace(/<br>/g, '\n')" @change="this.$emit('value', this.value.replace(/\r?\n/g, '<br>'))"></textarea>
+    <textarea class="w-max outline-content form-standard" :placeholder="placeholder" v-model="this.value" @change="this.$emit('value', this.value.replace(/\r?\n/g, '<br>'))"></textarea>
   </div>
 </template>
 
@@ -14,7 +14,11 @@ export default {
     return{
       value: this.default_value || null
     }
-  }
+  },
+    mounted() {
+        if(this.default_value)
+            this.value = this.value.replace(/<br>/g, '\n')
+    },
 }
 </script>
 
