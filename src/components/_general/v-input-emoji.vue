@@ -6,7 +6,7 @@
 
         <div class="d-flex a-items-center">
             <div class="d-flex a-items-center  w-max">
-                <textarea v-model="value" class="w-max outline-content form-standard" :placeholder="this.placeholder"  @change="changeValue"></textarea>
+                <textarea v-html="this.value.replace(/<br>/g, '\n')" class="w-max outline-content form-standard" :placeholder="this.placeholder"  @change="changeValue"></textarea>
                 <discord-picker style="margin-bottom: -2px;" class="padding-02 d-flex a-items-center" @emoji="addEmoji"></discord-picker>
             </div>
         </div>
