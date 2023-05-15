@@ -152,7 +152,7 @@
     <i class="m-top-0" v-if="!user_abouts.length">{{ lang.profile.information.section_empty }}</i>
     <div v-else>
       <div v-for="user_about in user_abouts" :key="user_about.id" class="m-top-1 d-grid g-gap-_5 a-items-center about_block">
-        <span class="f-size-small">{{user_about.description}}</span>
+        <span class="f-size-small" v-html="user_about.description"></span>
         <div class="edit d-flex g-gap-1"  v-if="profile && profile.id === parseInt(this.$route.query.id)">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash err-msg c-pointer" viewBox="0 0 16 16"
                @click="this.setModalName('userAboutDeleteAlertModal', user_about.id)">
