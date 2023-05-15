@@ -11,7 +11,7 @@
                      :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
                                     {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
-    <span class="f-size-small m-top-1">{{publication_comment.text}}</span>
+    <span class="f-size-small m-top-1" v-html="publication_comment.text"></span>
 
     <div class="d-flex j-content-space-between a-items-center">
       <p class="m-bottom-0 f-size-small"><b>{{ lang.general.published }}</b> {{this.date_time}}</p>
