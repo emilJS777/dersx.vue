@@ -29,7 +29,7 @@
       </div>
 
       <div class="description m-top-1">
-        <p>{{vacancy.long_description}}</p>
+        <p v-html="vacancy.long_description"></p>
       </div>
 
       <ul class="w-max categories_block list-style-content padding-left-1">

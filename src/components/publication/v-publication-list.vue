@@ -13,7 +13,7 @@
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
-    <p class="m-top-1 m-bottom-1"><span>{{ publication.description }}</span></p>
+    <p class="m-top-1 m-bottom-1"><span v-html="publication.description"></span></p>
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">

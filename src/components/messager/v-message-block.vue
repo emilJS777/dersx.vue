@@ -4,7 +4,7 @@
       <div>
         <v-user-mini-block :user="this.message_body.creator_id === this.partner.id ? this.partner : this.user"/>
       </div>
-      <p class=" margin-1">{{this.message_body.text}} <i class="f-size-small c-ccc" v-if="this.message_body.edited">{{ lang.message.edited }}</i></p>
+      <p class="margin-1"><span v-html="this.message_body.text"></span> <i class="f-size-small c-ccc" v-if="this.message_body.edited">{{ lang.message.edited }}</i></p>
 
       <div class="c-ccc f-size-small d-flex j-content-space-between padding-left-1 padding-right-1">
         <span v-if="this.date_time">{{this.date_time}}</span>

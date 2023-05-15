@@ -9,7 +9,7 @@
                      :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
                                     {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
-    <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0">{{vacancy_comment.text}}</p>
+    <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0" v-html="vacancy_comment.text"></p>
 
     <div>
       <span class="m-top-1 m-left-1 f-size-small ">{{ lang.general.published }} {{ vacancy_comment.creation_date }}</span>

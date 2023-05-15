@@ -31,7 +31,7 @@ export default {
       this.changeValue()
     },
     changeValue(){
-      this.$emit('value', this.value)
+      this.$emit('value', this.value.replace(/\r?\n/g, '<br>'))
     }
   }
 }

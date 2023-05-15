@@ -2,7 +2,7 @@
   <div class="d-grid">
     <label for="" class="f-weight-bold">{{label}}</label>
     <span class="f-size-very-small">{{span}}</span>
-    <textarea class="w-max outline-content form-standard" :placeholder="placeholder" v-model="value" @change="this.$emit('value', this.value)"></textarea>
+    <textarea class="w-max outline-content form-standard" :placeholder="placeholder" v-model="value" @change="this.$emit('value', this.value.replace(/\r?\n/g, '<br>'))"></textarea>
   </div>
 </template>
 

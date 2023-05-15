@@ -10,7 +10,7 @@
                                     {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
 
-    <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0">{{vacancy_offer.description}}</p>
+    <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0" v-html="vacancy_offer.description"></p>
 
     <div>
       <p class="m-bottom-0 c-content f-size-small m-left-1">
