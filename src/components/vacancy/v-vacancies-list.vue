@@ -18,7 +18,7 @@
           <span v-if="lang.lang === 'rus'">{{category.title_rus}}</span>
       </li>
     </ul>
-    <div class="footer d-flex a-items-center j-content-space-between f-size-small m-top-05">
+    <div class="footer d-flex a-items-center j-content-space-between f-size-small m-top-05 padding-top-05 b-top-ccc">
       <v-user-mini-block :user="vacancy.creator"/>
       <span v-if="footer !== false">{{ lang.general.published }} {{this.date_time}}</span>
       <span v-if="footer !== false">{{ lang.vacancies.offers }} {{ vacancy.vacancy_offers_count }}</span>

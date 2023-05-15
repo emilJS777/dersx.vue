@@ -1,18 +1,19 @@
 <template>
   <div class="publication padding-2 bg-fff m-top-1 box-shadow-slim">
-    <div class="head d-flex j-content-space-between a-items-flex-start p-relative">
+    <div class="head d-flex j-content-space-between a-items-center p-relative b-bottom-ccc padding-bottom-05">
       <v-user-mini-block :user="publication.creator"/>
       <v-menu-normal
           @delete="setModalName('publicationDeleteAlert')"
           @complaint="complaintCreate()"
           @complaintDelete="complaintDelete()"
+          class="m-top-05"
           :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red', hidden: publication.creator.id !== profile.id},
                        {title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
                        {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true}]"/>
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
-    <p class="margin-1"><span>{{ publication.description }}</span></p>
+    <p class="m-top-1 m-bottom-1"><span>{{ publication.description }}</span></p>
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">
@@ -20,14 +21,14 @@
     </div>
 
 <!--    PUBLICATION CREATION DATE-->
-    <div class="d-grid g-gap-_5">
+    <div class="d-grid g-gap-_5 m-top-05">
       <span class="f-size-small m-top-0">
         <b>{{ lang.general.published }}:</b> {{this.date_time}}
       </span>
     </div>
 
 <!--    PUBLICATION FOOTER-->
-    <div class="m-top-1 d-flex g-gap-1 j-content-space-between">
+    <div class="m-top-1 d-flex g-gap-1 j-content-space-between b-top-ccc padding-top-05">
       <span class="c-pointer c-content f-size-small d-flex g-gap-_5 a-items-center f-weight-bold"
             v-if="modalName !== 'publicationComments'"
             @click="()=>{setModalName('publicationComments');publicationCommentGet()}">

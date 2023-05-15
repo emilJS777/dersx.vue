@@ -9,9 +9,9 @@
               {{ item.title }}
             </li>
           </ul>
-      <div v-if="!opening">
-          <li :class="`d-flex a-items-center g-gap-_5 f-size-small c-pointer c-content-hover ${item.class}`"  v-for="item in menu_list" :key="item.title" @click="emit_menu(item.emit_name)">
-              <span v-if="item.hidden !== true">
+      <div v-if="!opening" :class="`${inline ? 'd-flex g-gap-1' : ''}`">
+          <li v-for="item in menu_list" :key="item.title" @click="emit_menu(item.emit_name)" :class="`d-flex a-items-center g-gap-_5 f-size-small c-pointer c-content-hover ${item.class} ${item.hidden ? 'd-none' : ''}`"  >
+              <span>
                   <i :class="item.icon_class" aria-hidden="true"></i>
                   {{ item.title }}
               </span>
@@ -26,7 +26,7 @@ import toggleMixin from "@/mixins/toggle-mixin";
 
 export default {
   name: "v-menu-normal",
-  props: ['menu_list', 'opening'],
+  props: ['menu_list', 'opening', 'inline'],
   mixins: [toggleMixin],
   methods: {
     emit_menu(emit_name){

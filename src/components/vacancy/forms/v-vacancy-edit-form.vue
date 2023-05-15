@@ -2,8 +2,8 @@
   <div class="d-flex j-content-center box-shadow-slim">
     <div class="bg-fff w-max padding-1 animation-from-hidden">
       <h2 class="m-top-0 d-flex j-content-space-between">{{ lang.vacancies.edit.title }}
-        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <span class="f-size-small c-pointer c-content-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
           {{ lang.general.back }}
         </span>
       </h2>

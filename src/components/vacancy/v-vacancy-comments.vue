@@ -5,6 +5,7 @@
       <v-menu-normal v-if="profile && profile.id === vacancy_comment.user.id"
                      @edit="setModalName('vacancyCommentEditModal', vacancy_comment.id)"
                      @delete="setModalName('vacancyCommentDeleteAlert', vacancy_comment.id)"
+                     :opening="true"
                      :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
                                     {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>

@@ -1,17 +1,20 @@
 <template>
   <div class="d-flex j-content-center box-shadow-slim h-max-content" v-if="vacancy">
     <div class="padding-1 w-max bg-fff d-grid g-gap-1 animation-from-hidden">
-      <div class="d-flex j-content-space-between a-items-flex-start p-relative">
-        <span class="f-size-small c-pointer c-content-hover t-decoration-underline-hover a-items-center m-top-05" @click="$router.go(-1)">
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      <div class="d-flex j-content-space-between a-items-center p-relative padding-05 padding-left-03 b-bottom-ccc">
+        <span class="m-top-0 c-pointer c-content-hover a-items-center f-size-small" @click="$router.go(-1)">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
            {{ lang.general.back }}
         </span>
-        <v-menu-normal v-if="profile && profile.id === vacancy.creator.id"
-                       @edit="this.$router.push({name: 'vacancyEdit', query:{id: vacancy.id}})"
-                       :opening="true"
+        <v-menu-normal @edit="this.$router.push({name: 'vacancyEdit', query:{id: vacancy.id}})"
+                       :opening="false"
+                       :inline="true"
+                       class="m-top-05"
+                       @complaint="this.complaint_id ? this.complaintDelete() : this.complaintCreate()"
                        @delete="setModalName('vacancyDeleteAlert', vacancy.id)"
-                       :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
-                                    {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
+                       :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit', hidden: this.profile.id !== vacancy.creator.id},
+                                    {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete', hidden: this.profile.id !== vacancy.creator.id},
+                                    {title: this.complaint_id ? lang.general.complaint_cancel : lang.general.complaint, icon_class: 'fa fa-flag', class: 'c-red', emit_name: 'complaint', hidden: this.profile.id === vacancy.creator.id}]"/>
       </div>
       <div class="m-top-1 l-height-0 d-flex j-content-space-between">
         <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between">
@@ -53,7 +56,6 @@
       </div>
 
       <div class="vacancy_offers" v-if="modalName === 'vacancyOfferForm'">
-
         <v-vacancy-offer-form @close="this.$emit('close')"
                               :vacancy="vacancy"
                               @vacancy_offer_success="setModalName(modalName, id)"/>
@@ -105,6 +107,7 @@ export default {
   }),
   data(){
     return{
+      complaint_id: null,
       vacancy: null,
       vacancy_comments: [],
     }
@@ -122,6 +125,20 @@ export default {
     }
   },
   methods: {
+    complaintCreate(){
+        this.emitter.emit('load', true)
+       this.$store.dispatch("complaint/CREATE", {vacancy_id: this.vacancy.id}).then(data => {
+           if(data.success)
+               this.complaint_id = data.obj.id
+       }).finally(() => this.emitter.emit('load', false))
+    },
+      complaintDelete(){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("complaint/DELETE", this.complaint_id).then(data => {
+              if(data.success)
+                  this.complaint_id = null
+          }).finally(() => this.emitter.emit('load', false))
+      },
     vacancyDelete(){
       this.emitter.emit('load', true)
       this.$store.dispatch("vacancy/DELETE", this.id).then(data => {
