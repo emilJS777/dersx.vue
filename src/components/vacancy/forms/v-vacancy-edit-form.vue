@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex j-content-center box-shadow-slim">
+  <div class="d-flex j-content-center box-shadow-slim" v-if="loaded">
     <div class="bg-fff w-max padding-1 animation-from-hidden">
       <h2 class="m-top-0 d-flex j-content-space-between">{{ lang.vacancies.edit.title }}
         <span class="f-size-small c-pointer c-content-hover d-flex g-gap-_5 a-items-center" @click="$router.go(-1)">
@@ -10,25 +10,21 @@
       <v-input-normal :label="lang.vacancies.create.form.title.title"
                       :span="lang.vacancies.create.form.title.description"
                       :default_value="form.title"
-                      v-if="form.title"
                       @value="value => form.title = value"/>
 
       <v-input-normal :label="lang.vacancies.create.form.short_description.title"
                       :span="lang.vacancies.create.form.short_description.description"
                       class="m-top-2"
-                      v-if="form.short_description"
                       :default_value="form.short_description"
                       @value="value => form.short_description = value"/>
 
       <v-textarea-normal :label="lang.vacancies.create.form.long_description.title"
                          :span="lang.vacancies.create.form.long_description.description"
                          class="m-top-2"
-                         v-if="form.long_description"
                          :default_value="form.long_description"
                          @value="value => form.long_description = value"/>
 
       <v-select-normal :label="lang.general.rubric" :span="lang.vacancies.create.form.rubric.description" class="m-top-1"
-                       v-if="rubrics.length && form.rubric"
                        :items="rubrics"
                        :selected="form.rubric"
                        @select="item => {form.rubric_id = item.id; categoriesGet(item.id)}"/>
@@ -87,6 +83,7 @@ export default {
       rubrics: [],
       categories: [],
       price_show: false,
+      loaded: false,
       form: {
         title: '',
         short_description: '',
