@@ -118,7 +118,9 @@ export default {
       this.form.payment_interval_id = data.obj.payment_interval_id
       this.form.price = parseInt(data.obj.price)
       this.form.category_ids = Array.from(data.obj.categories, category => category.id)
-    }).finally(() => this.emitter.emit('load', false))
+    }).finally(() => {
+        this.emitter.emit('load', false);
+        this.loaded = true})
   },
   methods:{
     categoriesGet(rubric_id){
