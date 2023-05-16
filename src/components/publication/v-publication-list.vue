@@ -1,15 +1,20 @@
 <template>
-  <div class="publication padding-2 bg-fff m-top-1 box-shadow-slim">
+  <div class="p-fixed bg-c5c top-0 left-0 w-max h-max" style="z-index: 8" v-if="more" @click="this.more=false"></div>
+
+  <div :class="`publication padding-2 bg-fff m-top-1 box-shadow-slim animation-from-hidden ${this.more ? 'publication-modal p-fixed top-0 bottom-0 h-max w-max-content' : ''}`">
     <div class="head d-flex j-content-space-between a-items-center p-relative b-bottom-ccc padding-bottom-05">
       <v-user-mini-block :user="publication.creator"/>
       <v-menu-normal
           @delete="setModalName('publicationDeleteAlert')"
           @complaint="complaintCreate()"
           @complaintDelete="complaintDelete()"
+          @more="this.more = !this.more"
           class="m-top-05"
+          :inline="true"
           :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red', hidden: publication.creator.id !== profile.id},
                        {title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
-                       {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true}]"/>
+                       {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true},
+                       {title: this.more ? lang.general.close : lang.general.look, icon_class: 'fa fa-expand', emit_name: 'more'}]"/>
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
@@ -17,7 +22,12 @@
 
 <!--    PUBLICATION IMAGE-->
     <div v-if="publication.image" class="w-max">
-      <img :src="`${web_api}/image?filename=${publication.image.filename}`" class="publication_image">
+      <div class="w-fit-content p-relative d-flex-hover">
+          <div class="c-pointer p-absolute right-0 top-0 left-0 w-max h-max bg-c5c-hover d-flex j-content-center a-items-center d-none animation-from-hidden c-6d" v-if="!this.more" @click="this.more = true">
+              <i class="fa fa-expand f-size-30">{{lang.general.look}}</i>
+          </div>
+          <img :src="`${web_api}/image?filename=${publication.image.filename}`" class="publication_image">
+      </div>
     </div>
 
 <!--    PUBLICATION CREATION DATE-->
@@ -108,6 +118,7 @@ export default {
     return{
       web_api: process.env.WEB_API,
       complaint_id: false,
+      more: false,
       publication_like:{
         self_like: null,
         like_count: 0
@@ -181,6 +192,19 @@ export default {
 </script>
 
 <style scoped>
+.publication-modal{
+    margin-top: 0;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    max-width: 1000px;
+    min-width: 500px;
+    z-index: 9;
+    overflow-y: auto;
+}
+.publication{
+    transition: .3s;
+}
 .img_block{
   border: 1px solid #ccc;
   height: 40px;

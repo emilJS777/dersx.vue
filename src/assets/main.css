@@ -208,6 +208,9 @@ a{
 .f-size-22{
     font-size: 22px;
 }
+.f-size-30{
+    font-size: 30px;
+}
 .social-icon-size{
     font-size: 23px;
 }
@@ -265,6 +268,9 @@ a{
 .d-block-hover:hover > *{
     display: block;
 }
+.d-flex-hover:hover > *{
+    display: flex;
+}
 .a-items-flex-start{
     align-items: flex-start;
 }
@@ -295,6 +301,12 @@ a{
 }
 .w-max{
     width: 100%;
+}
+.w-fit-content{
+    width: fit-content;
+}
+.max-width-max{
+    max-width: 100%;
 }
 .w-max-content{
     width: max-content;
@@ -339,6 +351,12 @@ a{
 }
 .bg-ccc-opacity{
     background-color: rgba(204, 204, 204, 0.07);
+}
+.bg-c5c-hover:hover{
+    background-color: #cccccc5c;
+}
+.bg-c5c{
+    background-color: #cccccc5c;
 }
 .bg-555{
     background: #777;
