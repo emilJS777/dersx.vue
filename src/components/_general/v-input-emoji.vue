@@ -26,8 +26,10 @@ export default {
     }
   },
     mounted() {
-      if(this.default_value)
-        this.value = this.value.replace(/<br>/g, '\n')
+      if(this.default_value) {
+          this.value = this.value.replace(/<br>/g, '\n')
+          this.value = this.value.replace(/<a\b[^>]*>|<\/a>/gi, '');
+      }
     },
     methods: {
     addEmoji (emoji) {
@@ -35,7 +37,9 @@ export default {
       this.changeValue()
     },
     changeValue(){
-      this.$emit('value', this.value.replace(/(\r?\n){1,}/g, '<br>'))
+        const linkRegex = /(\b[^\s]+\.[^\s]+\b)/g;
+        const linkedValue = this.value.replace(linkRegex, '<a href="//$1" class="c-content-hover c-6d">$1</a>'); // replace links with anchor tags
+        this.$emit('value', linkedValue.replace(/(\r?\n){1,}/g, '<br>'))
     }
   }
 }
