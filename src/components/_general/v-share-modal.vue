@@ -6,7 +6,7 @@
         <div class="share_block d-flex g-gap-1">
             <ShareNetwork
                     network="facebook"
-                    url="http://185.218.124.120/?v=4"
+                    url="http://185.218.124.120/?v=5"
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
                     description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
                     class="facebook"
@@ -42,17 +42,61 @@
 </template>
 
 <script>
+import {computed, reactive} from "vue";
+import {useHead} from "@vueuse/head";
+
 export default {
     name: "v-share-modal",
-    metaInfo() {
-        return {
+    props: ['description', 'image'],
+    mounted(){
+        const siteData = reactive({
+            web_api: process.env.WEB_API,
+            description: this.description,
+            image: this.image,
+            type: 'website'
+        })
+        useHead({
             meta: [
-                { property: 'og:title', content: 'awdasd' },
-                { name: 'og:description', content: 'asdacs' },
-                { property: 'title', content: 'awdasd' },
-                { name: 'description', content: 'asdacs' }
+                {
+                    name: 'og:type',
+                    content: computed(() => siteData.type)
+                },
+                {
+                    name: 'og:url',
+                    content: computed(() => siteData.web_api)
+                },
+                {
+                    name: 'og:description',
+                    content: computed(() => siteData.description)
+                },
+                {
+                    name: 'og:image',
+                    content: computed(() => siteData.image)
+                },
+
+
+                {
+                    name: 'twitter:card',
+                    content: computed(() => siteData.type)
+                },
+                {
+                    name: 'twitter:domain',
+                    content: computed(() => siteData.web_api)
+                },
+                {
+                    name: 'twitter:url',
+                    content: computed(() => siteData.web_api)
+                },
+                {
+                    name: 'twitter:description',
+                    content: computed(() => siteData.description)
+                },
+                {
+                    name: 'twitter:image',
+                    content: computed(() => siteData.image)
+                }
             ]
-        };
+        })
     },
     methods: {
         close(){

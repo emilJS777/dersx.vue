@@ -20,7 +20,9 @@
     "dotenv-webpack": "^8.0.1",
     "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.1",
+    "install": "^0.13.0",
     "moment": "^2.29.4",
+    "npm": "^9.6.6",
     "share-button-links": "^2.3.5",
     "socket.io-client": "^4.5.4",
     "vue": "^3.2.13",
@@ -28,7 +30,7 @@
     "vue-emoji-picker": "^1.0.3",
     "vue-emojione": "^1.0.3",
     "vue-goodshare": "^1.6.1",
-    "vue-meta": "^2.4.0",
+    "vue-meta": "^3.0.0-alpha.7",
     "vue-mitt": "^0.0.1",
     "vue-router": "^4.1.5",
     "vue-social-sharing": "^4.0.0-alpha4",
@@ -39,7 +41,6 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",

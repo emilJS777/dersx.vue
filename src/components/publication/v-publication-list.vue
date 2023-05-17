@@ -98,6 +98,8 @@
                  @confirm="publicationDelete"/>
 
     <v-share-modal @close="setModalName(false)"
+                   :description="publication.description"
+                   :image="publication.image ? `${web_api}/image?filename=${publication.image.filename}` : ''"
                    v-if="modalName === 'share'"/>
 </template>
 

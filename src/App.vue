@@ -32,6 +32,7 @@ export default {
     VMessageModal,
     VHeader,
   },
+
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
