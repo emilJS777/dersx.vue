@@ -44,14 +44,13 @@
 <script>
 export default {
     name: "v-share-modal",
-    metaInfo: {
-        meta: [
-            { property: 'og:url', content: 'http://example.com/' },
-            { property: 'og:type', content: 'website' },
-            { property: 'og:title', content: 'Your Page Title' },
-            { property: 'og:description', content: 'Your Page Description' },
-            { property: 'og:image', content: 'http://example.com/image.jpg' }
-        ]
+    metaInfo() {
+        return {
+            meta: [
+                { property: 'og:title', content: 'awdasd' },
+                { name: 'description', content: 'asdacs' }
+            ]
+        };
     },
     methods: {
         close(){
