@@ -13,7 +13,6 @@ module.exports = defineConfig({
     chainWebpack: config => {
         config.plugin('html').tap(args => {
             args[0].title = 'skillx';
-            args[0].description = "skillx description"
             return args;
         })
     },
