@@ -6,11 +6,10 @@
         <div class="share_block d-flex g-gap-1">
             <ShareNetwork
                     network="facebook"
-                    url="http://185.218.124.120/?v=5"
+                    :url="`${this.web_api}/?v=${this.publication_id}`"
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
                     description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
                     class="facebook"
-                    media="http://185.218.124.120:5000/image?filename=5May:17:2023:09:51:382850.jpg"
             >
                 <i class="fab fa-facebook-square"></i>
             </ShareNetwork>
@@ -20,7 +19,6 @@
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
                     description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
                     class="facebook"
-                    media="http://185.218.124.120:5000/image?filename=5May:17:2023:09:51:382850.jpg"
             >
                 <i class="fab fa-linkedin"></i>
             </ShareNetwork>
@@ -42,10 +40,49 @@
 </template>
 
 <script>
+import {computed, reactive} from "vue";
+import {useHead} from "@vueuse/head";
 
 export default {
     name: "v-share-modal",
-    props: ['description', 'image'],
+    props: ['description', 'image', 'publication_id'],
+    data(){
+      return {
+          web_api: process.env.WEB_API
+      }
+    },
+    mounted(){
+        const siteData = reactive({
+            description: this.description,
+            image: this.image,
+            type: 'website',
+            title: 'skillx.am'
+        })
+        useHead({
+            meta: [
+                {
+                    name: 'og:title',
+                    content: computed(() => siteData.title)
+                },
+                {
+                    name: 'og:type',
+                    content: computed(() => siteData.type)
+                },
+                {
+                    name: 'og:url',
+                    content: computed(() => this.web_api)
+                },
+                {
+                    name: 'og:description',
+                    content: computed(() => siteData.description)
+                },
+                {
+                    name: 'og:image',
+                    content: computed(() => siteData.image)
+                }
+            ]
+        })
+    },
     methods: {
         close(){
             this.$emit('close')
