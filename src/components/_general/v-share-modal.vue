@@ -45,8 +45,10 @@
 import { useHead } from '@vueuse/head'
 export default {
     name: "v-share-modal",
+    mounted() {
+      this.setup()
+    },
     setup() {
-
         useHead({
             // Can be static or computed
             title: 'About',
