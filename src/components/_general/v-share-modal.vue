@@ -6,7 +6,7 @@
         <div class="share_block d-flex g-gap-1">
             <ShareNetwork
                     network="facebook"
-                    :url="`${this.web_api}/?v=${this.publication_id}`"
+                    :url="`${this.web_url}/?v=${this.publication_id}`"
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
                     description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
                     class="facebook"
@@ -48,7 +48,7 @@ export default {
     props: ['description', 'image', 'publication_id'],
     data(){
       return {
-          web_api: process.env.WEB_API
+          web_url: 'http://185.218.124.120'
       }
     },
     mounted(){
@@ -70,7 +70,7 @@ export default {
                 },
                 {
                     name: 'og:url',
-                    content: computed(() => this.web_api)
+                    content: computed(() => this.web_url)
                 },
                 {
                     name: 'og:description',
