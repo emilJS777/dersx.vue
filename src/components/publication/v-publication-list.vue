@@ -8,13 +8,14 @@
           @delete="setModalName('publicationDeleteAlert')"
           @complaint="complaintCreate()"
           @complaintDelete="complaintDelete()"
+          @share="setModalName('share')"
           @more="this.more = !this.more"
           class="m-top-05"
           :inline="true"
           :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red', hidden: publication.creator.id !== profile.id},
                        {title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
                        {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true},
-                       {title: 'share', icon_class: 'fa fa-share-alt', class: 'c-blue-opacity'},
+                       {title: 'share', icon_class: 'fa fa-share-alt', class: 'c-blue-opacity', emit_name: 'share'},
                        {title: this.more ? lang.general.close : lang.general.look, icon_class: 'fa fa-expand', emit_name: 'more'},]"/>
     </div>
 
@@ -95,6 +96,9 @@
                  v-if="modalName === 'publicationDeleteAlert'"
                  @close="setModalName(false)"
                  @confirm="publicationDelete"/>
+
+    <v-share-modal @close="setModalName(false)"
+                   v-if="modalName === 'share'"/>
 </template>
 
 <script>
@@ -106,9 +110,11 @@ import VPublicationComment from "@/components/publication/v-publication-comment"
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import VMenuNormal from "@/components/_general/v-menu-normal.vue";
 import localTimeMixin from "@/mixins/local-time-mixin";
+import VShareModal from "@/components/_general/v-share-modal.vue";
+
 export default {
   name: "v-publication-list",
-  components: {VMenuNormal, VUserMiniBlock, VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
+  components: {VShareModal, VMenuNormal, VUserMiniBlock, VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
   props: ["publication"],
   mixins: [toggleMixin, localTimeMixin],
   computed: mapState({
