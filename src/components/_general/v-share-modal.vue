@@ -6,7 +6,7 @@
         <div class="share_block d-flex g-gap-1">
             <ShareNetwork
                     network="facebook"
-                    url="http://185.218.124.120/"
+                    url="http://185.218.124.120/?v=2"
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
                     description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
                     class="facebook"
@@ -48,6 +48,8 @@ export default {
         return {
             meta: [
                 { property: 'og:title', content: 'awdasd' },
+                { name: 'og:description', content: 'asdacs' },
+                { property: 'title', content: 'awdasd' },
                 { name: 'description', content: 'asdacs' }
             ]
         };
