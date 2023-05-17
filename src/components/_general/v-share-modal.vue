@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import { useHead } from '@vueuse/head'
+import { useMeta } from 'vue-meta'
 export default {
     name: "v-share-modal",
     setup() {
-        useHead({
+        useMeta({
             // Can be static or computed
             title: 'About',
             meta: [
@@ -56,6 +56,14 @@ export default {
                 },
                 {
                     name: `og:description`,
+                    content: 'this about about page',
+                },
+                {
+                    name: `title`,
+                    content: 'skillx 1',
+                },
+                {
+                    name: `description`,
                     content: 'this about about page',
                 },
             ],
