@@ -42,34 +42,33 @@
 </template>
 
 <script>
-import { useHead } from '@vueuse/head'
 export default {
     name: "v-share-modal",
-    setup() {
-        useHead({
-            // Can be static or computed
-            title: 'About',
-            meta: [
-                {
-                    name: `og:title`,
-                    content: 'skillx 1',
-                },
-                {
-                    name: `og:description`,
-                    content: 'this about about page',
-                },
-                {
-                    name: `title`,
-                    content: 'skillx 1',
-                },
-                {
-                    name: `description`,
-                    content: 'this about about page',
-                },
-            ],
-
-        })
-    },
+    // setup() {
+    //     useMeta({
+    //         // Can be static or computed
+    //         title: 'About',
+    //         meta: [
+    //             {
+    //                 name: `og:title`,
+    //                 content: 'skillx 1',
+    //             },
+    //             {
+    //                 name: `og:description`,
+    //                 content: 'this about about page',
+    //             },
+    //             {
+    //                 name: `title`,
+    //                 content: 'skillx 1',
+    //             },
+    //             {
+    //                 name: `description`,
+    //                 content: 'this about about page',
+    //             },
+    //         ],
+    //
+    //     })
+    // },
     methods: {
         close(){
             this.$emit('close')
