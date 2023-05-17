@@ -6,7 +6,7 @@
         <div class="share_block d-flex g-gap-1">
             <ShareNetwork
                     network="facebook"
-                    url="http://127.0.0.1:8080"
+                    url="http://185.218.124.120/"
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
                     description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
                     quote="https://user-images.githubusercontent.com/2951704/111610221-63fc5180-87db-11eb-8e66-22c1309a6a92.png"
