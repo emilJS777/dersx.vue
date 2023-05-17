@@ -52,7 +52,11 @@ export default {
             title: 'About',
             meta: [
                 {
-                    name: `description`,
+                    name: `og:title`,
+                    content: 'skillx 1',
+                },
+                {
+                    name: `og:description`,
                     content: 'this about about page',
                 },
             ],
