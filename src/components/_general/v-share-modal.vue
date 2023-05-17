@@ -6,7 +6,7 @@
         <div class="share_block d-flex g-gap-1">
             <ShareNetwork
                     network="facebook"
-                    url="http://185.218.124.120:81"
+                    url="http://185.218.124.120/"
                     title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
                     description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
                     class="facebook"
@@ -44,31 +44,6 @@
 <script>
 export default {
     name: "v-share-modal",
-    // setup() {
-    //     useMeta({
-    //         // Can be static or computed
-    //         title: 'About',
-    //         meta: [
-    //             {
-    //                 name: `og:title`,
-    //                 content: 'skillx 1',
-    //             },
-    //             {
-    //                 name: `og:description`,
-    //                 content: 'this about about page',
-    //             },
-    //             {
-    //                 name: `title`,
-    //                 content: 'skillx 1',
-    //             },
-    //             {
-    //                 name: `description`,
-    //                 content: 'this about about page',
-    //             },
-    //         ],
-    //
-    //     })
-    // },
     methods: {
         close(){
             this.$emit('close')
