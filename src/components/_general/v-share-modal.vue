@@ -46,12 +46,11 @@ export default {
     name: "v-share-modal",
     metaInfo: {
         meta: [
-            {property: 'og:title', content: 'content'},
-            {name: 'og:description', content: 'contrente'},
-            {property: 'title', content: 'content'},
-            {name: 'description', content: 'contrente'},
-            { httpEquiv: 'Cache-Control', content: 'no-store, no-cache, must-revalidate' },
-            { httpEquiv: 'Pragma', content: 'no-cache' }
+            { property: 'og:url', content: 'http://example.com/' },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:title', content: 'Your Page Title' },
+            { property: 'og:description', content: 'Your Page Description' },
+            { property: 'og:image', content: 'http://example.com/image.jpg' }
         ]
     },
     methods: {
