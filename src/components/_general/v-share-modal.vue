@@ -46,6 +46,10 @@ export default {
     name: "v-share-modal",
     metaInfo: {
         meta: [
+            {property: 'og:title', content: 'content'},
+            {name: 'og:description', content: 'contrente'},
+            {property: 'title', content: 'content'},
+            {name: 'description', content: 'contrente'},
             { httpEquiv: 'Cache-Control', content: 'no-store, no-cache, must-revalidate' },
             { httpEquiv: 'Pragma', content: 'no-cache' }
         ]
