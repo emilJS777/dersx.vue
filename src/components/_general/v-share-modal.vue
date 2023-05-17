@@ -42,62 +42,10 @@
 </template>
 
 <script>
-import {computed, reactive} from "vue";
-import {useHead} from "@vueuse/head";
 
 export default {
     name: "v-share-modal",
     props: ['description', 'image'],
-    mounted(){
-        const siteData = reactive({
-            web_api: process.env.WEB_API,
-            description: this.description,
-            image: this.image,
-            type: 'website'
-        })
-        useHead({
-            meta: [
-                {
-                    name: 'og:type',
-                    content: computed(() => siteData.type)
-                },
-                {
-                    name: 'og:url',
-                    content: computed(() => siteData.web_api)
-                },
-                {
-                    name: 'og:description',
-                    content: computed(() => siteData.description)
-                },
-                {
-                    name: 'og:image',
-                    content: computed(() => siteData.image)
-                },
-
-
-                {
-                    name: 'twitter:card',
-                    content: computed(() => siteData.type)
-                },
-                {
-                    name: 'twitter:domain',
-                    content: computed(() => siteData.web_api)
-                },
-                {
-                    name: 'twitter:url',
-                    content: computed(() => siteData.web_api)
-                },
-                {
-                    name: 'twitter:description',
-                    content: computed(() => siteData.description)
-                },
-                {
-                    name: 'twitter:image',
-                    content: computed(() => siteData.image)
-                }
-            ]
-        })
-    },
     methods: {
         close(){
             this.$emit('close')
