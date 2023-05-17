@@ -1,7 +1,7 @@
 <template>
   <div v-if="lang">
       <v-header/>
-
+      <v-share-modal/>
       <div class="page m-top-2">
           <router-view></router-view>
           <v-messager v-if="profile"/>
@@ -26,9 +26,11 @@ import VHeader from "@/components/_general/v-header";
 import VMessageModal from "@/components/_general/v-message-modal";
 import {mapState} from "vuex";
 import VMessager from "@/components/messager/v-messager";
+import VShareModal from "@/components/_general/v-share-modal.vue";
 export default {
   name: 'App',
   components: {
+      VShareModal,
     VMessager,
     VMessageModal,
     VHeader,

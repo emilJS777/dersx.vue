@@ -6,6 +6,8 @@ import mitt from "mitt";
 import Paginate from "vuejs-paginate-next";
 import WSocket from "./plugins/web_socket"
 import vueCountryRegionSelect from 'vue3-country-region-select'
+import VueSocialSharing from 'vue-social-sharing'
+
 //vue-app/src/main.js
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -18,11 +20,9 @@ library.add(far);
 import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
 
-
-
-
 const app = createApp(App)
 app.config.globalProperties.emitter = mitt();
+app.use(VueSocialSharing);
 app.use(WSocket)
 app.use(router)
 app.use(store)
