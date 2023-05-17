@@ -44,6 +44,12 @@
 <script>
 export default {
     name: "v-share-modal",
+    metaInfo: {
+        meta: [
+            { httpEquiv: 'Cache-Control', content: 'no-store, no-cache, must-revalidate' },
+            { httpEquiv: 'Pragma', content: 'no-cache' }
+        ]
+    },
     methods: {
         close(){
             this.$emit('close')
