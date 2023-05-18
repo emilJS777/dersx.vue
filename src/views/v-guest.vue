@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 .head_content{
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: 1fr .8fr;
 }
 p{
   font-size: 18px;

@@ -590,3 +590,13 @@ a{
     display: grid;
     line-height: 1;
 }
+
+.btn-link.btn-link-copy{
+    background-color: #fff !important;
+    color: #555 !important;
+    border: 0;
+}
+.btn-link.btn-link-copy:hover{
+    background-color: #275172 !important;
+    color: #fff!important;
+}

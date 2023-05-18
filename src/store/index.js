@@ -33,6 +33,7 @@ import email from "@/store/modules/email";
 import restore_password from "@/store/modules/restore_password";
 import lang from "@/store/modules/lang";
 import complaint from "@/store/modules/complaint";
+import dynamic_link from "@/store/modules/dynamic_link";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -70,6 +71,7 @@ export default new Vuex.Store({
         email,
         restore_password,
         lang,
-        complaint
+        complaint,
+        dynamic_link
     }
 })
