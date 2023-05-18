@@ -6,10 +6,10 @@
             <ButtonCopy
                     class="f-size-small t-center copy"
                     title="title"
-                    :text="this.shortLink"
-                    :url="this.shortLink"
-                    isRounded
-                    hasIcon
+                    :text="shortLink"
+                    :url="shortLink"
+                    :isRounded="true"
+                    :hasIcon="true"
             />
             <ButtonFacebook
                     class="facebook f-size-small t-center"
@@ -27,38 +27,7 @@
                     isRounded
                     hasIcon
             />
-
-<!--            <ShareNetwork-->
-<!--                    network="facebook"-->
-<!--                    url="http://185.218.124.120/"-->
-<!--                    title="Say hi to Vite! A brand new, extremely fast development setup for Vue."-->
-<!--                    description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."-->
-<!--                    class="facebook"-->
-<!--            >-->
-<!--                <i class="fab fa-facebook-square"></i>-->
-<!--            </ShareNetwork>-->
-<!--            <ShareNetwork-->
-<!--                    network="linkedin"-->
-<!--                    url="http://185.218.124.120/"-->
-<!--                    title="Say hi to Vite! A brand new, extremely fast development setup for Vue."-->
-<!--                    description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."-->
-<!--                    class="facebook"-->
-<!--            >-->
-<!--                <i class="fab fa-linkedin"></i>-->
-<!--            </ShareNetwork>-->
-
-<!--            <ShareNetwork-->
-<!--                    network="twitter"-->
-<!--                    url="http://185.218.124.120/"-->
-<!--                    title="Say hi to Vite! A brand new, extremely fast development setup for Vue."-->
-<!--                    description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."-->
-<!--                    quote="The hot reload is so fast it\'s near instant. - Evan You"-->
-<!--                    class="twitter"-->
-<!--            >-->
-<!--                <i class="fab fa-twitter-square"></i>-->
-<!--            </ShareNetwork>-->
         </div>
-
     </div>
   </div>
 </template>
