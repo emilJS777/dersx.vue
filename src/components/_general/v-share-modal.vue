@@ -54,9 +54,19 @@ export default {
             this.$emit('close')
         },
         async copy_link(){
-            await navigator.clipboard.writeText(this.shortLink)
-            this.shortLinkIsCopy = true
-            setTimeout(() => {this.shortLinkIsCopy = false},500)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                try {
+                    await navigator.clipboard.writeText(this.shortLink);
+                    this.shortLinkIsCopy = true;
+                    setTimeout(() => {
+                        this.shortLinkIsCopy = false;
+                    }, 500);
+                } catch (error) {
+                    console.error('Failed to copy link:', error);
+                }
+            } else {
+                console.error('Clipboard API not supported.');
+            }
         },
     },
 }
