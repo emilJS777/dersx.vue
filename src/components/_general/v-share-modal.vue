@@ -1,18 +1,13 @@
 <template>
-  <div class="modal d-flex j-content-center a-items-center" @click="close">
-    <div class="p-fixed top-0 left-0 w-max h-max" style="z-index: 0"></div>
+  <div class="modal d-flex j-content-center a-items-center">
+    <div class="p-fixed top-0 left-0 w-max h-max" style="z-index: 0" @click="close"></div>
     <div class="modal-content w-max-content p-relative" v-if="shortLink">
+
         <div class="share_block d-grid g-gap-_3">
-            <ButtonCopy
-                    class="f-size-small t-center copy"
-                    title="title"
-                    :text="shortLink"
-                    :url="shortLink"
-                    :isRounded="true"
-                    :hasIcon="true"
-                    writeText="writeText"
-            />
+            <v-button-normal icon="fa fa-share-alt" class="cut-text f-size-small w-200 o-hidden t-center c-555 copy" @click="copy_link" :label="this.shortLinkIsCopy ? 'copied' : this.shortLink"/>
+
             <ButtonFacebook
+                    @click="close"
                     class="facebook f-size-small t-center"
                     title="title"
                     text="Facebook"
@@ -21,6 +16,7 @@
                     hasIcon
             />
             <ButtonLinkedIn
+                    @click="close"
                     class="linkedin f-size-small t-center"
                     title="title"
                     text="Linkedin"
@@ -34,14 +30,16 @@
 </template>
 
 <script>
-import { ButtonFacebook, ButtonLinkedIn, ButtonCopy } from 'share-button-links';
+import { ButtonFacebook, ButtonLinkedIn } from 'share-button-links';
+import VButtonNormal from "@/components/_general/v-button-normal.vue";
 export default {
     name: "v-share-modal",
     props: ['description', 'image', 'publication_id'],
-    components: {ButtonFacebook, ButtonLinkedIn, ButtonCopy},
+    components: {VButtonNormal, ButtonFacebook, ButtonLinkedIn},
     data(){
        return{
-           shortLink: null
+           shortLink: null,
+           shortLinkIsCopy: false
        }
     },
     // components: {ButtonFacebook, ButtonLinkedIn},
@@ -54,7 +52,12 @@ export default {
     methods: {
         close(){
             this.$emit('close')
-        }
+        },
+        async copy_link(){
+            await navigator.clipboard.writeText(this.shortLink)
+            this.shortLinkIsCopy = true
+            setTimeout(() => {this.shortLinkIsCopy = false},500)
+        },
     },
 }
 </script>
@@ -73,8 +76,13 @@ export default {
     background-color: #0b65c2;
     border: 0;
 }
-.twitter{
-    background-color: #1b80c5;
+.copy{
+    background-color: #fff !important;
+    color: #555 !important;
     border: 0;
+}
+.copy:hover{
+    background-color: #275172 !important;
+    color: #fff!important;
 }
 </style>
