@@ -53,10 +53,10 @@ export default {
         close(){
             this.$emit('close')
         },
-        async copy_link(){
+        copy_link(){
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 try {
-                    await navigator.clipboard.writeText(this.shortLink);
+                    navigator.clipboard.writeText(this.shortLink);
                     this.shortLinkIsCopy = true;
                     setTimeout(() => {
                         this.shortLinkIsCopy = false;
