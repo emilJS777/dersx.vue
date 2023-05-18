@@ -19,7 +19,7 @@ const routes = [
     {
         path: "/publication",
         name: "publication",
-        // component: () => import("@/views/v-publication.vue"),
+        component: () => import("@/views/v-publication.vue"),
         beforeEnter: [auth_middleware]
     },
     {
