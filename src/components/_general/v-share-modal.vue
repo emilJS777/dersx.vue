@@ -54,19 +54,28 @@ export default {
             this.$emit('close')
         },
         copy_link(){
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                try {
-                    navigator.clipboard.writeText(this.shortLink);
+            const textArea = document.createElement('textarea');
+            textArea.
+
+                value = this.shortLink;
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
                     this.shortLinkIsCopy = true;
                     setTimeout(() => {
                         this.shortLinkIsCopy = false;
                     }, 500);
-                } catch (error) {
-                    console.error('Failed to copy link:', error);
+                } else {
+                    console.error('Failed to copy link.');
                 }
-            } else {
-                console.error('Clipboard API not supported.');
+            } catch (error) {
+                console.error('Failed to copy link:', error);
             }
+
+            document.body.removeChild(textArea);
         },
     },
 }
