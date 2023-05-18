@@ -10,6 +10,7 @@
                     :url="shortLink"
                     :isRounded="true"
                     :hasIcon="true"
+                    writeText="writeText"
             />
             <ButtonFacebook
                     class="facebook f-size-small t-center"
