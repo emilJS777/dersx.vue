@@ -1,0 +1,48 @@
+{
+  "name": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 60,
+    "required": false,
+    "msg": {
+      "rus": "имя пользователя должн состоять как минимум из 3 и максимум из 60 символов ",
+      "arm": "օգտագործողի անունը պետք է ունենա առնվազն 3 և առավելագույնը 60 նիշ",
+      "eng": "username must be at least 3 and maximum 60 characters long"
+    }
+  },
+
+  "email_address": {
+    "type": "string",
+    "pattern": "[a-z0-9]+@[a-z]+\\.[a-z]{2,3}",
+    "required": false,
+    "msg": {
+      "rus": "эл. почта не валидный",
+      "arm": "էլ. փոստը վավեր չէ",
+      "eng": "email not valid"
+    }
+  },
+
+  "first_name": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 60,
+    "required": false,
+    "msg": {
+      "rus": "имя должн состоять как минимум из 3 и максимум из 60 символов ",
+      "arm": "անունը պետք է ունենա առնվազն 3 և առավելագույնը 60 նիշ",
+      "eng": "name must be at least 3 and maximum 60 characters long"
+    }
+  },
+
+  "last_name": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 60,
+    "required": false,
+    "msg": {
+      "rus": "фамилия должно состоять как минимум из 3 и максимум из 60 символов ",
+      "arm": "ազգանունը պետք է ունենա առնվազն 3 և առավելագույնը 60 նիշ",
+      "eng": "surname must be at least 3 and maximum 60 characters long"
+    }
+  }
+}

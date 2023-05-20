@@ -58,10 +58,13 @@ import VRadiosNormal from "@/components/_general/v-radios-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VSelectNormal from "@/components/_general/v-select-normal";
 import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
+import validator from "@/validations/vacancy.json"
 import {mapState} from "vuex";
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-vacancy-create-form",
   components: {VCheckboxesNormal, VSelectNormal, VButtonNormal, VRadiosNormal, VInputNormal, VTextareaNormal},
+  mixins: [validateMixin],
   computed: mapState({
     lang: state => state.lang.LANG
   }),
@@ -103,10 +106,15 @@ export default {
       })
     },
     onVacancy(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("vacancy/CREATE", this.form).then(data => {
-        this.emitter.emit('message', data)
-      }).finally(() => this.emitter.emit('load', false))
+      if(typeof this.form.price !== 'number')
+          this.form.price = 0
+
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("vacancy/CREATE", this.form).then(data => {
+              this.emitter.emit('message', data)
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

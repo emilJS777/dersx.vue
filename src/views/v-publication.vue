@@ -23,7 +23,6 @@ export default {
     },
     mounted() {
         this.$store.dispatch("publication/GET", `?id=${this.$route.query.id}`).then(data => {
-            console.log(data)
             if(data.success)
                 this.publication = data.obj
         })

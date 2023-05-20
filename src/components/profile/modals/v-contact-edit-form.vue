@@ -26,26 +26,31 @@
 import VInputNormal from "@/components/_general/v-input-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import {mapState} from "vuex";
+import validator from "@/validations/contact.json"
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-contact-edit-form",
   components: {VButtonNormal, VInputNormal},
     computed: mapState({
         lang: state => state.lang.LANG
     }),
+  mixins: [validateMixin],
   data(){
     return{
       form: {
-        type: null,
-        information: null
+        type: "",
+        information: ""
       }
     }
   },
   methods: {
     onContact(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("user_contact/CREATE", this.form).then(data => {
-        this.emitter.emit('message', data)
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("user_contact/CREATE", this.form).then(data => {
+              this.emitter.emit('message', data)
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

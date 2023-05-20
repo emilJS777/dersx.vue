@@ -1,7 +1,7 @@
 <template>
   <div class="modal d-flex a-items-center j-content-center"  @click="close">
     <div class="modal-content w-max-content h-max-content">
-      <i>{{ message }}</i>
+      <i v-html="message" class=""></i>
 
       <div class="m-top-1 d-flex j-content-center">
         <v-button-normal :label="lang.general.ok"/>

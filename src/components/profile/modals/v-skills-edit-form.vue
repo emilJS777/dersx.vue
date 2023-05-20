@@ -33,9 +33,12 @@ import VInputNormal from "@/components/_general/v-input-normal";
 import VSelectNormal from "@/components/_general/v-select-normal";
 import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
 import {mapState} from "vuex";
+import validator from "@/validations/skill.json"
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-skills-edit-form",
   components: {VCheckboxesNormal, VSelectNormal, VInputNormal, VButtonNormal},
+  mixins: [validateMixin],
   computed: mapState({
     lang: state => state.lang.LANG
   }),
@@ -44,7 +47,7 @@ export default {
       rubrics: [],
       categories: [],
       body: {
-        tags: null,
+        tags: "",
         rubric_id: null,
         category_ids: []
       }
@@ -77,10 +80,12 @@ export default {
       })
     },
     onSkill(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("skill/CREATE", this.body).then(data => {
-        this.emitter.emit("message", data);
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.body, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("skill/CREATE", this.body).then(data => {
+              this.emitter.emit("message", data);
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

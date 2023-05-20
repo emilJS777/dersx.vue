@@ -69,11 +69,14 @@ import VSelectNormal from "@/components/_general/v-select-normal";
 import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
 import VRadiosNormal from "@/components/_general/v-radios-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
+import validator from "@/validations/vacancy.json"
 import {mapState} from "vuex";
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-vacancy-edit-form",
   components: {VButtonNormal, VRadiosNormal, VCheckboxesNormal, VSelectNormal, VTextareaNormal, VInputNormal},
   props: ['vacancy_id'],
+  mixins: [validateMixin],
     computed: mapState({
         lang: state => state.lang.LANG
     }),
@@ -131,12 +134,15 @@ export default {
       })
     },
     vacancyEdit(){
-        console.log(this.form.price)
+        if(typeof this.form.price !== 'number')
+            this.form.price = 0
 
-      this.emitter.emit('load', true)
-      this.$store.dispatch("vacancy/UPDATE", {id: this.vacancy_id, form: this.form}).then(data => {
-        this.emitter.emit('message', data)
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("vacancy/UPDATE", {id: this.vacancy_id, form: this.form}).then(data => {
+              this.emitter.emit('message', data)
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

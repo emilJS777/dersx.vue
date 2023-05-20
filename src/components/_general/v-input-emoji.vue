@@ -1,7 +1,7 @@
 <template>
     <div class="d-grid">
         <label for="" class="f-weight-bold">{{label}}</label>
-        <span class="f-size-very-small">{{span}}</span>
+        <span class="f-size-very-small" v-html="span"></span>
 
 
         <div class="d-flex a-items-center">

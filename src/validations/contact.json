@@ -1,0 +1,25 @@
+{
+  "type": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 40,
+    "required": true,
+    "msg": {
+      "rus": "тип должн состоять как минимум из 3 и максимум из 40 символов ",
+      "arm": "տեսակը պետք է ունենա առնվազն 3 և առավելագույնը 40 նիշ",
+      "eng": "type must be at least 3 and maximum 40 characters long"
+    }
+  },
+
+  "information": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 120,
+    "required": true,
+    "msg": {
+      "rus": "контактная информация должн состоять как минимум из 3 и максимум из 120 символов ",
+      "arm": "կոնտակտային տվյալը պետք է ունենա առնվազն 3 և առավելագույնը 120 նիշ",
+      "eng": "contact Information must be at least 3 and maximum 120 characters long"
+    }
+  }
+}

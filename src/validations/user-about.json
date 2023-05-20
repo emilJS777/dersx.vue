@@ -1,0 +1,13 @@
+{
+  "description": {
+    "type": "string",
+    "minLength": 20,
+    "maxLength": 6000,
+    "required": true,
+    "msg": {
+      "rus": "описание должно состоять как минимум из 20 и максимум из 6000 символов ",
+      "arm": "նկարագրությունը պետք է ունենա առնվազն 20 և առավելագույնը 6000 նիշ",
+      "eng": "description must be at least 20 and maximum 6000 characters long"
+    }
+  }
+}

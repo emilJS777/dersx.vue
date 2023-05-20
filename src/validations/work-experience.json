@@ -1,0 +1,37 @@
+{
+  "title": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 80,
+    "required": true,
+    "msg": {
+      "rus": "название должн состоять как минимум из 3 и максимум из 80 символов ",
+      "arm": "անվանումը պետք է ունենա առնվազն 3 և առավելագույնը 80 նիշ",
+      "eng": "title must be at least 3 and maximum 80 characters long"
+    }
+  },
+
+  "link": {
+    "type": "string",
+    "minLength": 0,
+    "maxLength": 420,
+    "required": false,
+    "msg": {
+      "rus": "ссылка должн состоять максимум из 420 символов ",
+      "arm": "հղումը պետք է ունենա առավելագույնը 420 նիշ",
+      "eng": "link must be at maximum 420 characters long"
+    }
+  },
+
+  "skills": {
+    "type": "string",
+    "minLength": 0,
+    "maxLength": 120,
+    "required": false,
+    "msg": {
+      "rus": "скилы или технологии должны состоять максимум из 120 символов ",
+      "arm": "հմտություններ կամ տեխնոլոգիաները պետք է ունենա առավելագույնը 120 նիշ",
+      "eng": "skills or technologies must be at maximum 120 characters long"
+    }
+  }
+}

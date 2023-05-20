@@ -57,10 +57,12 @@ import VInputNormal from "@/components/_general/v-input-normal";
 import VDatePicker from "@/components/_general/v-date-picker";
 import VRadiosNormal from "@/components/_general/v-radios-normal";
 import VCountryRegionSelect from "@/components/_general/v-country-region-select.vue";
+import validator from "@/validations/user-setting.json"
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-profile-edit-form",
   components: {VCountryRegionSelect, VRadiosNormal, VDatePicker, VInputNormal, VButtonNormal},
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, validateMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -88,10 +90,12 @@ export default {
   },
   methods: {
     updateProfile(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("user/UPDATE", this.form).then(data => {
-        this.emitter.emit("message", data)
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("user/UPDATE", this.form).then(data => {
+              this.emitter.emit("message", data)
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

@@ -1,0 +1,13 @@
+{
+  "tags": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 120,
+    "required": true,
+    "msg": {
+      "rus": "навыки должны состоять как минимум из 3 и максимум из 120 символов ",
+      "arm": "հմտությունները պետք է ունենա առնվազն 3 և առավելագույնը 120 նիշ",
+      "eng": "skills must be at least 3 and maximum 120 characters long"
+    }
+  }
+}

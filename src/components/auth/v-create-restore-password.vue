@@ -17,27 +17,31 @@
 import VButtonNormal from "@/components/_general/v-button-normal.vue";
 import VInputNormal from "@/components/_general/v-input-normal.vue";
 import {mapState} from "vuex";
-
+import validator from "@/validations/create-restore-password.json"
+import validateMixin from "@/mixins/validate-mixin";
 export default {
     name: "v-create-restore-password",
     components: {VInputNormal, VButtonNormal},
+    mixins: [validateMixin],
     computed: mapState({
         lang: state => state.lang.LANG
     }),
     data(){
         return{
             form: {
-                'address': ''
+                address: ''
             }
         }
     },
     methods:{
         createRestorePassword(e){
             e.preventDefault()
-            this.emitter.emit('load', true)
-            this.$store.dispatch('restore_password/CREATE', this.form).then(data => {
-                this.emitter.emit('message', data)
-            }).finally(() => this.emitter.emit('load', false))
+            if(this.checkValid(this.form, validator)){
+                this.emitter.emit('load', true)
+                this.$store.dispatch('restore_password/CREATE', this.form).then(data => {
+                    this.emitter.emit('message', data)
+                }).finally(() => this.emitter.emit('load', false))
+            }
         }
     }
 }

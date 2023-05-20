@@ -28,11 +28,12 @@
 
         <v-date-picker :label="lang.profile.profile_settings.date_birth.title"
                        class="m-top-1"
-                       @value="(value) => this.form.date_birth = value"/>
+                       @value="(value) => {value ? this.form.date_birth = value : this.form.date_birth = ''}"/>
         
         <v-radios-normal :label="lang.profile.profile_settings.gender.title" class="m-top-1"
                          name="gender"
                          @value="value => this.form.gender_id = value.id"
+                         :active_id="this.genders[0].id"
                          :radios="this.genders"
                          v-if="genders.length"/>
 
@@ -48,7 +49,11 @@
                         :span="lang.guest.password.description"
                         @value="(value) => this.form.password = value"/>
 
-        <v-input-normal :label="lang.guest.restore_password.restore.repeat_password.title" class="m-top-1" type="password" span=""/>
+        <v-input-normal :label="lang.guest.restore_password.restore.repeat_password.title"
+                        @value="(value) => this.form.confirm_password = value"
+                        class="m-top-1"
+                        type="password"
+                        span=""/>
 
 <!--        <div class="d-flex g-gap-1 m-top-1 social-icon-size">-->
 <!--          <i class="fab fa-github c-pointer"/>-->
@@ -75,22 +80,25 @@ import VRadiosNormal from "@/components/_general/v-radios-normal";
 import VLogo from "@/components/_general/v-logo";
 import VCountryRegionSelect from "@/components/_general/v-country-region-select.vue";
 import {mapState} from "vuex";
+import validator from "@/validations/registration.json"
+import ValidateMixin from "@/mixins/validate-mixin";
 
 export default {
   name: "v-registration",
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, ValidateMixin],
   components: {VCountryRegionSelect, VLogo, VRadiosNormal, VDatePicker, VButtonNormal, VInputNormal},
   data() {
     return {
       genders: [],
       form: {
-        name: null,
-        first_name: null,
-        last_name: null,
-        date_birth: null,
-        region: null,
-        password: null,
-        email_address: null,
+        name: '',
+        first_name: '',
+        last_name: '',
+        date_birth: '',
+        region: '',
+        password: '',
+        confirm_password: '',
+        email_address: '',
         gender_id: null,
         email_activation: true
       }
@@ -108,14 +116,16 @@ export default {
   methods: {
     registration(e){
       e.preventDefault()
-      this.emitter.emit('load', true)
-      this.$store.dispatch("user/CREATE", this.form).then(data => {
-        if(!data.success)
-          this.emitter.emit("message", data);
-        else{
-          this.$store.dispatch("auth/LOGIN", this.form, true)
-        }
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("user/CREATE", this.form).then(data => {
+              if(!data.success)
+                  this.emitter.emit("message", data);
+              else{
+                  this.$store.dispatch("auth/LOGIN", this.form, true)
+              }
+          }).finally(() => this.emitter.emit('load', false))
+      }
     },
   }
 }

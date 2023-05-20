@@ -1,0 +1,49 @@
+{
+  "title": {
+    "type": "string",
+    "minLength": 5,
+    "maxLength": 50,
+    "required": true,
+    "msg": {
+      "rus": "название должно состоять как минимум из 5 и максимум из 50 символов ",
+      "arm": "անվանումը պետք է ունենա առնվազն 5 և առավելագույնը 50 նիշ",
+      "eng": "title must be at least 5 and maximum 50 characters long"
+    }
+  },
+
+  "short_description": {
+    "type": "string",
+    "minLength": 20,
+    "maxLength": 600,
+    "required": true,
+    "msg": {
+      "rus": "краткое описание должно состоять как минимум из 20 и максимум из 600 символов ",
+      "arm": "կարճ նկարագրությունը պետք է ունենա առնվազն 20 և առավելագույնը 600 նիշ",
+      "eng": "short description must be at least 20 and maximum 600 characters long"
+    }
+  },
+
+  "long_description": {
+    "type": "string",
+    "minLength": 20,
+    "maxLength": 4000,
+    "required": true,
+    "msg": {
+      "rus": "длинное описание должно состоять как минимум из 20 и максимум из 4000 символов ",
+      "arm": "երկար նկարագրությունը պետք է ունենա առնվազն 20 և առավելագույնը 4000 նիշ",
+      "eng": "long description must be at least 20 and maximum 4000 characters long"
+    }
+  },
+
+  "price": {
+    "type": "number",
+    "minimum": 0,
+    "maximum": 1000000,
+    "required": false,
+    "msg": {
+      "rus": "цена должно быть не менее 0 и не больше 1000000",
+      "arm": "գինը պետք է լինի առնվազն 0 և ոչ ավելի, քան 100000",
+      "eng": "price must be at least 0 and not more than 100000"
+    }
+  }
+}

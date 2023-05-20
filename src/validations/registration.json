@@ -1,0 +1,95 @@
+{
+  "name": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 60,
+    "required": true,
+    "msg": {
+      "rus": "имя пользователя должн состоять как минимум из 3 и максимум из 60 символов ",
+      "arm": "օգտագործողի անունը պետք է ունենա առնվազն 3 և առավելագույնը 60 նիշ",
+      "eng": "username must be at least 3 and maximum 60 characters long"
+    }
+  },
+
+  "date_birth": {
+    "type": "string",
+    "minLength": 24,
+    "maxLength": 25,
+    "required": true,
+    "msg": {
+      "rus": "дата рождения обязательное поле",
+      "arm": "ծննդյան ամսաթիվը պարտադիր դաշտ է",
+      "eng": "date birth required field"
+    }
+  },
+
+  "region": {
+    "type": "string",
+    "minLength": 1,
+    "maxLength": 100,
+    "required": true,
+    "msg": {
+      "rus": "регион обязательное поле",
+      "arm": "տարածաշրջանը պարտադիր դաշտ է",
+      "eng": "region is required field "
+    }
+  },
+
+  "email_address": {
+    "type": "string",
+    "pattern": "[a-z0-9]+@[a-z]+\\.[a-z]{2,3}",
+    "required": true,
+    "msg": {
+      "rus": "эл. почта не валидный",
+      "arm": "էլ. փոստը վավեր չէ",
+      "eng": "email not valid"
+    }
+  },
+
+  "first_name": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 60,
+    "required": true,
+    "msg": {
+      "rus": "имя должн состоять как минимум из 3 и максимум из 60 символов ",
+      "arm": "անունը պետք է ունենա առնվազն 3 և առավելագույնը 60 նիշ",
+      "eng": "name must be at least 3 and maximum 60 characters long"
+    }
+  },
+
+  "last_name": {
+    "type": "string",
+    "minLength": 3,
+    "maxLength": 60,
+    "required": true,
+    "msg": {
+      "rus": "фамилия должно состоять как минимум из 3 и максимум из 60 символов ",
+      "arm": "ազգանունը պետք է ունենա առնվազն 3 և առավելագույնը 60 նիշ",
+      "eng": "surname must be at least 3 and maximum 60 characters long"
+    }
+  },
+
+  "password": {
+    "type": "string",
+    "minLength": 6,
+    "maxLength": 24,
+    "required": true,
+    "msg": {
+      "rus": "пароль должн состоять как минимум из 6 и максимум из 24 символов ",
+      "arm": "գաղտնաբառը պետք է ունենա առնվազն 6 և առավելագույնը 24 նիշ",
+      "eng": "password must be at least 6 and maximum 24 characters long"
+    }
+  },
+
+  "confirm_password": {
+    "type": "string",
+    "match": "password",
+    "required": true,
+    "msg": {
+      "rus": "подтверждение пароля не совпадает с паролем",
+      "arm": "գաղտնաբառի հաստատումը չի համընկնում",
+      "eng": "password confirmation does not match"
+    }
+  }
+}

@@ -24,8 +24,8 @@
                        :span="lang.profile.experience_add.start_date.description"
                        @value="date => form.date_start = date"/>
 
-        <v-date-picker :label="lang.profile.experience_add.start_date.title"
-                       :span="lang.profile.experience_add.start_date.description"
+        <v-date-picker :label="lang.profile.experience_add.end_date.title"
+                       :span="lang.profile.experience_add.end_date.description"
                        @value="date => form.date_end = date"/>
       </div>
 
@@ -41,13 +41,16 @@
 import VInputNormal from "@/components/_general/v-input-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VDatePicker from "@/components/_general/v-date-picker";
+import validator from "@/validations/work-experience.json"
 import {mapState} from "vuex";
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-work-experience-edit-form",
   components: {VDatePicker, VButtonNormal, VInputNormal},
     computed: mapState({
         lang: state => state.lang.LANG
     }),
+  mixins: [validateMixin],
   data(){
     return{
       form: {
@@ -62,10 +65,12 @@ export default {
   },
   methods: {
     onWorkExperience(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("work_experience/CREATE", this.form).then(data => {
-        this.emitter.emit("message", data);
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("work_experience/CREATE", this.form).then(data => {
+              this.emitter.emit("message", data);
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

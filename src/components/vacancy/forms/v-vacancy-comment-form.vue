@@ -18,9 +18,12 @@
 import VButtonNormal from "@/components/_general/v-button-normal";
 import {mapState} from "vuex";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
+import validator from "@/validations/comment.json"
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   components: {VInputEmoji, VButtonNormal},
   props: ['vacancy_id'],
+  mixins: [validateMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -35,14 +38,16 @@ export default {
   },
   methods: {
     onVacancyComment(){
-      this.emitter.emit("load", true)
-      this.$store.dispatch("vacancy_comment/CREATE", this.form).then(data => {
-        if(!data.success)
-          this.emitter.emit('message', data)
-        else{
-          this.$emit('on_comment_success')
-        }
-      }).finally(() => this.emitter.emit("load", false))
+      if(this.checkValid(this.form, validator, false)){
+          this.emitter.emit("load", true)
+          this.$store.dispatch("vacancy_comment/CREATE", this.form).then(data => {
+              if(!data.success)
+                  this.emitter.emit('message', data)
+              else{
+                  this.$emit('on_comment_success')
+              }
+          }).finally(() => this.emitter.emit("load", false))
+      }
     }
   }
 }

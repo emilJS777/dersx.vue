@@ -7,26 +7,29 @@
                    :span="lang.general.comment_on_this_post" @value="value => form.text = value"/>
 
     <v-button-normal :label="lang.general.send"
-                     @click="setModalName('publicationCommentCreateAlert')"/>
+                     @click="onPublicationComment"/>
   </div>
 
-  <v-alert-modal :label="lang.general.comment_confirm"
-                 v-if="modalName === 'publicationCommentCreateAlert'"
-                 @close="setModalName(false)"
-                 @confirm="onPublicationComment"/>
+<!--  <v-alert-modal :label="lang.general.comment_confirm"-->
+<!--                 v-if="modalName === 'publicationCommentCreateAlert'"-->
+<!--                 @close="setModalName(false)"-->
+<!--                 @confirm="onPublicationComment"/>-->
 </template>
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
-import VAlertModal from "@/components/_general/v-alert-modal";
+// import VAlertModal from "@/components/_general/v-alert-modal";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import {mapState} from "vuex";
+import validateMixin from "@/mixins/validate-mixin";
+import validator from "@/validations/comment.json"
+
 export default {
   name: "v-publication-comment-create-form",
-  components: {VInputEmoji, VAlertModal, VButtonNormal},
+  components: {VInputEmoji, VButtonNormal},
   props: ['publication_id'],
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, validateMixin],
   data(){
     return{
       form:{
@@ -40,15 +43,17 @@ export default {
   methods:{
     onPublicationComment(){
       this.form.publication_id = this.publication_id
-      this.emitter.emit('load', true)
-      this.$store.dispatch("publication_comment/CREATE", this.form).then(data => {
-        if(!data.success) {
-          this.setModalName(false)
-          this.emitter.emit('message', data)
-        }
-        else
-          this.$emit('refresh_modal')
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator, false)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("publication_comment/CREATE", this.form).then(data => {
+              if(!data.success) {
+                  this.setModalName(false)
+                  this.emitter.emit('message', data)
+              }
+              else
+                  this.$emit('refresh_modal')
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

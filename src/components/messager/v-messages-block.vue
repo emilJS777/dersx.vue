@@ -56,11 +56,13 @@ import offsetMixin from "@/mixins/offset-mixin";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import {mapState} from "vuex";
+import validateMixin from "@/mixins/validate-mixin";
+import validator from "@/validations/message.json"
 export default {
   name: "v-messages-block",
   components: {VInputEmoji, VAlertModal, VMessageBlock, VButtonNormal},
   props: ['user', 'partner', 'room_id'],
-  mixins: [toggleMixin, offsetMixin],
+  mixins: [toggleMixin, offsetMixin, validateMixin],
   computed: mapState({
      lang: state => state.lang.LANG
   }),
@@ -94,29 +96,33 @@ export default {
         this.editForm = null
     },
     updateMessage(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("message/UPDATE", {id: this.editForm.id, form: this.editForm}).then(data => {
-        if(data.success) {
-          this.editForm.edited = true
-          this.messages[this.editForm.index] = this.editForm
-          this.editForm = null
-          this.setModalName('inputText')
-        }
-        else
-          this.emitter.emit('message', data)
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator, false)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("message/UPDATE", {id: this.editForm.id, form: this.editForm}).then(data => {
+              if(data.success) {
+                  this.editForm.edited = true
+                  this.messages[this.editForm.index] = this.editForm
+                  this.editForm = null
+                  this.setModalName('inputText')
+              }
+              else
+                  this.emitter.emit('message', data)
+          }).finally(() => this.emitter.emit('load', false))
+      }
     },
     onMessage(){
-      this.$store.dispatch("message/CREATE", this.form).then(data=>{
-        this.form.text = ''
-        if(data.success) {
-          this.$store.commit("room/SET_FIRS", {id: this.room_id})
-          this.messages.push(data.obj)
+        if(this.checkValid(this.form, validator, false)){
+            this.$store.dispatch("message/CREATE", this.form).then(data=>{
+                this.form.text = ''
+                if(data.success) {
+                    this.$store.commit("room/SET_FIRS", {id: this.room_id})
+                    this.messages.push(data.obj)
+                }
+            }).finally(() => {
+                this.setModalName('inputText')
+                this.onBottomScroll()
+            })
         }
-      }).finally(() => {
-        this.setModalName('inputText')
-        this.onBottomScroll()
-      })
     },
     deleteRoom(){
       this.emitter.emit('loader', true)

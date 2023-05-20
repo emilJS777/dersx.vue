@@ -19,7 +19,7 @@ const publication = {
             const data = await request(context, "/publication"+query, "GET")
             return data
         }
-    }
+    },
 }
 
 export default publication

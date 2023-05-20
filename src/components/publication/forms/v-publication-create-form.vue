@@ -50,10 +50,12 @@ import VButtonNormal from "@/components/_general/v-button-normal";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
+import validateMixin from "@/mixins/validate-mixin";
+import validator from "@/validations/publication.json"
 export default {
   name: "v-publication-create-form",
   components: {VInputEmoji, VAlertModal, VButtonNormal, VInputFileForm},
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, validateMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -68,14 +70,16 @@ export default {
   },
   methods:{
     onPublication(){
-      this.emitter.emit('load', true)
-      this.setModalName(false)
-      this.$store.dispatch("publication/CREATE", this.form).then(data => {
-        if(data.success && this.form.image)
-          this.onPublicationImage(data.obj.id)
-        else
-          this.emitter.emit('message', data)
-      }).finally(() => this.emitter.emit('load', false))
+        this.setModalName(false)
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("publication/CREATE", this.form).then(data => {
+              if(data.success && this.form.image)
+                  this.onPublicationImage(data.obj.id)
+              else
+                  this.emitter.emit('message', data)
+          }).finally(() => this.emitter.emit('load', false))
+      }
     },
     onPublicationImage(publication_id){
       this.emitter.emit('load', true)

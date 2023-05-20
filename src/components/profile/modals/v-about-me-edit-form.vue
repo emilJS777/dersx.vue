@@ -19,12 +19,15 @@
 import VButtonNormal from "@/components/_general/v-button-normal";
 import VTextareaNormal from "@/components/_general/v-textarea-normal";
 import {mapState} from "vuex";
+import validator from "@/validations/user-about.json"
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-about-me-edit-form",
   components: {VTextareaNormal, VButtonNormal},
     computed: mapState({
         lang: state => state.lang.LANG
     }),
+  mixins: [validateMixin],
   data(){
     return{
       form: {
@@ -34,10 +37,12 @@ export default {
   },
   methods: {
     onAboutUser(){
-      this.emitter.emit('load', true)
-      this.$store.dispatch("user_about/CREATE", this.form).then(data => {
-        this.emitter.emit("message", data);
-      }).finally(() => this.emitter.emit('load', false))
+      if(this.checkValid(this.form, validator)){
+          this.emitter.emit('load', true)
+          this.$store.dispatch("user_about/CREATE", this.form).then(data => {
+              this.emitter.emit("message", data);
+          }).finally(() => this.emitter.emit('load', false))
+      }
     }
   }
 }

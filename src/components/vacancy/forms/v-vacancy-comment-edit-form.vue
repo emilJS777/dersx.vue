@@ -10,7 +10,7 @@
 
       <div>
         <div class="btn_block d-flex j-content-flex-end g-gap-1 m-top-1">
-          <v-button-normal class="bg-content" :label="lang.general.confirm" @click="setModalName('vacancyCommentEditAlert')"/>
+          <v-button-normal class="bg-content" :label="lang.general.confirm" @click="onEditVacancyComment"/>
           <v-button-normal :label="lang.general.cancel" @click="this.$emit('close')"/>
         </div>
       </div>
@@ -18,23 +18,25 @@
   </div>
 
 <!--  ALERT-->
-  <v-alert-modal :label="lang.general.comment_edit.confirm"
-                 v-if="modalName === 'vacancyCommentEditAlert'"
-                 @close="setModalName(false)"
-                 @confirm="onEditVacancyComment"/>
+<!--  <v-alert-modal :label="lang.general.comment_edit.confirm"-->
+<!--                 v-if="modalName === 'vacancyCommentEditAlert'"-->
+<!--                 @close="setModalName(false)"-->
+<!--                 @confirm="onEditVacancyComment"/>-->
 </template>
 
 <script>
 import VButtonNormal from "@/components/_general/v-button-normal";
-import VAlertModal from "@/components/_general/v-alert-modal";
+// import VAlertModal from "@/components/_general/v-alert-modal";
 import toggleMixin from "@/mixins/toggle-mixin";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import {mapState} from "vuex";
+import validator from "@/validations/comment.json"
+import validateMixin from "@/mixins/validate-mixin";
 export default {
   name: "v-vacancy-comment-edit-form",
-  components: {VInputEmoji, VAlertModal, VButtonNormal},
+  components: {VInputEmoji, VButtonNormal},
   props: ['vacancy_comment_id'],
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, validateMixin],
   computed: mapState({
     lang: state => state.lang.LANG
   }),
@@ -53,15 +55,17 @@ export default {
   },
   methods: {
     onEditVacancyComment(){
-      this.emitter.emit("load", true)
-      this.$store.dispatch("vacancy_comment/UPDATE", {id: this.vacancy_comment_id, form: this.form}).then(data => {
-        if(data.success)
-          this.$emit('success_edit')
-        else{
-          this.setModalName(false)
-          this.emitter.emit("message", data)
-        }
-      }).finally(() => this.emitter.emit("load", false))
+      if(this.checkValid(this.form, validator, false)){
+          this.emitter.emit("load", true)
+          this.$store.dispatch("vacancy_comment/UPDATE", {id: this.vacancy_comment_id, form: this.form}).then(data => {
+              if(data.success)
+                  this.$emit('success_edit')
+              else{
+                  this.setModalName(false)
+                  this.emitter.emit("message", data)
+              }
+          }).finally(() => this.emitter.emit("load", false))
+      }
     }
   }
 }
