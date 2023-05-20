@@ -88,7 +88,7 @@ export default {
   methods: {
     get_profile(){
       this.$store.dispatch("auth/GET_PROFILE").then(data => {
-        if(data.success)
+        if(data && data.success)
           this.$store.commit("auth/SET_PROFILE", data.obj)
       })
     }
