@@ -17,13 +17,13 @@
           <span class="loader"></span>
       </div>
   </div>
-    <div v-if="this.isMobile" class="mobile_alert z-index-max p-fixed top-0 left-0 w-max h-max bg-fff d-flex j-content-center a-items-center t-center">
-        <div class="d-grid g-gap-1">
-            <h2>soon our application will be available on <br> AppStore and Play Market</h2>
-            <h2>շուտով մեր հավելվածը հասանելի կլինի <br> AppStore-ում և Play Market-ում</h2>
-            <h2>скоро наше приложение будет доступна на <br> AppStore и Play Market </h2>
-        </div>
-    </div>
+<!--    <div v-if="this.isMobile" class="mobile_alert z-index-max p-fixed top-0 left-0 w-max h-max bg-fff d-flex j-content-center a-items-center t-center">-->
+<!--        <div class="d-grid g-gap-1">-->
+<!--            <h2>soon our application will be available on <br> AppStore and Play Market</h2>-->
+<!--            <h2>շուտով մեր հավելվածը հասանելի կլինի <br> AppStore-ում և Play Market-ում</h2>-->
+<!--            <h2>скоро наше приложение будет доступна на <br> AppStore и Play Market </h2>-->
+<!--        </div>-->
+<!--    </div>-->
 </template>
 
 <script>
@@ -32,7 +32,6 @@ import VHeader from "@/components/_general/v-header";
 import VMessageModal from "@/components/_general/v-message-modal";
 import {mapState} from "vuex";
 import VMessager from "@/components/messager/v-messager";
-import VueDeviceDetector from "vue-device-detector";
 export default {
   name: 'App',
   components: {
@@ -40,7 +39,6 @@ export default {
     VMessageModal,
     VHeader,
   },
-  mixins: [VueDeviceDetector],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
