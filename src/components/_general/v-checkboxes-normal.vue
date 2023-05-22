@@ -122,4 +122,7 @@ export default {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+span{
+    line-height: 1.2;
+}
 </style>

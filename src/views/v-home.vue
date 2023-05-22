@@ -38,7 +38,7 @@
         </a>
       </div>
 
-      <h3 class="c-ccc t-center" v-if="!publications.length">ничего не найдено </h3>
+      <h3 class="c-ccc t-center" v-if="!publications.length">{{ lang.general.nothing_found }}</h3>
       <v-publication-list v-for="publication in publications"
                           :key="publication.id"
                           :publication="publication"
