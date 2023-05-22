@@ -71,7 +71,6 @@ export default {
     forumsGet(){
       this.emitter.emit('load', true)
       this.$store.dispatch("forum/GET", `?page=${this.page}&per_page=${this.per_page}&rubric_id=${this.selected_rubric_id}&search=${this.search}`).then(data => {
-        console.log(data.obj)
         this.forums = data.obj.items
         this.page = data.obj.page
         this.per_page = data.obj.per_page

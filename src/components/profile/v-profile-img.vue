@@ -139,7 +139,6 @@ export default {
         }
         // CREATE IMAGE
         const data = await this.$store.dispatch("image/CREATE", {query: `?user_id=${this.user.id}`, form: this.new_image})
-          console.log(data)
         this.emitter.emit('message', data)
         this.emitter.emit('load', false)
       }

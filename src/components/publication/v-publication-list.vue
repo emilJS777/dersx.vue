@@ -155,7 +155,6 @@ export default {
       this.emitter.emit('load', true)
       this.$store.dispatch("complaint/CREATE", {'publication_id': this.publication.id}).then(data => {
           this.complaint_id = data.obj.id
-          console.log(data.obj)
       }).finally(() => this.emitter.emit('load', false))
     },
       complaintDelete(){

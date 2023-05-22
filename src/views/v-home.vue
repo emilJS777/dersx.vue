@@ -89,7 +89,6 @@ export default {
       send_email_activation(){
           this.emitter.emit('load', true)
           this.$store.dispatch('email/GET', `?activation_code=true`).then(data => {
-              console.log(data)
               this.emitter.emit('message', data)
           }).finally(() => {
               localStorage.removeItem('email_send')
@@ -100,7 +99,6 @@ export default {
       this.emitter.emit('load', true)
       this.$store.dispatch("publication/GET", `?limit=${this.limit}&offset=${this.offset}&creator_id=${this.$route.query.publicator_id ? this.$route.query.publicator_id  : ''}&liked_id=${this.$route.query.liked_id ? this.$route.query.liked_id : ''}`).then(data => {
           data.obj.forEach(publication => this.publications.push(publication))
-        console.log(data.obj)
       }).finally(() => this.emitter.emit('load', false))
     },
     handleScroll() {

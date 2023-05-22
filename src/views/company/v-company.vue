@@ -32,7 +32,6 @@ export default {
     this.emitter.emit('load', true)
     this.$store.dispatch("company/GET", `?id=${this.$route.query.id}`).then(data => {
       this.company = data.obj
-      console.log(data.obj)
     }).finally(() => this.emitter.emit('load', false))
   },
 }

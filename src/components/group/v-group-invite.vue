@@ -40,7 +40,6 @@ export default {
     inviteDelete(){
       this.emitter.emit('load', true)
       this.$store.dispatch("group_invite/DELETE", `?group_id=${this.group.id}&user_id=${this.user.id}`).then(data => {
-        console.log(data)
         if(data.success)
           this.invited = false
         else

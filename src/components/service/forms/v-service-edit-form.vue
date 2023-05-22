@@ -174,7 +174,6 @@ export default {
     },
     serviceImageDelete(){
       this.emitter.emit('load', true)
-      console.log(this.image.filename)
       this.$store.dispatch("image/DELETE", this.image.filename).then(data => {
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))

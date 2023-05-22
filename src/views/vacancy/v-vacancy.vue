@@ -30,7 +30,6 @@ export default {
     getSimilarVacancies(obj) {
       this.$store.dispatch("vacancy/GET", `?page=1&per_page=5&exclude_id=${this.$route.query.id}&rubric_id=${obj.rubric_id}&category_ids=[${obj.category_ids}]`).then(data => {
         this.similarVacancies = data.obj.items
-        console.log(data.obj)
       })
     }
   }

@@ -142,7 +142,6 @@ export default {
     vacancyDelete(){
       this.emitter.emit('load', true)
       this.$store.dispatch("vacancy/DELETE", this.id).then(data => {
-        console.log(data)
         this.emitter.emit('message', data)
       }).finally(() => this.emitter.emit('load', false))
     }
