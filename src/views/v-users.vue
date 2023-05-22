@@ -24,14 +24,15 @@
     </div>
 
     <div>
-      <div class="users_list d-grid g-gap-3 m-top-2 h-max-content">
+      <h3 class="t-center c-ccc" v-if="!users.length">{{ lang.general.nothing_found }}</h3>
+
+      <div class="users_list d-grid g-gap-3 m-top-2 h-max-content" v-if="users.length">
         <v-user v-for="user in users" :key="user.id" :user="user" class="box-shadow-slim"/>
       </div>
 
-      <h3 class="t-center c-ccc" v-if="!users.length">{{ lang.general.nothing_found }}</h3>
 
       <!--    PAGINATION-->
-      <div v-else class="d-flex j-content-flex-end">
+      <div v-if="users.length" class="d-flex j-content-flex-end">
         <v-paginate
             class="paginate"
             :page-count="page_count"
