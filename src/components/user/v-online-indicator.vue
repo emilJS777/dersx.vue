@@ -1,5 +1,6 @@
 <template>
-  <span class="p-absolute bottom-0 right-0 f-size-very-small w-max t-center" v-if="this.online">{{ lang.general.online }}</span>
+  <span class="bottom-0 right-0 f-size-very-small w-max t-center c-content" v-if="this.online && !dot">{{ lang.general.online }}</span>
+  <span class="p-absolute bottom-0 right-0 f-size-very-small w-max t-center bg-content b-radius-50 dot" v-if="this.online && dot"></span>
 </template>
 
 <script>
@@ -7,7 +8,7 @@ import {mapState} from "vuex";
 
 export default {
   name: "v-online-indicator",
-  props: ['user_id'],
+  props: ['user_id', 'dot'],
     computed: mapState({
         lang: state => state.lang.LANG
     }),
@@ -31,5 +32,9 @@ export default {
 </script>
 
 <style scoped>
-
+.dot{
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid#fff;
+}
 </style>

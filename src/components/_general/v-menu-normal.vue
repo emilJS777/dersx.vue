@@ -4,7 +4,7 @@
       <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
     </div>
           <ul class="p-absolute bg-fff right-0 box-shadow-slim padding-05 w-max-content d-grid g-gap-_5 c-555" v-if="modalName === 'menuBlock' && opening">
-            <li :class="`d-flex a-items-center g-gap-_5 c-pointer c-content-hover ${item.class}`" v-for="item in menu_list" :key="item.title" @click="emit_menu(item.emit_name)">
+            <li :class="`d-flex a-items-center g-gap-_5 c-pointer c-content-hover ${item.class} ${item.hidden ? 'd-none' : ''}`" v-for="item in menu_list" :key="item.title" @click="emit_menu(item.emit_name)">
               <i :class="item.icon_class" aria-hidden="true"></i>
               {{ item.title }}
             </li>

@@ -1,7 +1,7 @@
 <template>
-  <div class="home d-grid g-gap-3">
+  <div :class="`${mobile ? 'home_mobile' : 'home g-gap-3'} d-grid`">
 <!--    VACANCIES-->
-    <div class="h-max-content">
+    <div class="vacancies_block h-max-content" v-if="!mobile">
       <h4 class="m-top-0 m-bottom-0 padding-05 bg-ccc-opacity d-flex j-content-space-between a-items-center">
         <span class="c-content">{{lang.home.new_vacancies.title}}</span>
         <router-link to="/vacancies" class="f-size-small">{{lang.home.new_vacancies.button}}</router-link>
@@ -54,10 +54,11 @@ import VPublicationList from "@/components/publication/v-publication-list";
 import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
 import offsetMixin from "@/mixins/offset-mixin";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-home",
   components: {VPublicationList, VPublicationCreateForm, VVacanciesList},
-  mixins: [toggleMixin, offsetMixin],
+  mixins: [toggleMixin, offsetMixin, deviceMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -114,5 +115,8 @@ export default {
 <style scoped>
 .home{
   grid-template-columns: 1fr 1.6fr;
+}
+.home_mobile{
+    grid-template-columns: 1fr;
 }
 </style>

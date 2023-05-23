@@ -31,7 +31,7 @@
       </div>
 
 
-      <div class="d-grid m-top-1 g-gap-1 a-items-flex-start w-max-content" v-if="payment_intervals.length">
+      <div :class="`${mobile ? 'w-max' : 'w-max-content'} d-grid m-top-1 g-gap-1 a-items-flex-start`" v-if="payment_intervals.length">
           <v-radios-normal name="paidInterval"
                            span=""
                            :label="lang.general.payment_interval"
@@ -44,7 +44,7 @@
       </div>
 
 
-      <div class="d-flex g-gap-1 m-top-2 j-content-flex-end">
+      <div :class="`${mobile ? '' : ' j-content-flex-end'} d-flex g-gap-1 m-top-2`">
         <v-button-normal :label="lang.general.create" class="bg-content" @click="onVacancy"/>
       </div>
     </div>
@@ -61,10 +61,11 @@ import VCheckboxesNormal from "@/components/_general/v-checkboxes-normal";
 import validator from "@/validations/vacancy.json"
 import {mapState} from "vuex";
 import validateMixin from "@/mixins/validate-mixin";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-vacancy-create-form",
   components: {VCheckboxesNormal, VSelectNormal, VButtonNormal, VRadiosNormal, VInputNormal, VTextareaNormal},
-  mixins: [validateMixin],
+  mixins: [validateMixin, deviceMixin],
   computed: mapState({
     lang: state => state.lang.LANG
   }),
@@ -121,7 +122,4 @@ export default {
 </script>
 
 <style scoped>
-.modal-content{
-  width: 50%;
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div v-if="lang">
       <v-header/>
-      <div class="page m-top-2">
+      <div :class="`${mobile ? 'm-top-8' : 'm-top-2'} page`">
           <router-view></router-view>
           <v-messager v-if="profile"/>
       </div>
@@ -32,8 +32,10 @@ import VHeader from "@/components/_general/v-header";
 import VMessageModal from "@/components/_general/v-message-modal";
 import {mapState} from "vuex";
 import VMessager from "@/components/messager/v-messager";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: 'App',
+  mixins: [deviceMixin],
   components: {
     VMessager,
     VMessageModal,

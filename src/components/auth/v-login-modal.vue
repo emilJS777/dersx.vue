@@ -56,6 +56,7 @@ export default {
 
 <style scoped>
 .modal-content{
-  width: 35%;
+  width: auto;
 }
+
 </style>

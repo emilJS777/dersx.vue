@@ -1,7 +1,7 @@
 <template>
   <div class="p-fixed bg-c5c top-0 left-0 w-max h-max" style="z-index: 8" v-if="more" @click="this.more=false"></div>
 
-  <div :class="`publication padding-2 bg-fff m-top-1 box-shadow-slim animation-from-hidden ${this.more ? 'publication-modal p-fixed top-0 bottom-0 h-max w-max-content' : ''}`">
+  <div :class="`publication padding-2 bg-fff m-top-1 box-shadow-slim animation-from-hidden ${this.more ? 'publication-modal z-index-10 p-fixed top-0 bottom-0 h-max w-max-content' : ''}`">
     <div class="head d-flex j-content-space-between a-items-center p-relative b-bottom-ccc padding-bottom-05">
       <v-user-mini-block :user="publication.creator"/>
       <v-menu-normal
@@ -11,12 +11,13 @@
           @share="setModalName('share')"
           @more="this.more = !this.more"
           class="m-top-05"
-          :inline="true"
-          :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red', hidden: publication.creator.id !== profile.id},
-                       {title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
+          :inline="!mobile"
+          :opening="mobile"
+          :menu_list="[{title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
                        {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true},
+                       {title: this.more ? lang.general.close : lang.general.look, icon_class: 'fa fa-expand', emit_name: 'more'},
                        {title: lang.general.share, icon_class: 'fa fa-share-alt', class: 'c-blue-opacity', emit_name: 'share'},
-                       {title: this.more ? lang.general.close : lang.general.look, icon_class: 'fa fa-expand', emit_name: 'more'},]"/>
+                       {title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red', hidden: publication.creator.id !== profile.id},]"/>
     </div>
 
 <!--    PUBLICATION DESCRIPTION-->
@@ -114,12 +115,13 @@ import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import VMenuNormal from "@/components/_general/v-menu-normal.vue";
 import localTimeMixin from "@/mixins/local-time-mixin";
 import VShareModal from "@/components/_general/v-share-modal.vue";
+import deviceMixin from "@/mixins/device-mixin";
 
 export default {
   name: "v-publication-list",
   components: {VShareModal, VMenuNormal, VUserMiniBlock, VPublicationComment, VPublicationCommentCreateForm, VAlertModal},
   props: ["publication"],
-  mixins: [toggleMixin, localTimeMixin],
+  mixins: [toggleMixin, localTimeMixin, deviceMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -206,9 +208,8 @@ export default {
     left: 50%;
     right: 50%;
     transform: translateX(-50%);
-    max-width: 1000px;
-    min-width: 500px;
-    z-index: 9;
+    min-width: 300px;
+    max-width: 100%;
     overflow-y: auto;
 }
 .publication{

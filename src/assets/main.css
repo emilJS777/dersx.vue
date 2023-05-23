@@ -47,6 +47,11 @@ label{
         padding: 20px 2%;
     }
 }
+@media only screen and (max-width: 830px) {
+    .page, .header{
+        padding: 0 2%;
+    }
+}
 .pagination{
     background-color: #fff;
 }
@@ -110,6 +115,9 @@ a{
 }
 .m-top-3{
     margin-top: 3em;
+}
+.m-top-8{
+    margin-top: 8em;
 }
 .m-bottom-0{
     margin-bottom: 0;
@@ -320,6 +328,9 @@ a{
 .h-max{
     height: 100%;
 }
+.h-100-vh{
+    height: 100vh;
+}
 .h-max-content{
     height: max-content;
 }
@@ -416,6 +427,15 @@ a{
     left: 50%;
     right: 50%;
     transform: translate(-50%, -50%);
+}
+.z-index-1{
+    z-index: 1;
+}
+.z-index-5{
+    z-index: 5;
+}
+.z-index-10{
+    z-index: 10;
 }
 .z-index-max{
     z-index: 999;
@@ -589,4 +609,17 @@ a{
 .lang_radio .radios{
     display: grid;
     line-height: 1;
+}
+
+.order-1{
+    order: 1;
+}
+.order-2{
+    order: 2;
+}
+.order-3{
+    order: 3;
+}
+.order-4{
+    order: 4;
 }

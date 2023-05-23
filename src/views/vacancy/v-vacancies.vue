@@ -1,5 +1,5 @@
 <template>
-  <div class="vacancies d-grid g-gap-3">
+  <div :class="`${mobile ? 'vacancies_mobile' : 'vacancies'} d-grid g-gap-3`">
     <div class="filter_form d-grid g-gap-1 h-max-content bg-fff padding-1 box-shadow-slim">
       <v-select-normal :label="lang.general.rubric"
                        :span="lang.vacancies.filter.rubric.description"
@@ -13,19 +13,26 @@
                       type="text"
                       @value="value => search = value"/>
 
-      <v-checkboxes-normal :label="lang.general.categories" :checked="true"
-                           :span="lang.vacancies.filter.categories.description"
-                           :checkboxes="categories"
-                           @select="selected_ids => {selected_category_ids = selected_ids}"
-                           v-if="categories.length"/>
+      <div :class="`${mobile && modalName !== 'categories' ? 'd-none' : ''} animation-from-hidden`">
+          <v-checkboxes-normal :label="lang.general.categories" :checked="true"
+                               :span="lang.vacancies.filter.categories.description"
+                               :checkboxes="categories"
+                               @select="selected_ids => {selected_category_ids = selected_ids}"
+                               v-if="categories.length"/>
 
-      <v-checkboxes-normal :label="lang.general.payment_interval" :checked="true"
-                           :checkboxes="payment_intervals"
-                           :span="lang.vacancies.filter.payment_interval.description"
-                           @select="selected_ids => {selected_payment_interval_ids = selected_ids}"
-                           v-if="payment_intervals.length"/>
+          <v-checkboxes-normal :label="lang.general.payment_interval" :checked="true"
+                               :checkboxes="payment_intervals"
+                               :span="lang.vacancies.filter.payment_interval.description"
+                               @select="selected_ids => {selected_payment_interval_ids = selected_ids}"
+                               v-if="payment_intervals.length"/>
+      </div>
 
-      <div class="d-flex g-gap-1">
+       <div v-if="mobile" class="d-flex j-content-flex-end c-555">
+           <v-button-normal v-if="modalName !== 'categories'" :icon="`fa fa-chevron-circle-down`" @click="setModalName('categories')" :label="lang.general.categories" class="w-max-content"/>
+           <v-button-normal v-else :icon="`fa fa-chevron-circle-up`" @click="setModalName(false)" :label="lang.general.categories" class="w-max-content"/>
+       </div>
+
+      <div :class="`${mobile ? 'j-content-flex-end' : ''} d-flex g-gap-1`">
         <v-button-normal :label="lang.general.search" class="bg-content" @click="clickPage(1)"/>
         <v-button-normal :label="lang.vacancies.filter.create_vacancy" @click="this.$router.push({name: 'vacancyCreate'})" v-if="profile"/>
       </div>
@@ -70,10 +77,11 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VVacaciesList from "@/components/vacancy/v-vacancies-list";
 import paginateMixin from "@/mixins/paginate-mixin";
 import {mapState} from "vuex";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-vacancies",
   components: {VVacaciesList, VButtonNormal, VCheckboxesNormal, VInputNormal, VSelectNormal},
-  mixins: [toggleMixin, paginateMixin],
+  mixins: [toggleMixin, paginateMixin, deviceMixin],
   data(){
     return{
       rubrics: [],
@@ -126,5 +134,8 @@ export default {
 <style scoped>
 .vacancies{
   grid-template-columns: 1fr 2fr;
+}
+.vacancies_mobile{
+    grid-template-columns: 1fr;
 }
 </style>

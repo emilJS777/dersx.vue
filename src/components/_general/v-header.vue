@@ -1,95 +1,52 @@
 <template>
-  <div class="header d-grid g-gap-_3 a-items-center box-shadow-slim">
-    <div class="logo">
+  <div :class="`${mobile ? 'g-gap-1 p-fixed z-index-10 top-0 w-max' : 'g-gap-_3 a-items-center'} header d-grid box-shadow-slim`">
+    <div class="logo h-max-content">
       <v-logo/>
     </div>
 
-    <div class="nav d-flex">
-      <ul class="d-flex j-content-space-between w-max g-gap-3 a-items-center padding-0" v-if="profile">
+    <div :class="`${mobile ? 'order-2' : ''} nav d-flex animation-from-hidden`" v-if="!mobile || mobile && toggle">
+      <ul :class="`${this.mobile ? '' : ' g-gap-3'} d-flex j-content-space-between w-max a-items-center padding-0`" @click="mobile ? toggle=false : ''" v-if="profile">
         <li>
-          <router-link to="/" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-home fa-2x m-0-auto" aria-hidden="true"></i>
+          <router-link to="/" :class="`d-grid g-gap-_5 a-items-center c-6d c-content-hover t-center  ${mobile ? 'f-size-very-small' : ''}`">
+            <i :class="`fa fa-home fa-2x m-0-auto`" aria-hidden="true"></i>
             <b>{{ lang.general.home }}</b>
           </router-link>
         </li>
 
-<!--        <li>-->
-<!--          <router-link to="/services" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-briefcase m-0-auto fa-2x" aria-hidden="true"></i>-->
-<!--            <b>услуги</b>-->
-<!--          </router-link>-->
-<!--        </li>-->
-
         <li>
-          <router-link to="/vacancies" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-globe m-0-auto fa-2x" aria-hidden="true"></i>
+          <router-link to="/vacancies" :class="`d-grid g-gap-_5 a-items-center c-6d c-content-hover t-center ${mobile ? 'f-size-very-small' : ''}`">
+            <i :class="`fa fa-globe fa-2x m-0-auto`" aria-hidden="true"></i>
             <b>{{ lang.general.vacancies }}</b>
           </router-link>
         </li>
 
-<!--        <li>-->
-<!--          <router-link to="/companies" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-building m-0-auto fa-2x" aria-hidden="true"></i>-->
-<!--            <b>компании</b>-->
-<!--          </router-link>-->
-<!--        </li>-->
-
-<!--        <li>-->
-<!--          <router-link to="/resumes" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-file-pdf m-0-auto fa-2x" aria-hidden="true"></i>-->
-<!--            <b>резюме</b>-->
-<!--          </router-link>-->
-<!--        </li>-->
-
         <li>
-          <router-link to="/users" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
-            <i class="fa fa-user fa-2x m-0-auto" aria-hidden="true"></i>
+          <router-link to="/users" :class="`d-grid g-gap-_5 a-items-center c-6d c-content-hover t-center ${mobile ? 'f-size-very-small' : ''}`">
+            <i :class="`fa fa-user fa-2x m-0-auto`" aria-hidden="true"></i>
             <b>{{ lang.general.users }}</b>
           </router-link>
         </li>
 
-<!--        <li>-->
-<!--          <router-link to="/groups" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-users fa-2x m-0-auto" aria-hidden="true"></i>-->
-<!--            <b>группы</b>-->
-<!--          </router-link>-->
-<!--        </li>-->
-
         <li class="p-relative">
-          <router-link to="/notifications" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+          <router-link to="/notifications" :class="`d-grid g-gap-_5 a-items-center c-6d c-content-hover t-center ${mobile ? 'f-size-very-small' : ''}`">
             <v-notification-indicator class="p-absolute indicator notification_indicator"/>
-            <i class="fa fa-bell fa-2x m-0-auto" aria-hidden="true"></i>
+            <i :class="`fa fa-bell fa-2x m-0-auto`" aria-hidden="true"></i>
             <b>{{ lang.general.notifications }}</b>
           </router-link>
         </li>
 
         <li class="p-relative">
-          <router-link to="/messages" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">
+          <router-link to="/messages" :class="`d-grid g-gap-_5 a-items-center c-6d c-content-hover t-center ${mobile ? 'f-size-very-small' : ''}`">
             <v-messages-indicator class="p-absolute indicator"/>
-            <i class="fa fa-envelope fa-2x m-0-auto" aria-hidden="true"></i>
+            <i :class="`fa fa-envelope fa-2x m-0-auto`" aria-hidden="true"></i>
             <b>{{ lang.general.messages }}</b>
           </router-link>
         </li>
-
-<!--        <li>-->
-<!--          <router-link to="/resume" class="d-grid g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-file fa-2x m-0-auto" aria-hidden="true"></i>-->
-<!--            <b>резюме</b>-->
-<!--          </router-link>-->
-<!--        </li>-->
-
-<!--        <li>-->
-<!--          <router-link to="/teams" class="d-flex g-gap-_5 a-items-center c-6d c-content-hover">-->
-<!--            <i class="fa fa-users" aria-hidden="true"></i>-->
-<!--            <b>команды</b>-->
-<!--          </router-link>-->
-<!--        </li>-->
       </ul>
     </div>
 
-    <div v-if="profile" class="d-grid g-gap-1 p-relative t-right">
-      <div class="auth d-flex j-content-flex-end a-items-center g-gap-1 p-relative">
-
+    <div v-if="profile" :class="`${mobile ? 'order-1 p-absolute top-0 right-0 m-top-1 m-right-05' : 'p-relative'} d-grid g-gap-1  t-right animation-from-hidden`">
+      <div class="auth d-flex j-content-flex-end a-items-center g-gap-1 p-relative" v-if="!mobile || mobile && toggle">
         <div class="d-grid info_block j-content-flex-end">
           <b>{{ profile.first_name }} {{ profile.last_name }}</b>
           <i class="f-size-very-small">{{profile.email.address}}</i>
@@ -101,15 +58,20 @@
           <img :src="'data:image/'+profile.image.filename+';charset=utf-8;base64, ' + profile.image.b64" class="p-absolute absolute-center profile_image" v-else>
         </a>
       </div>
+
+      <div v-if="mobile && !toggle" class="padding-05" @click="toggle = !toggle">
+          <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+      </div>
     </div>
 
-    <div class="auth_block d-flex g-gap-1 j-content-flex-end" v-if="!profile">
+    <div class="auth_block d-flex g-gap-1 j-content-flex-end " v-if="!profile">
       <v-button-normal :label="lang.general.sign_in" @click="setModalName('login')"/>
       <v-button-normal :label="lang.general.sign_up" class="bg-content" @click="setModalName('registration')"/>
     </div>
-
-    <v-select-lang class="m-left-05"/>
+    <v-select-lang v-if="!mobile || mobile && toggle" :class="`${mobile ? 'order-4 margin-1 z-index-1 animation-from-hidden' : ''} m-left-05`"/>
   </div>
+
+  <div class="p-fixed bg-c5c top-0 left-0 w-max h-max z-index-5 animation-from-hidden" v-if="mobile && toggle" @click="this.toggle = ! toggle"></div>
 
 <!--  AUTH MODAL-->
   <v-login-modal v-if="modalName === 'login'" @close="setModalName(false)" @restore_password="setModalName('restorePassword')"/>
@@ -138,15 +100,21 @@ import VNotificationIndicator from "@/components/notification/v-notification-ind
 import VCreateRestorePassword from "@/components/auth/v-create-restore-password.vue";
 import VUpdateRestorePassword from "@/components/auth/v-update-restore-password.vue";
 import VSelectLang from "@/components/_general/v-select-lang.vue";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-header",
-  mixins: [toggleMixin, imageGetMixin],
+  mixins: [toggleMixin, imageGetMixin, deviceMixin],
   components: {
       VSelectLang,
       VUpdateRestorePassword,
       VCreateRestorePassword,
     VNotificationIndicator,
     VMessagesIndicator, VLogo, VAlertModal, VRegistration, VLoginModal, VButtonNormal},
+  data(){
+      return{
+          toggle: false
+      }
+  },
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -171,9 +139,9 @@ export default {
   background-color: #fff;
   grid-template-columns: 1fr 3fr 1.1fr .2fr;
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 830px) {
     .header{
-        grid-template-columns: 0fr 3fr 1.1fr .2fr;
+        grid-template-columns: 1fr;
     }
 }
 .logo{

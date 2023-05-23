@@ -18,7 +18,7 @@
           <span v-if="lang.lang === 'rus'">{{category.title_rus}}</span>
       </li>
     </ul>
-    <div class="footer d-flex a-items-center j-content-space-between f-size-small m-top-05 padding-top-05 b-top-ccc">
+    <div :class="`${mobile ? 'd-grid g-gap-_5' : 'd-flex'} footer a-items-center j-content-space-between f-size-small m-top-05 padding-top-05 b-top-ccc`">
       <v-user-mini-block :user="vacancy.creator"/>
       <span v-if="footer !== false">{{ lang.general.published }} {{this.date_time}}</span>
       <span v-if="footer !== false">{{ lang.vacancies.offers }} {{ vacancy.vacancy_offers_count }}</span>
@@ -31,11 +31,12 @@
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import localTimeMixin from "@/mixins/local-time-mixin";
 import {mapState} from "vuex";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-vacancies-list",
   components: {VUserMiniBlock},
   props: ['vacancy', 'categories', 'footer'],
-  mixins: [localTimeMixin],
+  mixins: [localTimeMixin, deviceMixin],
   computed: mapState({
     lang: state => state.lang.LANG
   }),

@@ -2,7 +2,7 @@
   <div class="radios_normal">
     <label for="" class="f-weight-bold">{{ label }}</label>
 
-    <div class="d-flex g-gap-1 radios">
+    <div :class="`${mobile ? '' : 'd-flex'} g-gap-1 radios`">
 
       <div v-for="radio in radios" :key="radio.id">
         <label class="container d-flex l-height-1" @click="this.$emit('value', radio)">
@@ -20,10 +20,12 @@
 
 <script>
 import {mapState} from "vuex";
+import deviceMixin from "@/mixins/device-mixin";
 
 export default {
   name: "v-radios-normal",
   props: ['label', 'radios', 'span', 'name', 'active_id'],
+  mixins: [deviceMixin],
     computed: mapState({
        lang: state => state.lang.LANG
     }),

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex g-gap-2 w-max a-items-flex-end m-top-2">
+  <div :class="`${mobile ? 'd-grid g-gap-_5' : 'd-flex g-gap-2'}  w-max a-items-flex-end m-top-2`">
 <!--    <v-input-normal label="комментировать"-->
 <!--                    span="прокомментируйте данную публикацию " @value="value => form.text = value"/>-->
     <v-input-emoji :label="lang.general.commentate"
@@ -24,12 +24,13 @@ import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import {mapState} from "vuex";
 import validateMixin from "@/mixins/validate-mixin";
 import validator from "@/validations/comment.json"
+import deviceMixin from "@/mixins/device-mixin";
 
 export default {
   name: "v-publication-comment-create-form",
   components: {VInputEmoji, VButtonNormal},
   props: ['publication_id'],
-  mixins: [toggleMixin, validateMixin],
+  mixins: [toggleMixin, validateMixin, deviceMixin],
   data(){
     return{
       form:{

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex g-gap-2 a-items-flex-end m-top-2 padding-left-1 padding-right-1">
+  <div :class="`${mobile ? 'd-grid g-gap-_5' : 'd-flex g-gap-2'}  a-items-flex-end m-top-2 padding-left-1 padding-right-1`">
     <v-input-emoji :default_value="form.text"
                    v-if="form.text !== null"
                    class="w-max"
@@ -29,12 +29,13 @@ import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import {mapState} from "vuex";
 import validateMixin from "@/mixins/validate-mixin";
 import validator from "@/validations/comment.json"
+import deviceMixin from "@/mixins/device-mixin";
 
 export default {
   name: "v-publication-comment-edit-form",
   components: {VInputEmoji, VButtonNormal},
   props: ['publication_comment'],
-  mixins: [toggleMixin, validateMixin],
+  mixins: [toggleMixin, validateMixin, deviceMixin],
   data(){
     return{
       form:{

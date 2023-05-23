@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex g-gap-1 a-items-center padding-1 bg-fff">
-    <div v-if="profile" class="d-grid g-gap-1 p-relative">
+    <div v-if="profile && !mobile" class="d-grid g-gap-1 p-relative">
       <div class="auth d-grid j-content-center a-items-center g-gap-_5 p-relative" >
         <router-link :to="`/profile?id=${this.profile.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
           <!--          <img src="@/assets/images/user-unknown-1.png" alt="" v-if="!profile.image">-->
@@ -16,18 +16,20 @@
     </div>
 
     <div class="d-grid w-max m-left-1 a-items-flex-start">
-      <div class="d-flex a-items-flex-end g-gap-1">
-        <v-input-emoji :label="lang.home.publication.create.form.title"
-                       class="w-max"
-                       style="margin-bottom: -2px;"
-                       @value="value => form.description = value"
-                       :placeholder="lang.home.publication.create.form.description"/>
+      <div :class="`${mobile ? 'd-grid' : 'd-flex'} a-items-flex-end g-gap-1`">
+        <div class="d-flex g-gap-_3 w-max">
+            <v-input-emoji :label="lang.home.publication.create.form.title"
+                           class="w-max"
+                           style="margin-bottom: -2px;"
+                           @value="value => form.description = value"
+                           :placeholder="lang.home.publication.create.form.description"/>
 
-        <v-input-file-form class=" m-top-05 bg-ccc-opacity w-max-content o-hidden d-flex a-items-flex-end c-97"
-                           icon="fa fa-image f-size-22"
-                           accept="image/*"
-                           :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
-                           @file_form="file => form.image = file"/>
+            <v-input-file-form class=" m-top-05 w-max-content o-hidden d-flex a-items-flex-end c-97"
+                               icon="fa fa-image f-size-22"
+                               accept="image/*"
+                               :allowedTypes="['image/jpg', 'image/jpeg', 'image/png']"
+                               @file_form="file => form.image = file"/>
+        </div>
 
         <v-button-normal :label="lang.general.create" style="border-radius: 30px;" class="bg-content-hover" @click="setModalName('publicationCreateAlert')"/>
       </div>
@@ -52,10 +54,11 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import validateMixin from "@/mixins/validate-mixin";
 import validator from "@/validations/publication.json"
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-publication-create-form",
   components: {VInputEmoji, VAlertModal, VButtonNormal, VInputFileForm},
-  mixins: [toggleMixin, validateMixin],
+  mixins: [toggleMixin, validateMixin, deviceMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG

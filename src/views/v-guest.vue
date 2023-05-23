@@ -66,4 +66,13 @@ p{
 .footer_content{
   grid-template-columns: 1fr 1fr 1fr;
 }
+
+@media only screen and (max-width: 700px) {
+    .head_content {
+        grid-template-columns: 1fr;
+    }
+    .head_content > div:first-child{
+        order: 2;
+    }
+}
 </style>
