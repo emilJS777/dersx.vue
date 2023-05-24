@@ -1,6 +1,6 @@
 <template>
-  <div class="messager p-fixed d-grid w-max-content bg-fff">
-    <div class="padding-03 box-shadow-slim messager_block" v-if="modalName==='roomBlock' || modalName==='messagerBlock'">
+  <div :class="`${mobile ? 'messager_mobile' : 'messager'} p-fixed d-grid w-max-content bg-fff`">
+    <div :class="`${mobile ? 'messager_block_mobile' : 'messager_block'} padding-03 box-shadow-slim`" v-if="modalName==='roomBlock' || modalName==='messagerBlock'">
       <v-rooms-block class="bg-fff h-max" v-if="modalName==='roomBlock'" @messager="(room_id, partner)=>{setModalName('messagerBlock', room_id, partner)}"/>
       <v-messages-block class="bg-fff h-max" v-if="modalName==='messagerBlock'" :user="profile" :partner="this.obj" :room_id="this.id" @close="setModalName('roomBlock')"/>
     </div>
@@ -28,10 +28,11 @@ import toggleMixin from "@/mixins/toggle-mixin";
 import {mapState} from "vuex";
 import VMessagesBlock from "@/components/messager/v-messages-block";
 import VMessagesIndicator from "@/components/messager/v-messages-indicator";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-messager",
   components: {VMessagesIndicator, VMessagesBlock, VRoomsBlock},
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, deviceMixin],
   computed: mapState({
     profile: state => state.auth.profile
   }),
@@ -79,11 +80,20 @@ export default {
   width: 400px;
   border-radius: 8px;
 }
+.messager_block_mobile{
+    width: 330px;
+    border-radius: 8px;
+}
 
 .messager{
   bottom: 35px;
   right: 55px;
   z-index: 2;
+}
+.messager_mobile{
+    bottom: 25px;
+    right: 35px;
+    z-index: 2;
 }
 .messager_toggle_block{
   bottom: -18px;

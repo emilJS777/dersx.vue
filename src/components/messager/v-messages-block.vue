@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="m-top-3" id="messages_block">
+    <div :class="`${mobile ? 'messages-block-mobile' : 'messages-block'} m-top-3`" id="messages_block">
       <p class="m-top-0 m-top-1 m-bottom-0 t-center f-size-small c-content c-pointer t-decoration-underline-hover" v-if="show_more" @click="()=>{setOffset();this.getMessages()}">{{ lang.message.show_more }}</p>
       <v-message-block  v-for="(message, index) in messages" :key="message.id" :index="index" :message="message" :partner="partner" :room_id="this.room_id" :user="user" @editMessage="body => {this.editForm = body; this.editForm.old_text = body.text}"/>
     </div>
@@ -58,11 +58,12 @@ import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import {mapState} from "vuex";
 import validateMixin from "@/mixins/validate-mixin";
 import validator from "@/validations/message.json"
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-messages-block",
   components: {VInputEmoji, VAlertModal, VMessageBlock, VButtonNormal},
   props: ['user', 'partner', 'room_id'],
-  mixins: [toggleMixin, offsetMixin, validateMixin],
+  mixins: [toggleMixin, offsetMixin, validateMixin, deviceMixin],
   computed: mapState({
      lang: state => state.lang.LANG
   }),
@@ -156,9 +157,13 @@ export default {
 </script>
 
 <style scoped>
-#messages_block{
+.messages-block{
   height: 550px;
   overflow-y: scroll;
+}
+.messages-block-mobile{
+    height: 350px;
+    overflow-y: scroll;
 }
 .input_form{
   grid-template-columns: 2fr .1fr;

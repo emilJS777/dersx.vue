@@ -16,11 +16,11 @@
                                     {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete', hidden: this.profile.id !== vacancy.creator.id},
                                     {title: this.complaint_id ? lang.general.complaint_cancel : lang.general.complaint, icon_class: 'fa fa-flag', class: 'c-red', emit_name: 'complaint', hidden: this.profile.id === vacancy.creator.id}]"/>
       </div>
-      <div class="m-top-1 l-height-0 d-flex j-content-space-between">
+      <div :class="`${mobile ? 'l-height-1' : 'l-height-0'} m-top-1 d-flex j-content-space-between`">
         <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between">
           {{vacancy.title}}
         </h3>
-        <b class="c-content f-size-small d-flex g-gap-_3">
+        <b :class="`${mobile ? 'd-grid' : 'd-flex'} c-content f-size-small g-gap-_3`">
             <b v-if="vacancy.payment_interval.price"><span>{{ vacancy.price }}</span>  <span>{{ lang.general.dram }}</span> </b>
             <b v-if="lang.lang === 'arm'"> {{vacancy.payment_interval.title_arm}}</b>
             <b v-if="lang.lang === 'eng'"> {{vacancy.payment_interval.title_eng}}</b>
@@ -44,7 +44,7 @@
             <v-user-mini-block :user="vacancy.creator"/>
         </div>
 
-      <div class="tabs_btn d-flex g-gap-1">
+      <div :class="`${mobile ? 'f-size-small' : ''} tabs_btn d-flex g-gap-1`">
         <span :class="modalName === 'vacancyOfferForm' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyOfferForm')">
           <i class="fa fa-file" aria-hidden="true"></i>
           {{ lang.vacancies.offers }} <b class="f-size-small" v-if="vacancy.vacancy_offers_count"> {{vacancy.vacancy_offers_count}} </b> <b class="f-size-small" v-else>0</b>
@@ -94,13 +94,14 @@ import {mapState} from "vuex";
 import VAlertModal from "@/components/_general/v-alert-modal";
 import VUserMiniBlock from "@/components/_general/v-user-mini-block";
 import VMenuNormal from "@/components/_general/v-menu-normal.vue";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-vacancy-block",
   components: {
     VMenuNormal,
     VUserMiniBlock, VAlertModal, VVacancyOffers, VVacancyComments, VVacancyCommentForm, VVacancyOfferForm},
   props: ['vacancy_id'],
-  mixins: [toggleMixin],
+  mixins: [toggleMixin, deviceMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG

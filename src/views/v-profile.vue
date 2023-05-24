@@ -1,5 +1,5 @@
 <template>
-  <div class="profile d-grid g-gap-3">
+  <div :class="`${mobile ? 'profile_mobile' : 'profile'}  d-grid g-gap-3`">
       <div class="d-grid h-max-content g-gap-1 box-shadow-slim">
         <div class="bg-fff padding-1 d-grid j-content-center">
           <v-profile-img/>
@@ -78,7 +78,7 @@
 
 <!--        FRIENDS TAB-->
         <div v-if="modalName === 'friendsTab'">
-            <div class="friends_list d-grid g-gap-5 m-top-2 h-max-content" v-if="friends.length">
+            <div :class="`${mobile ? 'friends_list_mobile' : 'friends_list'} d-grid g-gap-5 m-top-2 h-max-content`" v-if="friends.length">
               <v-user v-for="user in friends" :key="user.id" :user="user" class="box-shadow-slim "/>
             </div>
 
@@ -137,13 +137,14 @@ import VVacanciesList from "@/components/vacancy/v-vacancies-list";
 import paginateMixin from "@/mixins/paginate-mixin";
 import VServiceList from "@/components/service/v-service-list";
 import VUser from "@/components/user/v-user";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-profile",
   components: {
     VUser,
     VServiceList,
     VVacanciesList, VProfileEditBlock, VProfileAbout, VProfileImg, VButtonNormal},
-  mixins: [toggleMixin, paginateMixin],
+  mixins: [toggleMixin, paginateMixin, deviceMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -212,10 +213,16 @@ export default {
 .profile{
   grid-template-columns: 1.5fr 4fr;
 }
+.profile_mobile{
+    grid-template-columns: 1fr;
+}
 .services{
   grid-template-columns: 1fr 1fr;
 }
 .friends_list{
   grid-template-columns: 1fr 1fr 1fr;
+}
+.friends_list_mobile{
+    grid-template-columns: 1fr;
 }
 </style>

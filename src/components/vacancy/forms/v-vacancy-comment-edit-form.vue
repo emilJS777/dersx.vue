@@ -1,6 +1,6 @@
 <template>
-  <div  class="padding-1">
-    <div class="h-max-content d-grid edit_block a-items-flex-end g-gap-1">
+  <div  :class="`${mobile ? 'padding-_3' : 'padding-1'}`">
+    <div :class="`${mobile ? 'edit_block_mobile' : 'edit_block'} h-max-content d-grid  a-items-flex-end g-gap-1`">
       <v-input-emoji @value="value => form.text = value"
                      :default_value="form.text"
                      v-if="typeof form.text === 'string'"
@@ -32,11 +32,12 @@ import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import {mapState} from "vuex";
 import validator from "@/validations/comment.json"
 import validateMixin from "@/mixins/validate-mixin";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-vacancy-comment-edit-form",
   components: {VInputEmoji, VButtonNormal},
   props: ['vacancy_comment_id'],
-  mixins: [toggleMixin, validateMixin],
+  mixins: [toggleMixin, validateMixin, deviceMixin],
   computed: mapState({
     lang: state => state.lang.LANG
   }),
@@ -74,5 +75,8 @@ export default {
 <style scoped>
 .edit_block{
   grid-template-columns: 4fr 1fr;
+}
+.edit_block_mobile{
+    grid-template-columns: 1fr;
 }
 </style>

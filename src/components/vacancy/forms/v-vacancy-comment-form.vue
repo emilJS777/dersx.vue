@@ -1,5 +1,5 @@
 <template>
-  <div class="vacancy_comment m-top-2 d-grid a-items-flex-end">
+  <div :class="`${mobile ? 'vacancy_comment_mobile' : 'vacancy_comment'}  m-top-2 d-grid a-items-flex-end`">
 
     <v-input-emoji
         @value="value => form.text = value"
@@ -20,10 +20,11 @@ import {mapState} from "vuex";
 import VInputEmoji from "@/components/_general/v-input-emoji.vue";
 import validator from "@/validations/comment.json"
 import validateMixin from "@/mixins/validate-mixin";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   components: {VInputEmoji, VButtonNormal},
   props: ['vacancy_id'],
-  mixins: [validateMixin],
+  mixins: [validateMixin, deviceMixin],
   computed: mapState({
     profile: state => state.auth.profile,
     lang: state => state.lang.LANG
@@ -56,5 +57,8 @@ export default {
 <style scoped>
 .vacancy_comment{
   grid-template-columns: 4fr 1fr;
+}
+.vacancy_comment_mobile{
+    grid-template-columns: 1fr;
 }
 </style>

@@ -64,27 +64,27 @@
           </div>
           <div class="d-flex g-gap-1">
             <b>{{ lang.profile.experience_add.link.title }}: </b>
-            <span class="f-size-small" v-if="work_experience.link">
+            <span :class="`${mobile ? '' : 'd-flex'} g-gap-1`" v-if="work_experience.link">
               <a :href="work_experience.link" class="c-content">{{work_experience.link}}</a>
             </span>
             <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
-          <div class="d-flex g-gap-1">
+          <div :class="`${mobile ? '' : 'd-flex'} g-gap-1`">
             <b>{{ lang.profile.experience_add.skills_or_technologies.title }}: </b>
             <span class="f-size-small" v-if="work_experience.skills">{{work_experience.skills}}</span>
             <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
-          <div class="d-flex g-gap-1">
+          <div :class="`${mobile ? '' : 'd-flex'} g-gap-1`">
             <b>{{ lang.profile.experience_add.description.title}}: </b>
             <span class="f-size-small" v-if="work_experience.description">{{work_experience.description}}</span>
             <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
-          <div class="d-flex g-gap-1">
+          <div :class="`${mobile ? '' : 'd-flex'} g-gap-1`">
             <b>{{ lang.profile.experience_add.start_date.title }}: </b>
             <span class="f-size-small" v-if="work_experience.date_start">{{work_experience.date_start}}</span>
             <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>
-          <div class="d-flex g-gap-1">
+          <div :class="`${mobile ? '' : 'd-flex'} g-gap-1`">
             <b>{{ lang.profile.experience_add.end_date.title }}: </b>
             <span class="f-size-small" v-if="work_experience.date_end">{{work_experience.date_end}}</span>
             <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
@@ -200,9 +200,10 @@ import {mapState} from "vuex";
 import VWorkExperienceEditForm from "@/components/profile/modals/v-work-experience-edit-form";
 import VContactEditForm from "@/components/profile/modals/v-contact-edit-form";
 import localTimeMixin from "@/mixins/local-time-mixin";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-profile-about",
-  mixins: [toggleMixin, localTimeMixin],
+  mixins: [toggleMixin, localTimeMixin, deviceMixin],
   components: {VContactEditForm, VWorkExperienceEditForm, VAlertModal, VAboutMeEditForm, VSkillsEditForm},
   computed: mapState({
     profile: state => state.auth.profile,

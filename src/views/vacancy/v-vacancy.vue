@@ -1,6 +1,6 @@
 <template>
-  <div class="vacancy d-grid g-gap-3">
-    <div class="vacancies_list d-grid g-gap-1 h-max-content">
+  <div :class="`${mobile ? 'vacancy_mobile' : 'vacancy'} d-grid g-gap-3`">
+    <div class="vacancies_list d-grid g-gap-1 h-max-content" v-if="!mobile">
       <h4 class="m-top-0 m-bottom-0 padding-05 bg-ccc-opacity c-content">похожие вакансии </h4>
       <v-vacancies-list  class="padding-1 bg-fff box-shadow-slim"
                          v-for="vacancy in similarVacancies"
@@ -18,19 +18,23 @@
 <script>
 import VVacancyBlock from "@/components/vacancy/v-vacancy-block";
 import VVacanciesList from "@/components/vacancy/v-vacancies-list";
+import deviceMixin from "@/mixins/device-mixin";
 export default {
   name: "v-vacancy",
   components: {VVacanciesList, VVacancyBlock},
+  mixins: [deviceMixin],
   data() {
     return {
-      similarVacancies: []
+      similarVacancies: [],
     }
   },
   methods: {
     getSimilarVacancies(obj) {
-      this.$store.dispatch("vacancy/GET", `?page=1&per_page=5&exclude_id=${this.$route.query.id}&rubric_id=${obj.rubric_id}&category_ids=[${obj.category_ids}]`).then(data => {
-        this.similarVacancies = data.obj.items
-      })
+      if(!this.mobile){
+          this.$store.dispatch("vacancy/GET", `?page=1&per_page=5&exclude_id=${this.$route.query.id}&rubric_id=${obj.rubric_id}&category_ids=[${obj.category_ids}]`).then(data => {
+              this.similarVacancies = data.obj.items
+          })
+      }
     }
   }
 }
@@ -39,5 +43,8 @@ export default {
 <style scoped>
 .vacancy{
   grid-template-columns: 1fr 1.6fr;
+}
+.vacancy_mobile{
+    grid-template-columns: 1fr;
 }
 </style>
