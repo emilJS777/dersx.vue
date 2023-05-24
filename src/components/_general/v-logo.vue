@@ -1,10 +1,13 @@
 <template>
-  <img src="../../assets/images/dersx_logo.png" alt="">
+  <img src="../../assets/images/dersx_logo.png" :style="`${mobile ? 'width: 80px !important' : ''}`" alt="">
 </template>
 
 <script>
+import deviceMixin from "@/mixins/device-mixin";
+
 export default {
-  name: "v-logo"
+  name: "v-logo",
+  mixins: [deviceMixin]
 }
 </script>
 

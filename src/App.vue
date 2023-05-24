@@ -1,7 +1,7 @@
 <template>
   <div v-if="lang">
       <v-header/>
-      <div :class="`${mobile ? 'm-top-8' : 'm-top-2'} page`">
+      <div :class="`${mobile ? 'm-top-8' : 'm-top-2 m-bottom-2'} page`" style="padding-bottom: 90px">
           <router-view></router-view>
           <v-messager v-if="profile"/>
       </div>

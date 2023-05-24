@@ -209,6 +209,7 @@ export default {
     right: 50%;
     transform: translateX(-50%);
     min-width: 300px;
+    width: 800px;
     max-width: 100%;
     overflow-y: auto;
 }
