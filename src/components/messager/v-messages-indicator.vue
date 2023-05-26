@@ -10,7 +10,8 @@ import {mapState} from "vuex";
 export default {
   name: "v-messages-indicator",
   computed: mapState({
-    new_messages: state => state.message.NOT_READ_LIST
+    new_messages: state => state.message.NOT_READ_LIST,
+    lang: state => state.lang.LANG
   }),
 }
 </script>

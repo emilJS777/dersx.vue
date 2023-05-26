@@ -13,10 +13,10 @@
           class="m-top-05"
           :inline="!mobile"
           :opening="mobile"
-          :menu_list="[{title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
-                       {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true},
-                       {title: this.more ? lang.general.close : lang.general.look, icon_class: 'fa fa-expand', emit_name: 'more'},
+          :menu_list="[{title: this.more ? lang.general.close : lang.general.look, icon_class: 'fa fa-expand', emit_name: 'more'},
                        {title: lang.general.share, icon_class: 'fa fa-share-alt', class: 'c-blue-opacity', emit_name: 'share'},
+                       {title: lang.general.complaint, icon_class: 'fa fa-flag', emit_name: 'complaint', class: 'c-red', hidden: publication.creator.id !== profile.id && !complaint_id ? false : true},
+                       {title: lang.general.complaint_cancel, icon_class: 'fa fa-flag', emit_name: 'complaintDelete', class: 'c-red', hidden: publication.creator.id !== profile.id && complaint_id ? false : true},
                        {title: lang.general.delete, icon_class: 'fa fa-times-circle', emit_name: 'delete', class: 'c-red', hidden: publication.creator.id !== profile.id},]"/>
     </div>
 

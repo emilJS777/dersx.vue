@@ -99,7 +99,7 @@ export default {
         if(data && data.success)
           this.$store.commit("auth/SET_PROFILE", data.obj)
       })
-    }
+    },
   }
 }
 </script>

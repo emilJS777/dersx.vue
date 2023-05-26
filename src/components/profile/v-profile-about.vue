@@ -65,7 +65,7 @@
           <div class="d-flex g-gap-1">
             <b>{{ lang.profile.experience_add.link.title }}: </b>
             <span :class="`${mobile ? '' : 'd-flex'} g-gap-1`" v-if="work_experience.link">
-              <a :href="work_experience.link" class="c-content">{{work_experience.link}}</a>
+              <a :href="`${work_experience.link}`" class="c-content">{{work_experience.link}}</a>
             </span>
             <span class="f-size-small" v-else>({{ lang.profile.information.not_specified }})</span>
           </div>

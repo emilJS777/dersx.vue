@@ -35,6 +35,20 @@
       </div>
     </div>
 
+<!--      PUBLICATION COMMENT-->
+      <div v-if="notification.publication_comment" class="d-flex j-content-space-between a-items-center">
+          <div class="m-bottom-1">
+              <v-user-mini-block :user="notification.creator"/>
+          </div>
+          <div>
+              <h5 class="d-flex g-gap-1 a-items-center j-content-space-evenly c-ccc f-weight-bold m-bottom-0 m-top-0">{{ lang.notifications.publication_comment}}</h5>
+              <p class="o-hidden f-size-small cut-text">{{notification.publication_comment.text}}</p>
+          </div>
+          <div class="f-size-small">
+              <v-button-normal :label="lang.general.look" icon="fa fa-eye" @click="notificationDelete(notification.id);this.$router.push({name: 'publication', query: {id: notification.publication_comment.publication_id}})"/>
+          </div>
+      </div>
+
 <!--&lt;!&ndash;    GROUP INVITE&ndash;&gt;-->
 <!--    <div v-if="notification.group_invite">-->
 <!--      <div class="m-bottom-1">-->
