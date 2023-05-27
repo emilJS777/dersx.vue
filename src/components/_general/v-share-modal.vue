@@ -45,7 +45,7 @@ export default {
     // components: {ButtonFacebook, ButtonLinkedIn},
     mounted() {
         this.emitter.emit('load', true)
-       this.$store.dispatch("dynamic_link/GET", {query: `publication?id=${this.publication_id}`, title: `skillx.am`, description: this.description, image: this.image}).then(data => {
+       this.$store.dispatch("dynamic_link/GET", {query: `publication?id=${this.publication_id}`, title: `${this.description}`, description: '', image: this.image}).then(data => {
            this.shortLink = data
         }).finally(() => this.emitter.emit('load', false))
     },
