@@ -97,7 +97,7 @@ export default {
         this.editForm = null
     },
     updateMessage(){
-      if(this.checkValid(this.form, validator, false)){
+      if(this.checkValid(this.editForm, validator, false)){
           this.emitter.emit('load', true)
           this.$store.dispatch("message/UPDATE", {id: this.editForm.id, form: this.editForm}).then(data => {
               if(data.success) {
