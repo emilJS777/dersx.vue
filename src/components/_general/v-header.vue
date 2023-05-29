@@ -64,9 +64,12 @@
       </div>
     </div>
 
-    <div :class="`${mobile ? 'p-absolute top-0 right-0 m-top-1_5 f-size-small m-right-05' : ''} auth_block d-flex g-gap-1 j-content-flex-end`" v-if="!profile">
+    <div :class="`${mobile ? 'p-absolute top-0 right-0 m-top-1_5 f-size-small m-right-05 d-flex' : ''} auth_block d-flex g-gap-1 j-content-flex-end`" v-if="!profile">
       <v-button-normal :label="lang.general.sign_in" @click="setModalName('login')"/>
       <v-button-normal :label="lang.general.sign_up" class="bg-content" @click="setModalName('registration')"/>
+        <v-select-lang v-if="mobile || mobile && toggle" :class="`${mobile ? 'order-4  z-index-1 animation-from-hidden' : ''} m-left-05`"/>
+
+
     </div>
     <v-select-lang v-if="!mobile || mobile && toggle" :class="`${mobile ? 'order-4 margin-1 z-index-1 animation-from-hidden' : ''} m-left-05`"/>
   </div>
