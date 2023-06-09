@@ -17,10 +17,10 @@
                                     {title: this.complaint_id ? lang.general.complaint_cancel : lang.general.complaint, icon_class: 'fa fa-flag', class: 'c-red', emit_name: 'complaint', hidden: this.profile.id === vacancy.creator.id}]"/>
       </div>
       <div :class="`${mobile ? 'l-height-1' : 'l-height-0'} m-top-1 d-flex j-content-space-between`">
-        <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between">
+        <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between l-height-1">
           {{vacancy.title}}
         </h3>
-        <b :class="`${mobile ? 'd-grid' : 'd-flex'} c-content f-size-small g-gap-_3`">
+        <b :class="`${mobile ? 'd-grid' : 'd-flex'} c-content f-size-small g-gap-_3 m-top-1`">
             <b v-if="vacancy.payment_interval.price"><span>{{ vacancy.price }}</span>  <span>{{ lang.general.dram }}</span> </b>
             <b v-if="lang.lang === 'arm'"> {{vacancy.payment_interval.title_arm}}</b>
             <b v-if="lang.lang === 'eng'"> {{vacancy.payment_interval.title_eng}}</b>
