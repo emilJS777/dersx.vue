@@ -1,0 +1,23 @@
+{
+  "resume": {
+    "type": "object",
+    "required": true,
+    "msg": {
+      "rus": "вы не загрузили резюме",
+      "arm": "դուք չեք վերբեռնել ձեր ռեզյումեն",
+      "eng": "you have not uploaded your resume"
+    }
+  },
+
+  "description": {
+    "type": "string",
+    "required": true,
+    "minLength": 3,
+    "maxLength": 2000,
+    "msg": {
+      "rus": "описание обязательные поле",
+      "arm": "նկարագրությունը պարտադիր դաշտ է",
+      "eng": "description required field"
+    }
+  }
+}

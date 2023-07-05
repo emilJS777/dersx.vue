@@ -3,19 +3,19 @@
     <div class="padding-1 h-max-content d-grid g-gap-2">
 
       <div class="d-grid g-gap-1 a-items-flex-start j-content-space-between">
-          <v-radios-normal :label="lang.general.payment_interval" name="paidType"
-                           v-if="form.payment_interval_id !== null && this.payment_intervals.length > 0"
-                           @value="(item) => {form.payment_interval_id = item.id;this.price_show=item.price;item.price?null:this.form.price=0}"
-                           :active_id="form.payment_interval_id"
-                           :radios="payment_intervals"/>
+<!--          <v-radios-normal :label="lang.general.payment_interval" name="paidType"-->
+<!--                           v-if="form.payment_interval_id !== null && this.payment_intervals.length > 0"-->
+<!--                           @value="(item) => {form.payment_interval_id = item.id;this.price_show=item.price;item.price?null:this.form.price=0}"-->
+<!--                           :active_id="form.payment_interval_id"-->
+<!--                           :radios="payment_intervals"/>-->
 
-        <v-input-normal :label="lang.vacancies.offer.price.title"
-                        v-if="form.price !== null && this.price_show"
-                        :default_value="form.price"
-                        @value="value => form.price = parseInt(value)"
-                        :placeholder="lang.vacancies.offer.price.placeholder"
-                        type="number"
-                        class="w-max"/>
+<!--        <v-input-normal :label="lang.vacancies.offer.price.title"-->
+<!--                        v-if="form.price !== null && this.price_show"-->
+<!--                        :default_value="form.price"-->
+<!--                        @value="value => form.price = parseInt(value)"-->
+<!--                        :placeholder="lang.vacancies.offer.price.placeholder"-->
+<!--                        type="number"-->
+<!--                        class="w-max"/>-->
       </div>
 
       <v-textarea-normal :label="lang.vacancies.offer.description.title"
@@ -39,8 +39,6 @@
 </template>
 
 <script>
-import VRadiosNormal from "@/components/_general/v-radios-normal";
-import VInputNormal from "@/components/_general/v-input-normal";
 import VTextareaNormal from "@/components/_general/v-textarea-normal";
 import VButtonNormal from "@/components/_general/v-button-normal";
 import toggleMixin from "@/mixins/toggle-mixin";
@@ -48,7 +46,7 @@ import VAlertModal from "@/components/_general/v-alert-modal";
 import {mapState} from "vuex";
 export default {
   name: "v-vacancy-offer-edit-form",
-  components: {VAlertModal, VButtonNormal, VTextareaNormal, VInputNormal, VRadiosNormal},
+  components: {VAlertModal, VButtonNormal, VTextareaNormal},
   props: ['vacancy_offer_id'],
   mixins: [toggleMixin],
   computed: mapState({

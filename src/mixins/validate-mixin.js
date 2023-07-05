@@ -16,6 +16,13 @@ const validateMixin = {
                 if (validator[field]) {
                     const value = form[field];
 
+                    if(validator[field].type === 'object'){
+                        const {msg, required} = validator[field];
+                        if(typeof form[field] !== 'object' && required) {
+                            this.msg += `${msg[this.lang.lang]} <br/>`
+                        }
+                    }
+
                     if (validator[field].type === 'string') {
                         const { minLength, maxLength, msg, required, pattern, match } = validator[field];
 

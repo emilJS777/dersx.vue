@@ -61,6 +61,7 @@
                               @vacancy_offer_success="setModalName(modalName, id)"/>
 
         <v-vacancy-offers :vacancy_id="vacancy.id"
+                          v-if="vacancy.creator_id === profile.id"
                           @refresh_modal="setModalName(modalName, id)"/>
       </div>
 

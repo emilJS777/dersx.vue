@@ -30,7 +30,7 @@ import {mapState} from "vuex";
 
 export default {
   name: "v-input-file-form",
-  props: ['label', 'sublabel', 'allowedTypes', 'span', 'icon', 'accept'],
+  props: ['label', 'sublabel', 'allowedTypes', 'span', 'icon', 'accept', 'name'],
   computed: mapState({
       lang: state => state.lang.LANG
   }),
@@ -50,7 +50,7 @@ export default {
       if(files[0].size <= 1000000){
           if (this.allowedTypes.find(typeName =>files[0].type === typeName)) {
             let form_data = new FormData()
-            form_data.append('image', files[0])
+            form_data.append(this.name || 'image', files[0])
             this.$emit("file_form", form_data)
             this.fileForm.file = files[0]
           }

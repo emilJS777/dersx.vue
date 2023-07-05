@@ -2,16 +2,20 @@
   <div class="vacancy_offer d-grid m-top-2 padding-1 d-grid g-gap-1" v-for="vacancy_offer in vacancy_offers" :key="vacancy_offer.id">
     <div class="d-grid g-gap-1 p-relative">
       <v-user-mini-block :user="vacancy_offer.creator"/>
-      <v-menu-normal v-if="profile && profile.id === vacancy_offer.creator.id"
+      <v-menu-normal v-if="profile"
                      @edit="setModalName('vacancyOfferEditModal', vacancy_offer.id)"
                      @delete="setModalName('vacancyOfferDeleteAlert', vacancy_offer.id)"
                      :opening="true"
-                     :menu_list="[{title: lang.general.redactor, icon_class: 'fa fa-pencil-square', class: '', emit_name: 'edit'},
-                                    {title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
+                     :menu_list="[{title: lang.general.delete, icon_class: 'fa fa-times-circle', class: 'c-red', emit_name: 'delete'}]"/>
     </div>
 
-    <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0" v-html="vacancy_offer.description"></p>
-
+    <div class="d-grid g-gap-_3">
+        <p class="m-left-1 m-right-1 padding-right-1 m-bottom-0" v-html="vacancy_offer.description"></p>
+        <a :href="`${this.web_api}/file?filename=${vacancy_offer.file.filename}`" class="d-flex g-gap-_5 a-items-center c-content-hover m-left-1 m-right-1 padding-right-1 m-bottom-0 f-size-small t-decoration-underline c-pointer m-top-0">
+            <i class="fa fa-file-pdf" aria-hidden="true"></i>
+            <p>{{vacancy_offer.file.filename}}</p>
+        </a>
+    </div>
     <div>
       <p class="m-bottom-0 c-content f-size-small m-left-1">
           <i v-if="vacancy_offer.payment_interval.price" class="d-flex g-gap-_3"> <span>{{vacancy_offer.price}}</span> <span>{{lang.general.dram}}</span> </i>
@@ -73,7 +77,8 @@ export default {
   }),
   data(){
     return{
-      vacancy_offers: []
+      vacancy_offers: [],
+      web_api: process.env.WEB_API
     }
   },
   mounted() {

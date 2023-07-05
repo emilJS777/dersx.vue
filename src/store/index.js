@@ -34,6 +34,7 @@ import restore_password from "@/store/modules/restore_password";
 import lang from "@/store/modules/lang";
 import complaint from "@/store/modules/complaint";
 import dynamic_link from "@/store/modules/dynamic_link";
+import file from "@/store/modules/file"
 
 export default new Vuex.Store({
     namespaced: true,
@@ -72,6 +73,7 @@ export default new Vuex.Store({
         restore_password,
         lang,
         complaint,
-        dynamic_link
+        dynamic_link,
+        file,
     }
 })
