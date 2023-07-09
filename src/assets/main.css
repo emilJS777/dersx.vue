@@ -95,6 +95,9 @@ a{
 .margin-1{
     margin: 1em;
 }
+.margin-03{
+    margin: .3em;
+}
 .margin-05{
     margin: .5em;
 }
@@ -191,6 +194,9 @@ a{
 }
 .padding-top-2{
     padding-top: 2em;
+}
+.padding-left-1_5{
+    padding-left: 1.5em;
 }
 .padding-left-03{
     padding-left: .3em;
@@ -628,4 +634,11 @@ a{
 }
 .order-4{
     order: 4;
+}
+.text-5-line {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

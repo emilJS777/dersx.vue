@@ -32,8 +32,8 @@
         <p v-html="vacancy.long_description"></p>
       </div>
 
-      <ul class="w-max categories_block list-style-content padding-left-1">
-          <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 d-inline-block m-right-1 m-right-03">
+      <ul class="w-max categories_block list-style-content padding-0">
+          <li v-for="category in vacancy.categories" :key="category.id" class="f-size-small f-weight-bold padding-02 d-inline-block m-right-05 m-right-03 padding-left-1_5 padding-05 b-radius-8 margin-03  bg-c5c">
               <span v-if="lang.lang === 'arm'">{{category.title_arm}}</span>
               <span v-if="lang.lang === 'eng'">{{category.title_eng}}</span>
               <span v-if="lang.lang === 'rus'">{{category.title_rus}}</span>
