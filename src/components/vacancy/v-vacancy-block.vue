@@ -17,10 +17,10 @@
                                     {title: this.complaint_id ? lang.general.complaint_cancel : lang.general.complaint, icon_class: 'fa fa-flag', class: 'c-red', emit_name: 'complaint', hidden: this.profile.id === vacancy.creator.id}]"/>
       </div>
       <div :class="`${mobile ? 'l-height-1' : 'l-height-0'} m-top-1 d-flex j-content-space-between`">
-        <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between l-height-1">
+        <h3 class="m-top-0 m-bottom-0 d-flex j-content-space-between l-height-1" style="font-size: 18px">
           {{vacancy.title}}
         </h3>
-        <b :class="`${mobile ? 'd-grid' : 'd-flex'} c-content f-size-small g-gap-_3 m-top-1`">
+        <b :class="`${mobile ? 'd-grid' : 'd-flex'} f-size-small g-gap-_3 m-top-1 c-6d`">
             <b v-if="vacancy.payment_interval.price"><span>{{ vacancy.price }}</span>  <span>{{ lang.general.dram }}</span> </b>
             <b v-if="lang.lang === 'arm'"> {{vacancy.payment_interval.title_arm}}</b>
             <b v-if="lang.lang === 'eng'"> {{vacancy.payment_interval.title_eng}}</b>
@@ -40,20 +40,22 @@
           </li>
       </ul>
 
-        <div class="d-flex j-content-space-between a-items-center g-gap-1 p-relative h-max-content">
-            <v-user-mini-block :user="vacancy.creator"/>
-        </div>
+        <div class="d-flex j-content-space-between a-items-center">
+            <div class="d-flex j-content-space-between a-items-center g-gap-1 p-relative h-max-content">
+                <v-user-mini-block :user="vacancy.creator"/>
+            </div>
 
-      <div :class="`${mobile ? 'f-size-small' : ''} tabs_btn d-flex g-gap-1`">
+            <div :class="`${mobile ? 'f-size-small' : ''} tabs_btn d-flex g-gap-1`">
         <span :class="modalName === 'vacancyOfferForm' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyOfferForm')">
           <i class="fa fa-file" aria-hidden="true"></i>
           {{ lang.vacancies.offers }} <b class="f-size-small" v-if="vacancy.vacancy_offers_count"> {{vacancy.vacancy_offers_count}} </b> <b class="f-size-small" v-else>0</b>
         </span>
-        <span :class="modalName === 'vacancyComments' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyComments')">
+                <span :class="modalName === 'vacancyComments' ? 'c-ccc' : 'c-content c-pointer'" @click="setModalName('vacancyComments')">
           <i class="fa fa-comments" aria-hidden="true"></i>
           {{ lang.general.comments }} <b class="f-size-small" v-if="vacancy.vacancy_comments_count"> {{vacancy.vacancy_comments_count}} </b> <b class="f-size-small" v-else>0</b>
         </span>
-      </div>
+            </div>
+        </div>
 
       <div class="vacancy_offers" v-if="modalName === 'vacancyOfferForm'">
         <v-vacancy-offer-form @close="this.$emit('close')"

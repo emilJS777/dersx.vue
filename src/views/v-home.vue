@@ -2,9 +2,9 @@
   <div :class="`${mobile ? 'home_mobile' : 'home g-gap-3'} d-grid`">
 <!--    VACANCIES-->
     <div class="vacancies_block h-max-content" v-if="!mobile">
-      <h4 class="m-top-0 m-bottom-0 padding-05 bg-ccc-opacity d-flex j-content-space-between a-items-center">
-        <span class="c-content">{{lang.home.new_vacancies.title}}</span>
-        <router-link to="/vacancies" class="f-size-small">{{lang.home.new_vacancies.button}}</router-link>
+      <h4 class="m-top-0 m-bottom-0 padding-05  d-flex j-content-space-between a-items-center bg-c3 b-radius-8">
+        <span class="c-6d">{{lang.home.new_vacancies.title}}</span>
+        <router-link to="/vacancies" class="f-size-small c-content">{{lang.home.new_vacancies.button}}</router-link>
       </h4>
       <div class="d-grid">
           <v-vacancies-list v-for="vacancy in vacancies"

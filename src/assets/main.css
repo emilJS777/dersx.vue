@@ -352,6 +352,9 @@ a{
 .bg-red{
     background-color: #a43030;
 }
+.bg-c3{
+    background-color: rgba(195, 195, 195, 0.19);
+}
 .bg-97{
     background-color: #979797;
 }
@@ -399,6 +402,7 @@ a{
 .c-blue-opacity{
     color: #005380a8;
 }
+
 .c-97{
     color: #979797;
 }

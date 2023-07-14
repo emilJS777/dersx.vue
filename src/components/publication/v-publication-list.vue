@@ -24,12 +24,12 @@
     <p class="m-top-1 m-bottom-1"><span v-html="publication.description"></span></p>
 
 <!--    PUBLICATION IMAGE-->
-    <div v-if="publication.image" class="w-max">
+    <div v-if="publication.image" class="w-max d-flex j-content-center padding-1 bg-ccc-opacity">
       <div class="w-fit-content p-relative d-flex-hover">
           <div class="c-pointer p-absolute right-0 top-0 left-0 w-max h-max bg-c5c-hover d-flex j-content-center a-items-center d-none animation-from-hidden c-6d" v-if="!this.more" @click="this.more = true">
               <i class="fa fa-expand f-size-30">{{lang.general.look}}</i>
           </div>
-          <img :src="`${web_api}/image?filename=${publication.image.filename}`" class="publication_image">
+          <img :src="`${web_api}/image?filename=${publication.image.filename}`" class="publication_image b-radius-8">
       </div>
     </div>
 

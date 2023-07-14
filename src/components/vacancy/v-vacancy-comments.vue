@@ -21,7 +21,7 @@
                                  @close="setModalName(false)"/>
   </div>
 
-  <h3 class="c-ccc" v-if="!vacancy_comments.length">{{ lang.general.nothing_found }}</h3>
+  <h3 class="c-ccc t-center" v-if="!vacancy_comments.length">{{ lang.general.nothing_found }}</h3>
   <div v-else class="d-flex j-content-flex-end m-top-1">
     <v-paginate
         class="paginate"

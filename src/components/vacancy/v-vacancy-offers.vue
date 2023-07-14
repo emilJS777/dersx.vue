@@ -17,7 +17,7 @@
         </a>
     </div>
     <div>
-      <p class="m-bottom-0 c-content f-size-small m-left-1">
+      <p class="m-bottom-0 c-content f-size-small m-left-1 d-flex g-gap-_3">
           <i v-if="vacancy_offer.payment_interval.price" class="d-flex g-gap-_3"> <span>{{vacancy_offer.price}}</span> <span>{{lang.general.dram}}</span> </i>
           <i v-if="lang.lang === 'arm'"> {{vacancy_offer.payment_interval.title_arm}}</i>
           <i v-if="lang.lang === 'eng'"> {{vacancy_offer.payment_interval.title_eng}}</i>
@@ -32,7 +32,7 @@
                                v-if="modalName === 'vacancyOfferEditModal'"/>
   </div>
 
-  <h3 class="c-ccc m-0-auto" v-if="!vacancy_offers.length">{{ lang.general.nothing_found }}</h3>
+  <h3 class="c-ccc m-0-auto t-center" v-if="!vacancy_offers.length">{{ lang.general.nothing_found }}</h3>
   <div v-else class="d-flex j-content-flex-end m-top-1">
     <v-paginate
         class="paginate"

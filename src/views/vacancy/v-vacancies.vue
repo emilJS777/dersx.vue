@@ -22,6 +22,7 @@
 
           <v-checkboxes-normal :label="lang.general.payment_interval" :checked="true"
                                :checkboxes="payment_intervals"
+                               class="m-top-1"
                                :span="lang.vacancies.filter.payment_interval.description"
                                @select="selected_ids => {selected_payment_interval_ids = selected_ids}"
                                v-if="payment_intervals.length"/>

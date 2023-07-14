@@ -1,7 +1,7 @@
 <template>
   <div :class="`${mobile ? 'vacancy_mobile' : 'vacancy'} d-grid g-gap-3`">
     <div class="vacancies_list d-grid g-gap-1 h-max-content" v-if="!mobile">
-      <h4 class="m-top-0 m-bottom-0 padding-05 bg-ccc-opacity c-content">похожие вакансии </h4>
+      <h4 class="m-top-0 m-bottom-0 padding-05 b-radius-8 c-6d bg-c3">похожие вакансии </h4>
       <v-vacancies-list  class="padding-1 bg-fff box-shadow-slim"
                          v-for="vacancy in similarVacancies"
                         :key="vacancy.id"

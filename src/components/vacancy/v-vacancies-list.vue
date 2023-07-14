@@ -1,8 +1,8 @@
 <template>
   <div class=" box-shadow-slim d-grid g-gap-_5">
     <h4 class="m-bottom-0 m-top-0 d-flex j-content-space-between a-items-flex-start g-gap-_3">
-      <a :href="`vacancy?id=${vacancy.id}`" class="c-content-hover c-6d f-size-22">{{ vacancy.title }}</a>
-      <span class="c-content f-size-small d-flex g-gap-_3 m-top-05">
+      <a :href="`vacancy?id=${vacancy.id}`" class="c-content-hover t-decoration-underline-hover" style="font-size: 18px;">{{ vacancy.title }}</a>
+      <span class="c-6d f-size-small d-flex g-gap-_3 m-top-05">
           <b v-if="vacancy.payment_interval.price"><span>{{ vacancy.price }}</span>  <span>{{ lang.general.dram }}</span> </b>
           <b v-if="lang.lang === 'arm'"> {{vacancy.payment_interval.title_arm}}</b>
           <b v-if="lang.lang === 'eng'"> {{vacancy.payment_interval.title_eng}}</b>
