@@ -47,10 +47,10 @@
 
     <div v-if="profile" :class="`${mobile ? 'order-1 p-absolute top-0 right-0 m-top-1 m-right-05' : 'p-relative'} d-grid g-gap-1  t-right animation-from-hidden`">
       <div class="auth d-flex j-content-flex-end a-items-center g-gap-1 p-relative" v-if="!mobile || mobile && toggle">
-        <div class="d-grid info_block j-content-flex-end">
+        <div class="d-grid info_block j-content-flex-end m-top-05">
           <b>{{ profile.first_name }} {{ profile.last_name }}</b>
           <i class="f-size-very-small">{{profile.email.address}}</i>
-          <p class="c-content t-right f-size-very-small  c-pointer" @click="setModalName('logoutAlertModal')">{{ lang.general.sign_out }}</p>
+          <p class="c-content t-right f-size-very-small m-top-05 c-pointer" @click="setModalName('logoutAlertModal')">{{ lang.general.sign_out }}</p>
         </div>
 
         <a :href="`/profile?id=${this.profile.id}`" class="img_block b-content-hover p-relative c-pointer o-hidden b-radius-50 d-flex j-content-center a-items-center">
